@@ -4,6 +4,7 @@
 .txtsidebar{
     transition: ease-in-out .3s;
     visibility: hidden;
+
     height: 24px;
     overflow: hidden;
     margin-left: 1.5rem;
