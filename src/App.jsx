@@ -15,9 +15,9 @@ function App() {
   return (
     <div className="App">
       <div className="flex  flex-row">
-        <div className="flex flex-col w-[280px] items-start fixed">
+        <div className="flex flex-col w-[280px] z-50 items-start fixed">
             <div className="flex items-center w-full p-4 py-2 h-[64px] border-b-[.1em] border-b  ">
-              <div className="flex py-2 px-0.5 items-center ">
+              <div className="flex py-2 px-0.5 items-center z-40 ">
                 <button onClick={()=>setFullSidebar(!fullSidebar)} className="btn btn-circle btn-outline border-none hover:bg-red-200 mr-2.5 ">
                   <img className="w-4" src={barIcon} alt=""/>
                 </button>
@@ -52,7 +52,7 @@ function App() {
 
         </div>
         <div className="flex-grow ">
-          <div className="navbar bg-base-100 border-b-[.1em] border-b h-[56px] justify-end">
+          <div className="navbar z-10 fixed bg-base-100 border-b-[.1em] border-b h-[56px] justify-end">
             <div className="navbar-end">
               <button className="btn btn-ghost btn-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -82,7 +82,22 @@ function App() {
               </div>
             </div>
           </div>
+          <div className="absolute content  left-[280px] top-[64px] p-8">
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+            aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+          </div>
+
+
         </div>
+
       </div>
 
 
@@ -159,10 +174,21 @@ function App() {
                   </div>
                 </div>
               </div>
+              <div className="absolute content left-[85px] top-[64px] p-8">
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+                aaLorem ipsum dolor sit amet, consectetur adipisicing elit. Animi distinctio dolorem eaque earum error laboriosam minima mollitia nesciunt reprehenderit vero. Aliquam architecto, ducimus ipsam laboriosam totam voluptatem voluptatum. Aliquid, repellat.
+              </div>
             </div>
+
           </div>
-
-
         </div>
     )
   }

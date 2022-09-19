@@ -8,3 +8,12 @@
     overflow: hidden;
     margin-left: 1.5rem;
 }
+body{
+    background-color: #F4F5FB;
+}
+.head{
+    z-index: 999;
+}
+.content{
+    transition: all ease-in-out .2s;
+}
