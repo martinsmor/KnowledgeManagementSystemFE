@@ -18,3 +18,15 @@ body{
 .content{
     transition: all ease-in-out .2s;
 }
+.collapse-arrow .collapse-title:after {
+    transition: all ease-in-out .2s;
+}
+
+#collapse, #collapse-head
+{
+    min-height: 48px;
+    height: 48px;
+}
+.collapse-content{
+    transition: ease-in-out 10s;
+}
