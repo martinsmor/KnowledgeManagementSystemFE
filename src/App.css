@@ -4,11 +4,17 @@
 .txtsidebar{
     transition: ease-in-out .3s;
     visibility: hidden;
-
     height: 24px;
     overflow: hidden;
     margin-left: 1.5rem;
 }
+#txtsidebar{
+    transition: ease-in-out .3s;
+    visibility: hidden;
+    height: 24px !important;
+    overflow: hidden;
+}
+
 body{
     background-color: #F4F5FB;
 }
@@ -19,7 +25,11 @@ body{
     transition: all ease-in-out .2s;
 }
 .collapse-arrow .collapse-title:after {
-    transition: all ease-in-out .2s;
+    animation: fadein 0.1s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 #collapse, #collapse-head
@@ -29,4 +39,8 @@ body{
 }
 .collapse-content{
     transition: ease-in-out 10s;
+}
+#maincontent{
+    max-width: calc(100% - 280px);
+    flex-wrap: wrap;
 }
