@@ -24,13 +24,13 @@ function Sidebar(props) {
                                 className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 ">
                             <img className="w-4 " src={barIcon} alt=""/>
                         </button>
-                        <Link className="hidden sm:block"  to="/">Knowledge Management</Link>
+                        <Link className="hidden sm:block "  to="/">Knowledge Management</Link>
                     </div>
                 </div>
-                <div id="sidebar" className=" w-full p-3 h-screen shadow-lg z-20 overflow-y-auto">
+                <div id="sidebar" className=" w-full p-3 h-screen shadow-lg z-20 overflow-y-auto  border-r-2 border-r-base-200">
                     <div>
                         <ul className="overflow-hidden">
-                            <li className="my-2"><a
+                            <li className="my-2 "><a
                                 className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-5  ml-1" src={homeIcon} alt=""/>
@@ -46,7 +46,7 @@ function Sidebar(props) {
                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-4  ml-1.5" src={mycontentIcon} alt=""/>
-                                <span className="ml-6   overflow-hidden  max-h-[24px] ">Konten Saya</span>
+                                <span className="ml-6 pl-0.5  overflow-hidden  max-h-[24px] ">Konten Saya</span>
                             </a></li>
                             <li className="my-2"><a
                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
@@ -68,14 +68,15 @@ function Sidebar(props) {
                                         <img className="w-5  ml-1" src={settingIcon} alt=""/>
                                         <span className="ml-6 overflow-hidden  max-h-[24px] ">Pengaturan</span>
                                     </div>
-                                <div className="collapse-content flex flex-col p-0 pb-0 ">
-                                    <Link className="p-2 my-0.5 pl-16 hover:bg-base-300 w-full rounded-lg" to="/"><span >Pengguna</span></Link>
-                                    <Link className="p-2 my-0.5 pl-16 hover:bg-base-300 w-full rounded-lg" to="/"><span >Menu Akses</span></Link>
-                                    <Link className="p-2 my-0.5 pl-16 hover:bg-base-300 w-full rounded-lg" to="/"><span >Grup Akses</span></Link>
-                                    <Link className="p-2 my-0.5 pl-16 hover:bg-base-300 w-full rounded-lg" to="/"><span >Kategori</span></Link>
-                                    <Link className="p-2 my-0.5 pl-16 hover:bg-base-300 w-full rounded-lg" to="/"><span >Unit Kerja</span></Link>
-                                </div>
+                                <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg " to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Pengguna</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span className="block max-h-[24px] ml-1 overflow-hidden" >Menu Akses</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Grup Akses</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Kategori</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Unit Kerja</span></Link>
+                                </ul>
                             </li>
+                            <li className="my-2  min-h-[30px]"></li>
                         </ul>
                     </div>
                 </div>
@@ -94,7 +95,7 @@ function Sidebar(props) {
                     </div>
                 </div>
 
-                <div id="sidebar" className="hidden sm:block w-[76px] z-50  p-3 h-screen shadow-lg  z-20 ">
+                <div id="sidebar" className="hidden sm:block w-[76px] z-50  p-3 h-screen shadow-lg  z-20  border-r-2 border-r-base-200">
                     <div>
                         <ul >
                             <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
@@ -107,7 +108,7 @@ function Sidebar(props) {
                             </a></li>
                             <li className="my-2"><a className="flex overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-4 ml-[1.125rem]" src={mycontentIcon} alt=""/>
-                                <span className="txtsidebar">Konten Saya</span>
+                                <span className="txtsidebar pl-0.5">Konten Saya</span>
                             </a></li>
                             <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-5 ml-4" src={contentsettingIcon} alt=""/>
