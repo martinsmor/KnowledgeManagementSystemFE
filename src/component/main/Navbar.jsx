@@ -101,7 +101,7 @@ function SearchBar() {
 // Top Navbar
 function Navbar() {
     return(
-        <div className="navbar z-10 fixed bg-base-100 border-b-[.1em] border-b h-[56px] justify-end">
+        <div className="navbar z-10 fixed bg-base-100 border-b-[.1em] h-[56px] justify-end">
             <div className="navbar-end pr-4">
                 <SearchBar />
                 <MenuOms />

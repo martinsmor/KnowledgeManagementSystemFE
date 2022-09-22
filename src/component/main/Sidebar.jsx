@@ -54,12 +54,7 @@ function Sidebar(props) {
                                 <img className="w-5  ml-1" src={contentsettingIcon} alt=""/>
                                 <span className="ml-6   overflow-hidden  max-h-[24px] ">Pengaturan Konten</span>
                             </a></li>
-                            <li className="my-2"><a
-                                className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
-                                href="">
-                                <img className="w-5  ml-1" src={categoryIcon} alt=""/>
-                                <span className="ml-6  overflow-hidden  max-h-[24px] transition ">Kategori Subdit</span>
-                            </a></li>
+
                                 <li className="collapse collapse-arrow ">
                                 <input type="checkbox" className="peer" id="collapse"/>
                                     <div id="collapse-head"
@@ -114,10 +109,6 @@ function Sidebar(props) {
                                 <img className="w-5 ml-4" src={contentsettingIcon} alt=""/>
                                 <span className="txtsidebar">Pengaturan Konten</span>
                             </a></li>
-                            <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
-                                <img className="w-5 ml-4" src={categoryIcon} alt=""/>
-                                <span className="txtsidebar">Kategori Subdit</span>
-                            </a></li>
                             <li className="collapse collapse-close overflow-hidden cursor-pointer">
                                 <input type="checkbox" className="peer cursor-pointer" id="collapse"/>
                                 <div id="collapse-head"
@@ -132,6 +123,7 @@ function Sidebar(props) {
                                     <Link className="p-3  pl-16 hover:bg-base-300 w-full rounded-lg" to="/">Option 3</Link>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </div>
