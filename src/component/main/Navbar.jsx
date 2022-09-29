@@ -10,6 +10,7 @@ import outlookIcon from "../../assets/oms/outlook.png";
 import projectmanagementIcon from "../../assets/oms/projectmanagement.png";
 import offIcon from "../../assets/icon/off.svg";
 import userIcon from "../../assets/icon/user.svg";
+import barIcon from "../../assets/icon/bar.svg";
 
 // Profile
 function Profile() {
@@ -60,11 +61,12 @@ function Notification() {
 // Menu OMS
 function MenuOms() {
     return(
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end z-50 ">
+
             <button tabIndex={0} className="btn btn-ghost btn-circle">
                 <img className="w-6" src={omsIcon} alt=""/>
             </button>
-            <ul tabIndex={0} className="menu w-64 menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box">
+            <ul tabIndex={0} className="menu dd w-64 menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box">
                 <li className=""><a href="#">
                     <img className="w-8" src={kmsIcon} alt=""/>Knowledge Management
                 </a></li>
@@ -99,9 +101,18 @@ function SearchBar() {
 
 
 // Top Navbar
-function Navbar() {
+function Navbar(props) {
     return(
-        <div className="navbar z-10 fixed bg-base-100 border-b-[.1em] h-[56px] justify-end">
+        <div className="navbar z-50  fixed bg-base-100 border-b-[.1em] h-[56px] justify-end">
+            <div className="navbar-start ml-1.5">
+                <div className="flex items-center absolute ">
+                    <button onClick={props.onclick}
+                            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 ">
+                        <img className="w-4" src={barIcon} alt=""/>
+                    </button>
+                    <Link className="hidden sm:block "  to="/">Knowledge Management</Link>
+                </div>
+            </div>
             <div className="navbar-end pr-4">
                 <SearchBar />
                 <MenuOms />

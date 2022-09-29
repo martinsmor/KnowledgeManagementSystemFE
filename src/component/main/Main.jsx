@@ -12,11 +12,13 @@ function Main(props) {
         <>
             <div className="flex  flex-row">
                 <Sidebar
-                    onclick={props.onclick}
                     isfull={props.isfull}
                 />
                 <div className="flex-grow ">
-                    <Navbar/>
+                    <Navbar
+                        onclick={props.onclick}
+                        isfull={props.isfull}
+                    />
                 </div>
             </div>
             <Outlet />
