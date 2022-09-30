@@ -7,7 +7,6 @@ function Konten(props) {
 
     return(
         <div className="absolute z-40 content left-[280px] top-[64px] p-8">
-
             <div className="flex flex-row">
                 <div className="avatar mr-4">
                     <div className="w-12 rounded-full">

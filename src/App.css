@@ -7,7 +7,21 @@
     height: 24px;
     overflow: hidden;
     margin-left: 1.5rem;
+    animation: text 0.3s ease-in-out;
+    animation-iteration-count: infinite;
 }
+
+@keyframes text {
+/*    display none*/
+    0%{
+        display: initial;
+    }
+
+    100%{
+        display: none;
+    }
+}
+
 #txtsidebar{
     transition: ease-in-out .3s;
     visibility: hidden;
@@ -42,6 +56,10 @@ body{
 }
 #maincontent{
     max-width: calc(100% - 280px);
+    flex-wrap: wrap;
+}
+#maincontent1{
+    max-width: calc(100% - 80px);
     flex-wrap: wrap;
 }
 

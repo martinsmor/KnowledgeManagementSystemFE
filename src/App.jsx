@@ -6,6 +6,7 @@ import Pengguna from "./component/routes/pengaturan/Pengguna";
 import Main from "./component/main/Main";
 import {useState} from "react";
 import Konten from "./component/routes/Konten";
+import Kontensaya from "./component/routes/Kontensaya.jsx";
 
 function App() {
     const [fullSidebar, setFullSidebar] = useState(true)
@@ -19,7 +20,7 @@ function App() {
                 <Route path="profile" element={<Profile />} />
                   <Route path="pengguna" element={<Pengguna />} />
                   <Route path="content" element={<Konten />} />
-
+                  <Route path="kontensaya" element={<Kontensaya />} />
               </Route>
             </Routes>
           </BrowserRouter>

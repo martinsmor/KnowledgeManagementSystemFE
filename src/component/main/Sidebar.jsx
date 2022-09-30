@@ -19,35 +19,33 @@ function Sidebar(props) {
             <div className="flex flex-col w-[270px] z-40 items-start fixed">
                 {/*Sidebar*/}
                 <div className="flex items-center w-full p-3 py-2 h-[64px] border-b-[.1em] border-b  ">
-
-
                 </div>
                 <div id="sidebar" className=" w-full p-3 h-screen shadow-lg z-20 overflow-y-auto  border-r-2 border-r-base-200">
                     <div>
                         <ul className="overflow-hidden">
-                            <li className="my-2 "><a
+                            <li className="my-2 "><Link to="/"
                                 className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-5  ml-1" src={homeIcon} alt=""/>
                                 <span className="ml-6  overflow-hidden  max-h-[24px] transition ">Beranda</span>
-                            </a></li>
+                            </Link></li>
                             <li className="my-2"><Link to="content"
                                 className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 >
                                 <img className="w-5  ml-1" src={tambahIcon} alt=""/>
                                 <span className="ml-6  overflow-hidden  max-h-[24px] transition ">Buat Konten</span>
                             </Link></li>
-                            <li className="my-2"><a
-                                className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
+                            <li className="my-2"><Link to="kontensaya"
+                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-4  ml-1.5" src={mycontentIcon} alt=""/>
                                 <span className="ml-6 pl-0.5  overflow-hidden  max-h-[24px] ">Konten Saya</span>
-                            </a></li>
+                            </Link></li>
                             <li className="my-2"><a
                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-5  ml-1" src={contentsettingIcon} alt=""/>
-                                <span className="ml-6   overflow-hidden  max-h-[24px] ">Pengaturan Konten</span>
+                                <span className="ml-6   overflow-hidden  max-h-[24px] ">Approval Konten</span>
                             </a></li>
 
                                 <li className="collapse collapse-arrow ">
@@ -83,21 +81,21 @@ function Sidebar(props) {
                 <div id="sidebar" className="hidden sm:block w-[76px] z-20  p-3 h-screen shadow-lg  z-20  border-r-2 border-r-base-200">
                     <div>
                         <ul >
-                            <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
+                            <li className="my-2 "><Link to="/" className="flex hovhov overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-5 ml-4" src={homeIcon} alt=""/>
                                 <span className="txtsidebar">Beranda</span>
-                            </a></li>
+                            </Link></li>
                             <li className="my-2"><Link to="content" className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition ">
                                 <img className="w-5 ml-4" src={tambahIcon} alt=""/>
                                 <span className="txtsidebar">Buat Konten</span>
                             </Link></li>
-                            <li className="my-2"><a className="flex overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition " href="">
+                            <li className="my-2"><Link to="kontensaya" className="flex overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-4 ml-[1.125rem]" src={mycontentIcon} alt=""/>
                                 <span className="txtsidebar pl-0.5">Konten Saya</span>
-                            </a></li>
+                            </Link></li>
                             <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-5 ml-4" src={contentsettingIcon} alt=""/>
-                                <span className="txtsidebar">Pengaturan Konten</span>
+                                <span className="txtsidebar">Approval Konten</span>
                             </a></li>
                             <li className="collapse collapse-close overflow-hidden cursor-pointer">
                                 <input disabled type="checkbox" className="peer cursor-pointer" id="collapse"/>
