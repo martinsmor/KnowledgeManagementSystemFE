@@ -55,7 +55,7 @@ body{
     transition: ease-in-out 10s;
 }
 #maincontent{
-    max-width: calc(100% - 280px);
+    min-width: calc(100% - 306px);
     flex-wrap: wrap;
 }
 #maincontent1{
@@ -66,4 +66,13 @@ body{
 .dd{
     z-index: 999;
     position: relative;
+}
+
+#sidebar{
+    background: rgb(31,64,201);
+    background: linear-gradient(129deg, rgba(31,64,201,1) 0%, rgba(117,79,179,1) 100%);
+    color: #f3f3f3;
+}
+#navbar{
+    background-color: #F5F5F5;
 }

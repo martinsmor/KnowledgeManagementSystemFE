@@ -4,11 +4,21 @@ import Beranda from "./component/routes/Beranda";
 import Profile from "./component/routes/Profile";
 import Pengguna from "./component/routes/pengaturan/Pengguna";
 import Main from "./component/main/Main";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Konten from "./component/routes/Konten";
 import Kontensaya from "./component/routes/Kontensaya.jsx";
 
+
+
 function App() {
+
+    useEffect(() => {
+        fetch('http://localhost:8080/product')
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+
+    }, [])
+
     const [fullSidebar, setFullSidebar] = useState(true)
 
     return (

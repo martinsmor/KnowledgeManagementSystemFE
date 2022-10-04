@@ -18,7 +18,7 @@ function Profile() {
         <div className="dropdown dropdown-end ml-2">
             <label tabIndex={0} className="btn btn-ghost p-0 btn-circle avatar">
                 <div className="w-10 rounded-full">
-                    <img src={profilePic} />
+                    <img src="https://i.pravatar.cc/300" />
                 </div>
             </label>
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box w-52">
@@ -103,7 +103,7 @@ function SearchBar() {
 // Top Navbar
 function Navbar(props) {
     return(
-        <div className="navbar z-50  fixed bg-base-100 border-b-[.1em] h-[56px] justify-end">
+        <div id="navbar" className="navbar z-50 drop-shadow-sm  fixed bg-base-100 border-b-[.1em] h-[56px] justify-end">
             <div className="navbar-start ml-1.5">
                 <div className="flex items-center absolute ">
                     <button onClick={props.onclick}

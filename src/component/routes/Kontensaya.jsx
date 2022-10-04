@@ -5,9 +5,10 @@ function Kontensaya (){
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Job</th>
-                    <th>Favorite Color</th>
+                    <th>Judul</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -15,19 +16,32 @@ function Kontensaya (){
                     <th>1</th>
                     <td>Cy Ganderton</td>
                     <td>Quality Control Specialist</td>
-                    <td>Blue</td>
+                    <td>
+                        <div className="badge badge-success badge-outline">Disetujui</div>
+                    </td>
+                    <td>
+                        <button className="btn btn-primary btn-sm rounded-md ">Lihat</button>
+                        <button className="btn btn-secondary btn-sm mx-2 rounded-md">Delete</button>
+                        <button className="btn btn-accent btn-sm rounded-md">Edit</button>
+
+                    </td>
+
                 </tr>
                 <tr className="hover">
                     <th>2</th>
                     <td>Hart Hagerty</td>
                     <td>Desktop Support Technician</td>
-                    <td>Purple</td>
+                    <td>
+                        <div className="badge badge-error badge-outline">Ditolak</div>
+                    </td>
                 </tr>
                 <tr className="hover">
                     <th>3</th>
                     <td>Brice Swyre</td>
                     <td>Tax Accountant</td>
-                    <td>Red</td>
+                    <td>
+                        <div className="badge badge-neutral badge-outline">Pending</div>
+                    </td>
                 </tr>
                 </tbody>
             </table>

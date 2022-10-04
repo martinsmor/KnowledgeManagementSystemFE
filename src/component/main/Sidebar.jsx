@@ -24,25 +24,25 @@ function Sidebar(props) {
                     <div>
                         <ul className="overflow-hidden">
                             <li className="my-2 "><Link to="/"
-                                className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
+                                className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-5  ml-1" src={homeIcon} alt=""/>
                                 <span className="ml-6  overflow-hidden  max-h-[24px] transition ">Beranda</span>
                             </Link></li>
                             <li className="my-2"><Link to="content"
-                                className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
+                                className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition "
                                 >
                                 <img className="w-5  ml-1" src={tambahIcon} alt=""/>
                                 <span className="ml-6  overflow-hidden  max-h-[24px] transition ">Buat Konten</span>
                             </Link></li>
                             <li className="my-2"><Link to="kontensaya"
-                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
+                                 className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-4  ml-1.5" src={mycontentIcon} alt=""/>
                                 <span className="ml-6 pl-0.5  overflow-hidden  max-h-[24px] ">Konten Saya</span>
                             </Link></li>
                             <li className="my-2"><a
-                                className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 p-3 items-center rounded-md ease-in-out transition "
+                                className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition "
                                 href="">
                                 <img className="w-5  ml-1" src={contentsettingIcon} alt=""/>
                                 <span className="ml-6   overflow-hidden  max-h-[24px] ">Approval Konten</span>
@@ -51,17 +51,17 @@ function Sidebar(props) {
                                 <li className="collapse collapse-arrow ">
                                 <input type="checkbox" className="peer" id="collapse"/>
                                     <div id="collapse-head"
-                                        className="flex collapse-title  h-[20px] peer-hover:bg-base-300   overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 py-1 items-center rounded-md ease-in-out transition "
+                                        className="flex collapse-title  h-[20px] peer-hover:bg-base-300   overflow-hidden active:bg-blue-300  peer-hover:bg-opacity-40 flex-column p-3 py-1 items-center rounded-md ease-in-out transition "
                                         href="">
                                         <img className="w-5  ml-1" src={settingIcon} alt=""/>
                                         <span className="ml-6 overflow-hidden  max-h-[24px] ">Pengaturan</span>
                                     </div>
                                 <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
-                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg " to="Pengguna"><span  className="block max-h-[24px] ml-1 overflow-hidden">Pengguna</span></Link>
-                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span className="block max-h-[24px] ml-1 overflow-hidden" >Menu Akses</span></Link>
-                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Grup Akses</span></Link>
-                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Kategori</span></Link>
-                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-300 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Unit Kerja</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg " to="Pengguna"><span  className="block max-h-[24px] ml-1 overflow-hidden">Pengguna</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg" to="/"><span className="block max-h-[24px] ml-1 overflow-hidden" >Menu Akses</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Grup Akses</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Kategori</span></Link>
+                                    <Link className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg" to="/"><span  className="block max-h-[24px] ml-1 overflow-hidden">Unit Kerja</span></Link>
                                 </ul>
                             </li>
                             <li className="my-2  min-h-[30px]"></li>
@@ -81,26 +81,26 @@ function Sidebar(props) {
                 <div id="sidebar" className="hidden sm:block w-[76px] z-20  p-3 h-screen shadow-lg  z-20  border-r-2 border-r-base-200">
                     <div>
                         <ul >
-                            <li className="my-2 "><Link to="/" className="flex hovhov overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
+                            <li className="my-2 "><Link to="/" className="flex hovhov overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-5 ml-4" src={homeIcon} alt=""/>
                                 <span className="txtsidebar">Beranda</span>
                             </Link></li>
-                            <li className="my-2"><Link to="content" className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition ">
+                            <li className="my-2"><Link to="content" className="flex  overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition ">
                                 <img className="w-5 ml-4" src={tambahIcon} alt=""/>
                                 <span className="txtsidebar">Buat Konten</span>
                             </Link></li>
-                            <li className="my-2"><Link to="kontensaya" className="flex overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition " href="">
+                            <li className="my-2"><Link to="kontensaya" className="flex overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-4 ml-[1.125rem]" src={mycontentIcon} alt=""/>
                                 <span className="txtsidebar pl-0.5">Konten Saya</span>
                             </Link></li>
-                            <li className="my-2"><a className="flex  overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
+                            <li className="my-2"><a className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition " href="">
                                 <img className="w-5 ml-4" src={contentsettingIcon} alt=""/>
                                 <span className="txtsidebar">Approval Konten</span>
                             </a></li>
                             <li className="collapse collapse-close overflow-hidden cursor-pointer">
                                 <input disabled type="checkbox" className="peer cursor-pointer" id="collapse"/>
                                 <div id="collapse-head"
-                                     className="flex collapse-title  h-[20px] peer-hover:bg-base-300   overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 py-1 items-center rounded-md ease-in-out transition "
+                                     className="flex collapse-title  h-[20px] peer-hover:bg-base-200 peer-hover:bg-opacity-40   overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 py-1 items-center rounded-md ease-in-out transition "
                                      href="">
                                     <img className="w-5  ml-1" src={settingIcon} alt=""/>
                                     <span className="ml-6 overflow-hidden  max-h-[24px] ">Pengaturan</span>
