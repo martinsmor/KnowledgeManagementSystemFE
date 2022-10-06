@@ -7,7 +7,6 @@ import mycontentIcon from "../../assets/icon/mycontent.svg";
 import contentsettingIcon from "../../assets/icon/contentsetting.svg";
 import categoryIcon from "../../assets/icon/category.svg";
 import tambahIcon from "../../assets/icon/tambah.svg";
-import pengguna from "../routes/pengaturan/pengguna";
 
 // Router
 import {Link} from "react-router-dom";
