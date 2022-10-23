@@ -1,7 +1,9 @@
-#sidebar{
-    transition: width linear .2s;
+#sidebar {
+    transition: width ease-in-out .15s;
+    box-sizing: border-box !important;
 }
-.txtsidebar{
+
+.txtsidebar {
     transition: ease-in-out .3s;
     visibility: hidden;
     height: 24px;
@@ -12,67 +14,134 @@
 }
 
 @keyframes text {
-/*    display none*/
-    0%{
+    /*    display none*/
+    0% {
         display: initial;
     }
 
-    100%{
+    100% {
         display: none;
     }
 }
 
-#txtsidebar{
+#txtsidebar {
     transition: ease-in-out .3s;
     visibility: hidden;
     height: 24px !important;
     overflow: hidden;
 }
 
-body{
+body {
     background-color: #F4F5FB;
 }
-.head{
+
+.head {
     z-index: 999;
 }
-.content{
-    transition: all ease-in-out .2s;
+
+.content {
+    transition: all ease-in-out .15s;
 }
+
 .collapse-arrow .collapse-title:after {
     animation: fadein 0.1s;
 }
+
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-#collapse, #collapse-head
-{
+#collapse, #collapse-head {
     min-height: 48px;
     height: 48px;
 }
-.collapse-content{
+
+.collapse-content {
     transition: ease-in-out 10s;
 }
-#maincontent{
-    min-width: calc(100% - 306px);
+
+#maincontent {
+    min-width: calc(100% - 270px);
     flex-wrap: wrap;
-}
-#maincontent1{
-    max-width: calc(100% - 80px);
-    flex-wrap: wrap;
+    left: 270px;
 }
 
-.dd{
+#maincontent1 {
+    min-width: calc(100% - 76px);
+    flex-wrap: wrap;
+    left: 76px;
+}
+
+.dd {
     z-index: 999;
     position: relative;
 }
 
-#sidebar{
-    background: rgb(31,64,201);
-    background: linear-gradient(129deg, rgba(31,64,201,1) 0%, rgba(117,79,179,1) 100%);
+#sidebar {
+    background: rgb(31, 64, 201);
+    background: linear-gradient(129deg, rgba(31, 64, 201, 1) 0%, rgba(117, 79, 179, 1) 100%);
     color: #f3f3f3;
 }
-#navbar{
+
+#navbar {
     background-color: #F5F5F5;
 }
+
+
+.tooltip1 .tooltiptext {
+    margin-left: 67px;
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    opacity: 0;
+    transition: all .3s;
+    width: max-content;
+}
+
+
+.tooltip1:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip1 .tooltiptext::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+/* if < 768*/
+@media only screen and (max-width: 768px) {
+    #maincontent {
+        min-width: 100vw;
+        left: 0px;
+    }
+
+    #maincontent1 {
+        min-width: 100vw;
+        left: 0px;
+    }
+
+    #sidebar {
+        box-sizing: border-box;
+        padding-top: 0.75rem;
+        transition: ease-in-out .15s;
+    }
+
+
+}
+
