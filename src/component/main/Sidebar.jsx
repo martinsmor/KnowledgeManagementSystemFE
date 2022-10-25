@@ -85,15 +85,15 @@ function Sidebar(props) {
                 </NavLink>
               </li>
               <li className="my-2">
-                <a
+                <Link
+                  to={"/"}
                   className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition  duration-100"
-                  href=""
                 >
                   <img className="w-5  ml-1" src={contentsettingIcon} alt="" />
                   <span className="ml-6   overflow-hidden  max-h-[24px] ">
                     Approval Konten
                   </span>
-                </a>
+                </Link>
               </li>
 
               <li className="collapse collapse-arrow ">
@@ -171,7 +171,6 @@ function Sidebar(props) {
             <ul>
               <li className="my-2 tooltip1">
                 <NavLink
-                  onClick={props.onclick}
                   style={({ isActive }) =>
                     isActive
                       ? {
@@ -231,14 +230,14 @@ function Sidebar(props) {
                 </NavLink>
               </li>
               <li className="my-2 tooltip1">
-                <a
+                <Link
+                  to={"/"}
                   className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition  duration-100"
-                  href=""
                 >
                   <img className="w-5 ml-4" src={contentsettingIcon} alt="" />
                   <span className="txtsidebar">Approval Konten</span>
                   <span className="tooltiptext z-50">Approval Konten</span>
-                </a>
+                </Link>
               </li>
               <li className="collapse collapse-close overflow-hidden cursor-pointer">
                 <input

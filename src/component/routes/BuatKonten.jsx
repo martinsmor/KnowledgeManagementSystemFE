@@ -35,7 +35,7 @@ function BuatKonten(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute z-40 content top-[64px] p-12 px-32"
+      className="absolute z-40 content top-[64px] p-8"
     >
       <form onSubmit={handleSubmit}>
         <label className="mb-1 text-xl font-semibold" htmlFor="title">

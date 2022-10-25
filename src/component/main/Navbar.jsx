@@ -34,7 +34,7 @@ function Profile() {
           </Link>
         </li>
         <li>
-          <Link className="py-3" to="#">
+          <Link className="py-3" to="/signin">
             <img className="w-4" src={offIcon} alt="" />
             Keluar
           </Link>
@@ -86,10 +86,10 @@ function MenuOms() {
         className="menu dd w-64 menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box"
       >
         <li className="">
-          <a href="#">
+          <Link to={"/beranda"} href="#">
             <img className="w-8" src={kmsIcon} alt="" />
             Knowledge Management
-          </a>
+          </Link>
         </li>
         <li className="">
           <a href="#">
@@ -144,13 +144,12 @@ function Navbar(props) {
           >
             <img className="w-4" src={barIcon} alt="" />
           </button>
-          <Link className="" to="/">
+          <Link className="" to="/beranda">
             Knowledge Management
           </Link>
         </div>
       </div>
       <div className="navbar-end pr-4">
-        <SearchBar />
         <MenuOms />
         <Notification />
         <Profile />

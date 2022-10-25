@@ -39,8 +39,11 @@ function App() {
             />
           }
         >
-          <Route index element={<Beranda isfull={fullSidebar} />} />
-          <Route path="beranda" element={<Beranda isfull={fullSidebar} />} />
+          <Route index element={<Navigate to="beranda" />} />
+          <Route
+            path="beranda"
+            element={<Beranda isfull={fullSidebar} />}
+          ></Route>
           <Route path="profile" element={<Profile />} />
           <Route path="pengguna" element={<Pengguna />} />
           <Route path="content" element={<Konten />} />

@@ -1,4 +1,4 @@
-// Page Untuk Melihat Status Konten Yang telah Dibuat
+// Page Untuk Melihat Status Konten Yang telah
 
 function Kontensaya() {
   return (
@@ -17,7 +17,7 @@ function Kontensaya() {
           <tr className="hover">
             <th>1</th>
             <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
+            <td>27 Agustus 2021</td>
             <td>
               <div className="badge badge-success badge-outline">Disetujui</div>
             </td>
@@ -34,7 +34,7 @@ function Kontensaya() {
           <tr className="hover">
             <th>2</th>
             <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
+            <td>22 Maret 2022</td>
             <td>
               <div className="badge badge-error badge-outline">Ditolak</div>
             </td>
