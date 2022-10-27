@@ -186,8 +186,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -215,8 +215,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -244,8 +244,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -273,8 +273,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -302,8 +302,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -331,8 +331,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">
@@ -360,8 +360,8 @@ function AllKonten(props) {
       <div
         className={
           props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
         }
       >
         <div className="card-body p-4 gap-y-1">

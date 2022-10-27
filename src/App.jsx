@@ -45,9 +45,12 @@ function App() {
             element={<Beranda isfull={fullSidebar} />}
           ></Route>
           <Route path="profile" element={<Profile />} />
-          <Route path="pengguna" element={<Pengguna />} />
+          <Route path="pengguna" element={<Pengguna isfull={fullSidebar} />} />
           <Route path="content" element={<Konten />} />
-          <Route path="kontensaya" element={<Kontensaya />} />
+          <Route
+            path="kontensaya"
+            element={<Kontensaya isfull={fullSidebar} />}
+          />
           <Route
             path="buatkonten"
             element={<BuatKonten isfull={fullSidebar} />}

@@ -1,55 +1,57 @@
 // Page Untuk Melihat Status Konten Yang telah
 
-function Kontensaya() {
+import { Link } from "react-router-dom";
+
+function Kontensaya(props) {
   return (
-    <div className="overflow-x-auto absolute z-40 content flex flex-row left-[280px] top-[64px] p-8">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Judul</th>
-            <th>Tanggal</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="hover">
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>27 Agustus 2021</td>
-            <td>
-              <div className="badge badge-success badge-outline">Disetujui</div>
-            </td>
-            <td>
-              <button className="btn btn-primary btn-sm rounded-md ">
-                Lihat
-              </button>
-              <button className="btn btn-secondary btn-sm mx-2 rounded-md">
-                Delete
-              </button>
-              <button className="btn btn-accent btn-sm rounded-md">Edit</button>
-            </td>
-          </tr>
-          <tr className="hover">
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>22 Maret 2022</td>
-            <td>
-              <div className="badge badge-error badge-outline">Ditolak</div>
-            </td>
-          </tr>
-          <tr className="hover">
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>
-              <div className="badge badge-neutral badge-outline">Pending</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
+    <div
+      id={props.isfull ? "maincontent" : "maincontent1"}
+      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
+    >
+      <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
+        <table className="min-w-screen table overflow-x-auto min-w-full ">
+          <thead className="bg-white">
+            <tr className="bg-white border-b">
+              <th className="bg-white"></th>
+              <th className="bg-white">Judul</th>
+              <th className="bg-white">Tanggal</th>
+              <th className="bg-white">Status</th>
+              <th className="bg-white">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Bagaimana Pencatatan Kelahiran</td>
+              <td>24 Agustus 2022</td>
+              <td>
+                <div className="badge badge-error badge-outline">Ditolak</div>
+              </td>
+              <td className="w-[260px]">
+                <Link to={"/kontensaya"}>
+                  <button className="btn btn-info rounded btn-sm text-white">
+                    Detail
+                  </button>
+                </Link>
+                <Link
+                  to={"/kontensaya"}
+                  href="frontend/src/Views/User/AturMember.jsx"
+                >
+                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  // onClick={() => handleDelete(item.username)}
+                  className="btn btn-error rounded btn-sm  text-white"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
