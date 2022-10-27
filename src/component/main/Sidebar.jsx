@@ -35,7 +35,7 @@ function Sidebar(props) {
                       : null
                   }
                   className={
-                    "flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition duration-100"
+                    "flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition duration-100"
                   }
                   href=""
                 >
@@ -56,7 +56,7 @@ function Sidebar(props) {
                         }
                       : null
                   }
-                  className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5  ml-1" src={tambahIcon} alt="" />
                   <span className="ml-6  overflow-hidden  max-h-[24px] transition ">
@@ -75,7 +75,7 @@ function Sidebar(props) {
                         }
                       : null
                   }
-                  className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
                   href=""
                 >
                   <img className="w-4  ml-1.5" src={mycontentIcon} alt="" />
@@ -87,7 +87,7 @@ function Sidebar(props) {
               <li className="my-2">
                 <Link
                   to={"/"}
-                  className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5  ml-1" src={contentsettingIcon} alt="" />
                   <span className="ml-6   overflow-hidden  max-h-[24px] ">
@@ -100,7 +100,7 @@ function Sidebar(props) {
                 <input type="checkbox" className="peer" id="collapse" />
                 <div
                   id="collapse-head"
-                  className="flex collapse-title  h-[20px] peer-hover:bg-base-300   overflow-hidden active:bg-blue-300  peer-hover:bg-opacity-40 flex-column p-3 py-1 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex collapse-title  h-[20px] peer-hover:bg-base-300   overflow-hidden active:bg-blue-300  peer-hover:bg-opacity-40 flex-column p-3 py-1 items-center rounded ease-in-out transition  duration-100"
                   href=""
                 >
                   <img className="w-5  ml-1" src={settingIcon} alt="" />
@@ -110,7 +110,7 @@ function Sidebar(props) {
                 </div>
                 <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
                   <Link
-                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg  duration-100"
+                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="Pengguna"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
@@ -118,7 +118,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
-                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg  duration-100"
+                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
@@ -126,7 +126,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
-                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg  duration-100"
+                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
@@ -134,7 +134,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
-                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg  duration-100"
+                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
@@ -142,7 +142,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
-                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded-lg  duration-100"
+                    className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
@@ -180,7 +180,7 @@ function Sidebar(props) {
                       : null
                   }
                   to="/beranda"
-                  className="flex hovhov overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex hovhov overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded ease-in-out transition  duration-100"
                   href=""
                 >
                   <img className="w-5 ml-4" src={homeIcon} alt="" />
@@ -199,7 +199,7 @@ function Sidebar(props) {
                         }
                       : null
                   }
-                  className="flex  overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex  overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5 ml-4" src={tambahIcon} alt="" />
                   <span className="txtsidebar">Buat Konten</span>
@@ -217,7 +217,7 @@ function Sidebar(props) {
                       : null
                   }
                   to="kontensaya"
-                  className="flex overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3  items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex overflow-hidden hover:bg-opacity-40  active:bg-blue-200 flex-column hover:bg-base-300 py-3  items-center rounded ease-in-out transition  duration-100"
                   href=""
                 >
                   <img
@@ -232,7 +232,7 @@ function Sidebar(props) {
               <li className="my-2 tooltip1">
                 <Link
                   to={"/"}
-                  className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded-md ease-in-out transition  duration-100"
+                  className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5 ml-4" src={contentsettingIcon} alt="" />
                   <span className="txtsidebar">Approval Konten</span>
@@ -248,7 +248,7 @@ function Sidebar(props) {
                 />
                 <div
                   id="collapse-head"
-                  className="flex collapse-title  h-[20px] peer-hover:bg-base-200 peer-hover:bg-opacity-40   overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 py-1 items-center rounded-md ease-in-out transition  duration-100"
+                  className="flex collapse-title  h-[20px] peer-hover:bg-base-200 peer-hover:bg-opacity-40   overflow-hidden active:bg-blue-300 flex-column hover:bg-base-300 p-3 py-1 items-center rounded ease-in-out transition  duration-100"
                   href=""
                 >
                   <img className="w-5  ml-1" src={settingIcon} alt="" />

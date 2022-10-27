@@ -11,6 +11,10 @@ import FilterIcon from "../../assets/icon/FilterIcon.jsx";
 function Sort() {
   const [sortType, setSortType] = useState("Popularitas");
 
+  const handleSort = (e) => {
+    setSortType(e);
+  };
+
   return (
     <div
       data-tip={"Urutkan Berdasar " + sortType}
@@ -19,15 +23,15 @@ function Sort() {
       <label
         tabIndex={0}
         className={
-          "flex flex-row cursor-pointer h-10 justify-center items-center  border-gray-400 border rounded-md  px-3"
+          "flex flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
         }
       >
-        <img className={"w-5 mr-2"} src={sortIcon} alt="" />
+        <img className={"w-5"} src={sortIcon} alt="" />
         {sortType}
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content menu p-2 shadow bg-base-100 rounded border-gray-300 border min-w-[135px] "
       >
         <li>
           <button onClick={() => handleSort("Terbaru")}>Terbaru</button>
@@ -42,35 +46,77 @@ function Sort() {
 
 //FilterIcon
 function Filter() {
+  const [jenisKonten, setJenisKonten] = useState("-");
+  const [kategoriKonten, setKategoriKonten] = useState("-");
+
+  const handleJenisKonten = (e) => {
+    setJenisKonten(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleKategoriKonten = (e) => {
+    setKategoriKonten(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleReset = () => {
+    setKategoriKonten("-");
+    setJenisKonten("-");
+  };
+
   return (
     <>
       <label
-        htmlFor="my-modal"
+        htmlFor="my-modal-4"
         className={
-          " modal-button cursor-pointer  flex flex-row h-10 justify-center items-center  border-gray-400 border rounded-md  px-3"
+          " modal-button cursor-pointer gap-x-2  flex flex-row h-10 justify-center items-center  border-gray-400 border rounded-md  px-3"
         }
       >
         <FilterIcon />
         Filter
       </label>
 
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+      <label
+        htmlFor="my-modal-4"
+        className="modal sm:modal-middle modal-bottom cursor-pointer rounded"
+      >
+        <label className="modal-box relative rounded sm:rounded" htmlFor="">
+          <h3 className="text-3xl font-bold mb-3">Filter Konten</h3>
+          <div className="flex flex-col gap-y-2">
+            <form className={"flex flex-col"}>
+              <label htmlFor="">Jenis Konten</label>
+              <select
+                value={jenisKonten}
+                onChange={handleJenisKonten}
+                className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+              >
+                <option>-</option>
+                <option>Han Solo</option>
+                <option>Greedo</option>
+              </select>
+            </form>
+            <div className={"flex flex-col"}>
+              <label htmlFor="">Kategori</label>
+              <select
+                value={kategoriKonten}
+                onChange={handleKategoriKonten}
+                className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+              >
+                <option>-</option>
+                <option>Han Solo</option>
+                <option>Greedo</option>
+              </select>
+            </div>
+          </div>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn">
-              Yay!
+            <label onClick={handleReset} className="btn rounded">
+              Reset
+            </label>
+            <label htmlFor="my-modal-4" className="btn rounded btn-primary">
+              Simpan
             </label>
           </div>
-        </div>
-      </div>
+        </label>
+      </label>
     </>
   );
 }
@@ -93,7 +139,7 @@ function GridList() {
   return (
     <div
       className={
-        " flex bg-white flex-row h-10 justify-center items-center  border-gray-400"
+        "md:flex hidden bg-white hidden flex-row h-10 justify-center items-center min-w-[86px] border-gray-400"
       }
     >
       <button
@@ -124,16 +170,50 @@ function GridList() {
 
 //search bar
 function SearchBar() {
+  const [search, setSearch] = useState("");
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  }
+
   return (
-    <div className="flex flex-row justify-center items-center">
+    <div className="flex flex-row w-full justify-center items-center">
       <div className={"z-20"}>
         <img className={"w-4"} src={searchIcon} alt="search" />
       </div>
       <input
-        className="w-96 -ml-7 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        onChange={handleSearch}
+        value={search}
+        className="-ml-7 w-full h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Search"
       />
+    </div>
+  );
+}
+
+function AllKonten() {
+  return (
+    <div className="card w-80 bg-base-100 shadow-md border-[1px] rounded-md mb-6 ">
+      <div className="card-body p-4">
+        <div className="flex flex-row">
+          <div className="avatar mr-4">
+            <div className="w-10 h-10 rounded-full">
+              <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+            </div>
+          </div>
+          <div className="flex flex-col justify-around ">
+            <div>Arya Stark</div>
+            <div className="text-sm">30 Februari 2020</div>
+          </div>
+        </div>
+        <h2 className="card-title text-lg">Pencatatan kehamilan mantan ART</h2>
+        <p>
+          Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+          sadfas asdfsadf asfdasf asdf{" "}
+        </p>
+      </div>
     </div>
   );
 }
@@ -142,45 +222,23 @@ function Beranda(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-2 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
+      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
     >
       <div
         className={
-          "flex flex-row gap-x-4 w-full bg-gray-100 p-2 pl-5 rounded-md justify-between"
+          "flex flex-row gap-x-4 w-full bg-gray-100 md:flex-nowrap flex-wrap p-2 pl-4 gap-y-2 rounded-md justify-between"
         }
       >
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-col md:w-2/3 w-full"}>
           <SearchBar />
         </div>
-        <div className={"flex flex-row gap-x-2"}>
+        <div className={"flex flex-row gap-x-3"}>
           <GridList />
           <Filter />
           <Sort />
         </div>
       </div>
-
-      <div className="card w-80 bg-base-100 shadow-md border-[1px] rounded-md mb-6 ">
-        <div className="card-body p-4">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="w-10 h-10 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex flex-col justify-around ">
-              <div>Arya Stark</div>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf{" "}
-          </p>
-        </div>
-      </div>
+      <AllKonten />
     </div>
   );
 }
