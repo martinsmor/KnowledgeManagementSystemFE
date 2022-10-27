@@ -67,12 +67,14 @@ body {
 
 #maincontent {
     min-width: calc(100% - 270px);
+    max-width: calc(100% - 270px);
     flex-wrap: wrap;
     left: 270px;
 }
 
 #maincontent1 {
     min-width: calc(100% - 76px);
+    max-width: calc(100% - 76px);
     flex-wrap: wrap;
     left: 76px;
 }
@@ -144,4 +146,3 @@ body {
 
 
 }
-

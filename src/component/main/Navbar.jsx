@@ -28,10 +28,10 @@ function Profile() {
         className="menu menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box w-52"
       >
         <li>
-          <Link className="py-3" to="profile">
+          <a className="py-3" href="https://community.bps.go.id/">
             <img className="w-4" src={userIcon} alt="" />
             Profile
-          </Link>
+          </a>
         </li>
         <li>
           <Link className="py-3" to="/signin">
@@ -134,7 +134,7 @@ function Navbar(props) {
   return (
     <div
       id="navbar"
-      className="navbar z-50 drop-shadow-sm fixed bg-base-100 border-b-[.1em] h-[10px] justify-end "
+      className="navbar z-50 drop-shadow-sm fixed bg-base-100 border-b-[.1em] justify-end "
     >
       <div className="navbar-start ml-1.5">
         <div className="flex items-center absolute ">

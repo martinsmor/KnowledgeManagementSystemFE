@@ -195,16 +195,17 @@ function SearchBar() {
 
 function AllKonten() {
   return (
-    <div className="card w-80 bg-base-100 shadow-md border-[1px] rounded-md mb-6 ">
-      <div className="card-body p-4">
+    <div className="card sm:w-80 w-full  bg-base-100 shadow-md border-[1px] rounded-md mb-6 ">
+      <div className="card-body p-4 gap-y-1">
         <div className="flex flex-row">
           <div className="avatar mr-4">
-            <div className="w-10 h-10 rounded-full">
+            <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
               <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
             </div>
           </div>
-          <div className="flex flex-col justify-around ">
-            <div>Arya Stark</div>
+          <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+            <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+            <span className={"sm:hidden "}>&#183;</span>
             <div className="text-sm">30 Februari 2020</div>
           </div>
         </div>
