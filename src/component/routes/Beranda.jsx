@@ -122,20 +122,7 @@ function Filter() {
 }
 
 //Grid or List
-function GridList() {
-  const [isGrid, setIsGrid] = useState(true);
-
-  const handleList = () => {
-    if (isGrid) {
-      setIsGrid(false);
-    }
-  };
-  const handleGrid = () => {
-    if (!isGrid) {
-      setIsGrid(true);
-    }
-  };
-
+function GridList(props) {
   return (
     <div
       className={
@@ -144,9 +131,9 @@ function GridList() {
     >
       <button
         data-tip="List"
-        onClick={handleList}
+        onClick={props.handleList}
         className={
-          isGrid
+          props.isGrid
             ? "tooltip tooltip-bottom h-full rounded-l-md flex justify-center items-center border-2 border-gray-400 px-2.5 border-r-0"
             : "tooltip tooltip-bottom bg-gray-100 h-full  rounded-l-md flex justify-center items-center border-2 border-blue-400 px-2.5"
         }
@@ -155,9 +142,9 @@ function GridList() {
       </button>
       <button
         data-tip="Grid"
-        onClick={handleGrid}
+        onClick={props.handleGrid}
         className={
-          !isGrid
+          !props.isGrid
             ? "tooltip tooltip-bottom h-full rounded-r-md flex justify-center items-center border-2 border-gray-400 px-2.5 border-l-0"
             : "tooltip tooltip-bottom bg-gray-100 h-full  rounded-r-md flex justify-center items-center border-2 border-blue-400 px-2.5 "
         }
@@ -193,33 +180,230 @@ function SearchBar() {
   );
 }
 
-function AllKonten() {
+function AllKonten(props) {
   return (
-    <div className="card sm:w-80 w-full  bg-base-100 shadow-md border-[1px] rounded-md mb-6 ">
-      <div className="card-body p-4 gap-y-1">
-        <div className="flex flex-row">
-          <div className="avatar mr-4">
-            <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-              <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+    <div className={"flex flex-row gap-4 flex-wrap"}>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
             </div>
           </div>
-          <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-            <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-            <span className={"sm:hidden "}>&#183;</span>
-            <div className="text-sm">30 Februari 2020</div>
-          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
         </div>
-        <h2 className="card-title text-lg">Pencatatan kehamilan mantan ART</h2>
-        <p>
-          Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-          sadfas asdfsadf asfdasf asdf{" "}
-        </p>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
+      </div>
+      <div
+        className={
+          props.isGrid
+            ? "card sm:w-80 w-full bg-base-100 shadow-md border border-gray-300 rounded"
+            : "card w-full bg-base-100 shadow-md border border-gray-300 rounded"
+        }
+      >
+        <div className="card-body p-4 gap-y-1">
+          <div className="flex flex-row">
+            <div className="avatar mr-4">
+              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+              </div>
+            </div>
+            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
+              <span className={"sm:hidden "}>&#183;</span>
+              <div className="text-sm">30 Februari 2020</div>
+            </div>
+          </div>
+          <h2 className="card-title text-lg">
+            Pencatatan kehamilan mantan ART
+          </h2>
+          <p className={"line-clamp-3 "}>
+            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
+            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
+          </p>
+        </div>
       </div>
     </div>
   );
 }
 
 function Beranda(props) {
+  const [isGrid, setIsGrid] = useState(true);
+
+  const handleList = () => {
+    if (isGrid) {
+      setIsGrid(false);
+    }
+  };
+  const handleGrid = () => {
+    if (!isGrid) {
+      setIsGrid(true);
+    }
+  };
+
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -234,12 +418,16 @@ function Beranda(props) {
           <SearchBar />
         </div>
         <div className={"flex flex-row gap-x-3"}>
-          <GridList />
+          <GridList
+            isGrid={isGrid}
+            handleGrid={handleGrid}
+            handleList={handleList}
+          />
           <Filter />
           <Sort />
         </div>
       </div>
-      <AllKonten />
+      <AllKonten isGrid={isGrid} />
     </div>
   );
 }

@@ -11,6 +11,12 @@ import tambahIcon from "../../assets/icon/tambah.svg";
 import { Link, NavLink } from "react-router-dom";
 
 function Sidebar(props) {
+  const handleClick = () => {
+    if (window.innerWidth < 768) {
+      props.onclick();
+    }
+  };
+
   // Full Sidebar
   if (props.isfull) {
     return (
@@ -23,7 +29,7 @@ function Sidebar(props) {
         >
           <nav>
             <ul className="overflow-hidden">
-              <li className="my-2 ">
+              <li onClick={handleClick} className="my-2 ">
                 <NavLink
                   to="/beranda"
                   style={({ isActive }) =>
@@ -45,7 +51,7 @@ function Sidebar(props) {
                   </span>
                 </NavLink>
               </li>
-              <li className="my-2">
+              <li onClick={handleClick} className="my-2">
                 <NavLink
                   to="buatkonten"
                   style={({ isActive }) =>
@@ -64,7 +70,7 @@ function Sidebar(props) {
                   </span>
                 </NavLink>
               </li>
-              <li className="my-2">
+              <li onClick={handleClick} className="my-2">
                 <NavLink
                   to="kontensaya"
                   style={({ isActive }) =>
@@ -84,7 +90,7 @@ function Sidebar(props) {
                   </span>
                 </NavLink>
               </li>
-              <li className="my-2">
+              <li onClick={handleClick} className="my-2">
                 <Link
                   to={"/"}
                   className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
@@ -110,6 +116,7 @@ function Sidebar(props) {
                 </div>
                 <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
                   <Link
+                    onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="Pengguna"
                   >
@@ -118,6 +125,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
+                    onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
@@ -126,6 +134,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
+                    onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
@@ -134,6 +143,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
+                    onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
@@ -142,6 +152,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
+                    onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
