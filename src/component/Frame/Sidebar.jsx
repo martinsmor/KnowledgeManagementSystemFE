@@ -92,7 +92,7 @@ function Sidebar(props) {
               </li>
               <li onClick={handleClick} className="my-2">
                 <Link
-                  to={"/"}
+                  to={"/approval"}
                   className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5  ml-1" src={contentsettingIcon} alt="" />
@@ -242,7 +242,7 @@ function Sidebar(props) {
               </li>
               <li className="my-2 tooltip1">
                 <Link
-                  to={"/"}
+                  to={"/approval"}
                   className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5 ml-4" src={contentsettingIcon} alt="" />

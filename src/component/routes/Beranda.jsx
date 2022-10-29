@@ -1,4 +1,4 @@
-//Merupakan Page Beranda yang akan di tampilkan setelah user berhasil login
+//Merupakan Page Beranda yang dapat diakses oleh siapapun
 
 import { useState, createContext, useContext, useRef, useEffect } from "react";
 import profilePic from "../../assets/profile/profile.png";
@@ -7,6 +7,7 @@ import listIcon from "../../assets/icon/list.svg";
 import gridIcon from "../../assets/icon/gridberanda.svg";
 import sortIcon from "../../assets/icon/sort.svg";
 import FilterIcon from "../../assets/icon/FilterIcon.jsx";
+import { Link } from "react-router-dom";
 
 function Sort() {
   const [sortType, setSortType] = useState("Popularitas");
@@ -82,7 +83,7 @@ function Filter() {
         <label className="modal-box relative rounded sm:rounded" htmlFor="">
           <h3 className="text-3xl font-bold mb-3">Filter Konten</h3>
           <div className="flex flex-col gap-y-2">
-            <form className={"flex flex-col"}>
+            <div className={"flex flex-col"}>
               <label htmlFor="">Jenis Konten</label>
               <select
                 value={jenisKonten}
@@ -93,7 +94,7 @@ function Filter() {
                 <option>Han Solo</option>
                 <option>Greedo</option>
               </select>
-            </form>
+            </div>
             <div className={"flex flex-col"}>
               <label htmlFor="">Kategori</label>
               <select
@@ -183,7 +184,8 @@ function SearchBar() {
 function AllKonten(props) {
   return (
     <div className={"flex flex-row gap-4 flex-wrap"}>
-      <div
+      <Link
+        to={"/konten"}
         className={
           props.isGrid
             ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
@@ -211,181 +213,7 @@ function AllKonten(props) {
             sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
           </p>
         </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
-      <div
-        className={
-          props.isGrid
-            ? "card sm:w-80 w-full bg-base-100 shadow border border-gray-300 rounded"
-            : "card w-full bg-base-100 shadow border border-gray-300 rounded"
-        }
-      >
-        <div className="card-body p-4 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <h2 className="card-title text-lg">
-            Pencatatan kehamilan mantan ART
-          </h2>
-          <p className={"line-clamp-3 "}>
-            Kehamilan yang dialami mantan ART yang sudah pindah apakah tercatat?
-            sadfas asdfsadf asfdasf asdf gfds gfds gsdf sdaf
-          </p>
-        </div>
-      </div>
+      </Link>
     </div>
   );
 }
