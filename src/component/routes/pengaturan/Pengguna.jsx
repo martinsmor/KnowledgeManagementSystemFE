@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Pengguna(props) {
+  const [updateRole, setUpdateRole] = useState("");
+  const handleupdateRole = (e) => {
+    setUpdateRole(e.target.value);
+  };
+
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -24,16 +30,46 @@ function Pengguna(props) {
               <td>BPS Kabupaten Serang</td>
               <td>Approval</td>
               <td className="">
-                <button
-                  // onClick={() => handleDelete(item.username)}
-                  className="btn btn-error rounded btn-sm  text-white"
+                <label
+                  htmlFor="my-modal"
+                  className="btn btn-accent rounded btn-sm  text-white"
                 >
                   Ubah Role
-                </button>
+                </label>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      {/*Modal For Ubah Role*/}
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box sm:rounded">
+          <h3 className="font-bold text-lg">Ubah Role Pengguna</h3>
+          <div className={"flex flex-col"}>
+            <label htmlFor="">Role</label>
+            <select
+              value={updateRole}
+              onChange={handleupdateRole}
+              className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+            >
+              <option>-</option>
+              <option>Han Solo</option>
+              <option>Greedo</option>
+            </select>
+          </div>
+          <div className="modal-action">
+            <label htmlFor="my-modal" className="btn rounded">
+              Cancel
+            </label>
+            <label
+              htmlFor="my-modal"
+              className="btn btn-primary text-white rounded"
+            >
+              Simpan
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -28,29 +28,50 @@ function Kontensaya(props) {
                 <div className="badge badge-error badge-outline">Ditolak</div>
               </td>
               <td className="w-[260px]">
-                <Link to={"/kontensaya"}>
+                <Link to={"/konten"}>
                   <button className="btn btn-info rounded btn-sm text-white">
                     Detail
                   </button>
                 </Link>
                 <Link
-                  to={"/kontensaya"}
+                  to={"/editkonten"}
                   href="frontend/src/Views/User/AturMember.jsx"
                 >
                   <button className="btn btn-success mx-2 rounded btn-sm text-white">
                     Edit
                   </button>
                 </Link>
-                <button
-                  // onClick={() => handleDelete(item.username)}
+                <label
+                  htmlFor="my-modal"
                   className="btn btn-error rounded btn-sm  text-white"
                 >
                   Delete
-                </button>
+                </label>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      {/*Delete Modal */}
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box sm:rounded">
+          <h3 className="font-bold text-lg">
+            Apakah anda yakin ingin menghapus konten
+          </h3>
+          <p className="py-4">Bagaimana Pencatatan Kelahiran</p>
+          <div className="modal-action">
+            <label htmlFor="my-modal" className="btn rounded">
+              Cancel
+            </label>
+            <label
+              htmlFor="my-modal"
+              className="btn btn-error text-white rounded"
+            >
+              Delete
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -76,6 +76,7 @@ function BuatKonten(props) {
             className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
           >
             <option>Artikel</option>
+            <option>Pertanyaan</option>
             <option>Foto</option>
             <option>Video</option>
             <option>Audio</option>
@@ -95,7 +96,7 @@ function BuatKonten(props) {
           />
         </div>
 
-        {jenisKonten === "Artikel" ? (
+        {jenisKonten === "Artikel" || jenisKonten === "Pertanyaan" ? (
           <div className={"flex flex-col gap-y-1"}>
             <label className="text-xl font-semibold" htmlFor="title">
               Tulis Konten

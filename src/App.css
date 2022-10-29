@@ -32,7 +32,7 @@
 }
 
 body {
-    background-color: #F4F5FB;
+    background-color: #F5F5F5;
 }
 
 .head {
@@ -68,14 +68,12 @@ body {
 #maincontent {
     min-width: calc(100% - 270px);
     max-width: calc(100% - 270px);
-    flex-wrap: wrap;
     left: 270px;
 }
 
 #maincontent1 {
     min-width: calc(100% - 76px);
     max-width: calc(100% - 76px);
-    flex-wrap: wrap;
     left: 76px;
 }
 
@@ -91,7 +89,7 @@ body {
 }
 
 #navbar {
-    background-color: #F5F5F5;
+    background-color: white;
 }
 
 
@@ -145,4 +143,8 @@ body {
     }
 
 
+}
+
+.kontancard:hover h2 {
+    color: #1f40c9;
 }

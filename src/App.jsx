@@ -16,6 +16,7 @@ import Kontensaya from "./component/routes/Kontensaya.jsx";
 import BuatKonten from "./component/routes/BuatKonten";
 import SignIn from "./component/Auth/SignIn.jsx";
 import Approval from "./component/routes/Approval.jsx";
+import EditKonten from "./component/routes/EditKonten.jsx";
 
 function App() {
   //state untuk menentukan apakah sidebar full atau tidak
@@ -55,6 +56,10 @@ function App() {
           <Route
             path="buatkonten"
             element={<BuatKonten isfull={fullSidebar} />}
+          />
+          <Route
+            path="editkonten"
+            element={<EditKonten isfull={fullSidebar} />}
           />
           <Route path="approval" element={<Approval isfull={fullSidebar} />} />
         </Route>

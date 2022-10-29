@@ -8,5 +8,89 @@
 @layer base {
     html {
         font-family: 'Roboto', sans-serif;
+
     }
+}
+:root {
+    background-color: #F5F5F5;
+}
+
+/* Toolbar Styles */
+.ql-editor-haserror .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border: 1px solid #f56565;
+    border-radius: 0.5rem;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+}
+
+.ql-toolbar.ql-snow {
+    font-family: inherit;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-top: .5em;
+    border: 1px solid #9ca3af;
+
+}
+
+.ql-container {
+    color: #2d3748;
+    font-family: inherit;
+    font-size: inherit;
+
+}
+
+.ql-container.ql-snow {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border-color: #e2e8f0;
+    margin-top: -44px;
+    min-height: 200px;
+
+}
+
+.ql-editor {
+    overflow-y: visible;
+    padding-top: 64px;
+    min-height: 200px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #9ca3af;
+
+}
+
+.ql-scrolling-container {
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+}
+
+.ql-editor.ql-blank::before {
+    color: #a0aec0;
+    font-style: normal;
+}
+
+.ql-editor:focus {
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.actionbutton {
+    width: 250px !important;
+}
+
+.titletab {
+    width: 50px !important;
+    min-width: 300px !important;
+    max-width: 450px;
+    overflow: auto;
 }
