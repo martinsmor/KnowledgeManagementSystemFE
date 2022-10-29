@@ -3,8 +3,6 @@
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
 import ReactQuill from "react-quill";
-import Dropzone from "react-dropzone-uploader";
-import "react-dropzone-uploader/dist/styles.css";
 
 function BuatKonten(props) {
   const [value, setValue] = useState("");
@@ -94,14 +92,6 @@ function BuatKonten(props) {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             className="border border-gray-400 px-3 rounded w-full p-2 focus:outline-2 focus:outline-blue-500"
-          />
-        </div>
-        <div>
-          <Dropzone
-            getUploadParams={getUploadParams}
-            onChangeStatus={handleChangeStatus}
-            onSubmit={handleSubmit}
-            styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
           />
         </div>
 
