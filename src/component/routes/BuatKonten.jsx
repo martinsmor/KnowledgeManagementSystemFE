@@ -6,30 +6,6 @@ import ReactQuill from "react-quill";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
-const Standard = () => {
-  const getUploadParams = () => {
-    return { url: "https://httpbin.org/post" };
-  };
-
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log(status, meta);
-  };
-
-  const handleSubmit = (files, allFiles) => {
-    console.log(files.map((f) => f.meta));
-    allFiles.forEach((f) => f.remove());
-  };
-
-  return (
-    <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-      styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
-    />
-  );
-};
-
 function BuatKonten(props) {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
@@ -120,12 +96,17 @@ function BuatKonten(props) {
             className="border border-gray-400 px-3 rounded w-full p-2 focus:outline-2 focus:outline-blue-500"
           />
         </div>
-        <div className={"prose"}>
-          <Standard />
+        <div>
+          <Dropzone
+            getUploadParams={getUploadParams}
+            onChangeStatus={handleChangeStatus}
+            onSubmit={handleSubmit}
+            styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
+          />
         </div>
 
         {jenisKonten === "Artikel" ? (
-          <div className={"flex flex-col gap-y-1 prose lg:prose-xl"}>
+          <div className={"flex flex-col gap-y-1"}>
             <label className="text-xl font-semibold" htmlFor="title">
               Tulis Konten
             </label>
