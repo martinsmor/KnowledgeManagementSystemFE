@@ -149,7 +149,7 @@ function Navbar(props) {
           </Link>
         </div>
       </div>
-      <div className="navbar-end pr-4">
+      <div className="navbar-end sm:pr-4 pr-2">
         <MenuOms />
         <Notification />
         <Profile />

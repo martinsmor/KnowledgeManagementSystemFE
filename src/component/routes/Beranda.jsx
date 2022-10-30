@@ -25,7 +25,7 @@ function Sort(props) {
   return (
     <div
       data-tip={"Urutkan Berdasar " + sortType}
-      className="tooltip tooltip-bottom bg-white dropdown z-20 dropdown-end"
+      className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end"
     >
       <label
         tabIndex={0}
@@ -197,7 +197,7 @@ function SearchBar() {
   }
 
   return (
-    <div className="flex flex-row w-full justify-center items-center">
+    <div className="flex flex-row w-full justify-center px-4 sm:px-0 items-center">
       <div className={"z-20 -ml-5 "}>
         <img className={"w-4  "} src={searchIcon} alt="search" />
       </div>
@@ -215,13 +215,13 @@ function SearchBar() {
 // All Konten Card Component
 function AllKonten(props) {
   return (
-    <div className={"flex flex-row gap-4 z-10 flex-wrap"}>
+    <div className={"flex flex-row sm:gap-4 gap-2 z-10 flex-wrap"}>
       <Link
         to={"/konten"}
         className={
           props.isGrid
-            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 rounded-md"
-            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 rounded-md"
+            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
         }
       >
         <div className="card-body p-6 gap-y-1">
@@ -277,7 +277,7 @@ function AllKonten(props) {
                 className={
                   props.isGrid
                     ? "hidden"
-                    : "flex flex-row justify-center items-center"
+                    : "md:flex hidden flex-row justify-center items-center"
                 }
               >
                 <span
@@ -313,8 +313,8 @@ function AllKonten(props) {
         to={"/konten"}
         className={
           props.isGrid
-            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 rounded-md"
-            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 rounded-md"
+            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
         }
       >
         <div className="card-body p-6 gap-y-1">
@@ -370,7 +370,7 @@ function AllKonten(props) {
                 className={
                   props.isGrid
                     ? "hidden"
-                    : "flex flex-row justify-center items-center"
+                    : "md:flex hidden flex-row justify-center items-center"
                 }
               >
                 <span
@@ -406,8 +406,8 @@ function AllKonten(props) {
         to={"/konten"}
         className={
           props.isGrid
-            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 rounded-md"
-            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 rounded-md"
+            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
         }
       >
         <div className="card-body p-6 gap-y-1">
@@ -463,193 +463,7 @@ function AllKonten(props) {
                 className={
                   props.isGrid
                     ? "hidden"
-                    : "flex flex-row justify-center items-center"
-                }
-              >
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #SP2020
-                </span>
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #Kehamilan
-                </span>
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #Asisten
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Link>
-      <Link
-        to={"/konten"}
-        className={
-          props.isGrid
-            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 rounded-md"
-            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 rounded-md"
-        }
-      >
-        <div className="card-body p-6 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <div className={""}>
-            <h2 className="card-title text-2xl py-1">
-              Pencatatan kehamilan mantan ART
-            </h2>
-            <p className={"line-clamp-2 "}>
-              Kehamilan yang dialami mantan ART yang sudah pindah apakah
-              tercatat? Pertanyaan ditujukan untuk rumah tangga ini, tidak
-              ditanya terkait ART yang telah pindah (bukan ART lagi). Jadi,
-              ketika PPL datang ke rumah tangga yang dahulu ada mantan ART
-              (karena pindah) yang hamil 2017-2022, maka kehamilan tersebut
-              tidak dicakup
-            </p>
-          </div>
-
-          <div>
-            <div className="flex flex-row gap-x-1 mt-2">
-              <div
-                className={
-                  "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
-                }
-              >
-                <span>
-                  <LikeIcon />
-                </span>
-                <span className={"ml-2 text-sm"}> 2 Reactions</span>
-              </div>
-              <div
-                className={
-                  "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
-                }
-              >
-                <span>
-                  <CommentICon />
-                </span>
-                <span className={"ml-2 text-sm"}> 2 Comments</span>
-              </div>
-              <div
-                className={
-                  props.isGrid
-                    ? "hidden"
-                    : "flex flex-row justify-center items-center"
-                }
-              >
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #SP2020
-                </span>
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #Kehamilan
-                </span>
-                <span
-                  className={
-                    "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                  }
-                >
-                  {" "}
-                  #Asisten
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Link>
-      <Link
-        to={"/konten"}
-        className={
-          props.isGrid
-            ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 rounded-md"
-            : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 rounded-md"
-        }
-      >
-        <div className="card-body p-6 gap-y-1">
-          <div className="flex flex-row">
-            <div className="avatar mr-4">
-              <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
-              </div>
-            </div>
-            <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-              <div className={"sm:text-normal text-sm"}>Arya Stark</div>
-              <span className={"sm:hidden "}>&#183;</span>
-              <div className="text-sm">30 Februari 2020</div>
-            </div>
-          </div>
-          <div className={""}>
-            <h2 className="card-title text-2xl py-1">
-              Pencatatan kehamilan mantan ART
-            </h2>
-            <p className={"line-clamp-2 "}>
-              Kehamilan yang dialami mantan ART yang sudah pindah apakah
-              tercatat? Pertanyaan ditujukan untuk rumah tangga ini, tidak
-              ditanya terkait ART yang telah pindah (bukan ART lagi). Jadi,
-              ketika PPL datang ke rumah tangga yang dahulu ada mantan ART
-              (karena pindah) yang hamil 2017-2022, maka kehamilan tersebut
-              tidak dicakup
-            </p>
-          </div>
-
-          <div>
-            <div className="flex flex-row gap-x-1 mt-2">
-              <div
-                className={
-                  "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
-                }
-              >
-                <span>
-                  <LikeIcon />
-                </span>
-                <span className={"ml-2 text-sm"}> 2 Reactions</span>
-              </div>
-              <div
-                className={
-                  "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
-                }
-              >
-                <span>
-                  <CommentICon />
-                </span>
-                <span className={"ml-2 text-sm"}> 2 Comments</span>
-              </div>
-              <div
-                className={
-                  props.isGrid
-                    ? "hidden"
-                    : "flex flex-row justify-center items-center"
+                    : "md:flex hidden flex-row justify-center items-center"
                 }
               >
                 <span
@@ -714,7 +528,7 @@ function Beranda(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
+      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col"
     >
       <div
         className={
