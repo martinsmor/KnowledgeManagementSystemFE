@@ -143,7 +143,7 @@ function Navbar(props) {
     >
       <div className="navbar-start ml-1.5">
         <div className="flex items-center absolute ">
-          {props.isfull ? (
+          {props.isfull && window.innerWidth < 640 ? (
             <button
               disabled
               onClick={handleClick}

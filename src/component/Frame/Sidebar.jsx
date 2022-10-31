@@ -22,7 +22,9 @@ function useOnClickOutside(ref, handler) {
           return;
         }
         console.log("click outside");
-        handler(event);
+        if (window.innerWidth < 640) {
+          handler(event);
+        }
       };
       document.addEventListener("mousedown", listener);
       document.addEventListener("touchstart", listener);
