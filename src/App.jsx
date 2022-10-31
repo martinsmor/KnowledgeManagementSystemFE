@@ -28,18 +28,17 @@ function App() {
     }
   }, []);
 
+  const handleSidebar = () => {
+    setFullSidebar(!fullSidebar);
+  };
+
   //Router
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={
-            <Main
-              onclick={() => setFullSidebar(!fullSidebar)}
-              isfull={fullSidebar}
-            />
-          }
+          element={<Main onclick={handleSidebar} isfull={fullSidebar} />}
         >
           <Route index element={<Navigate to="beranda" />} />
           <Route

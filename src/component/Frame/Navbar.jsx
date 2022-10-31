@@ -13,6 +13,7 @@ import projectmanagementIcon from "../../assets/oms/projectmanagement.png";
 import offIcon from "../../assets/icon/off.svg";
 import userIcon from "../../assets/icon/user.svg";
 import barIcon from "../../assets/icon/bar.svg";
+import { useRef } from "react";
 
 // Profile
 function Profile() {
@@ -131,6 +132,10 @@ function SearchBar() {
 
 // Top Navbar
 function Navbar(props) {
+  const handleClick = () => {
+    props.onclick();
+  };
+
   return (
     <div
       id="navbar"
@@ -138,12 +143,23 @@ function Navbar(props) {
     >
       <div className="navbar-start ml-1.5">
         <div className="flex items-center absolute ">
-          <button
-            onClick={props.onclick}
-            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
-          >
-            <img className="w-4" src={barIcon} alt="" />
-          </button>
+          {props.isfull ? (
+            <button
+              disabled
+              onClick={handleClick}
+              className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+            >
+              <img className="w-4" src={barIcon} alt="" />
+            </button>
+          ) : (
+            <button
+              onClick={handleClick}
+              className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+            >
+              <img className="w-4" src={barIcon} alt="" />
+            </button>
+          )}
+
           <Link className="" to="/beranda">
             Knowledge Management
           </Link>

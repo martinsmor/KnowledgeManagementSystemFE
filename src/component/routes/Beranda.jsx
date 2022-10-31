@@ -2,6 +2,7 @@
 //Path: src\component\routes\Beranda.jsx
 //Berisi Fitur Search, Sort, Filter, dan List/Grid Konten
 
+import httpClient from "../../httpClient.js";
 import { useState, createContext, useContext, useRef, useEffect } from "react";
 import profilePic from "../../assets/profile/profile.png";
 import searchIcon from "../../assets/icon/search.svg";
@@ -500,6 +501,13 @@ function AllKonten(props) {
 }
 
 function Beranda(props) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    httpClient.getHomeContent().then((res) => {
+      console.log(res.data);
+    });
+  }, []);
   // Grid or List Untuk tampilan konten
   // Filter and Sort untuk request ke API
   const [isGrid, setIsGrid] = useState(false);

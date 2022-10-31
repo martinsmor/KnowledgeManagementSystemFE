@@ -9,6 +9,37 @@ import tambahIcon from "../../assets/icon/tambah.svg";
 
 // Router
 import { Link, NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+
+// Hook
+function useOnClickOutside(ref, handler) {
+  useEffect(
+    () => {
+      const listener = (event) => {
+        // Do nothing if clicking ref's element or descendent elements
+        if (!ref.current || ref.current.contains(event.target)) {
+          console.log("click inside");
+          return;
+        }
+        console.log("click outside");
+        handler(event);
+      };
+      document.addEventListener("mousedown", listener);
+      document.addEventListener("touchstart", listener);
+      return () => {
+        document.removeEventListener("mousedown", listener);
+        document.removeEventListener("touchstart", listener);
+      };
+    },
+    // Add ref and handler to effect dependencies
+    // It's worth noting that because passed in handler is a new ...
+    // ... function on every render that will cause this effect ...
+    // ... callback/cleanup to run every render. It's not a big deal ...
+    // ... but to optimize you can wrap handler in useCallback before ...
+    // ... passing it into this hook.
+    [ref, handler]
+  );
+}
 
 function Sidebar(props) {
   const handleClick = () => {
@@ -16,16 +47,22 @@ function Sidebar(props) {
       props.onclick();
     }
   };
+  const ref = useRef();
+  // State for our modal
+  const [isModalOpen, setModalOpen] = useState(false);
+  // Call hook passing in the ref and a function to call on outside click
+  useOnClickOutside(ref, () => props.onclick());
 
   // Full Sidebar
   if (props.isfull) {
     return (
-      <div className="flex flex-col w-[270px] z-30 items-start fixed">
+      <div className="flex flex-col  sm:w-[270px] w-screen  z-30 items-start fixed">
         {/*Sidebar*/}
-        <div className="flex items-center w-full p-3 py-2 h-[64px] border-b-[.1em] border-b  "></div>
+        <div className="flex items-center sm:w-full w-[270px] p-3 py-2 h-[64px] border-b-[.1em] border-b  "></div>
         <div
+          ref={ref}
           id="sidebar"
-          className=" w-full p-3 h-screen shadow-lg  overflow-y-auto  border-r-2 border-r-base-200"
+          className=" sm:w-full  w-[270px] p-3 h-screen shadow-lg  overflow-y-auto "
         >
           <nav>
             <ul className="overflow-hidden">
@@ -36,12 +73,12 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
                   className={
-                    "flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition duration-100"
+                    "flex  min-h-[48px] overflow-hidden active:bg-blue-300 flex-column hover:bg-blue-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition duration-100"
                   }
                   href=""
                 >
@@ -58,7 +95,7 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
@@ -77,7 +114,7 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
@@ -176,7 +213,7 @@ function Sidebar(props) {
 
         <div
           id="sidebar"
-          className="md:w-[76px] w-0 h-screen md:p-3 p-0 shadow-lg border-r-2 border-r-base-200"
+          className="md:w-[76px] w-0 h-screen md:p-3 p-0 shadow-lg "
         >
           <nav>
             <ul>
@@ -186,7 +223,7 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
@@ -206,7 +243,7 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
@@ -223,7 +260,7 @@ function Sidebar(props) {
                     isActive
                       ? {
                           color: "#fff",
-                          background: "#7600dc",
+                          background: "#418afd",
                         }
                       : null
                   }
