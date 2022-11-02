@@ -11,49 +11,12 @@ import tambahIcon from "../../assets/icon/tambah.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
-// Hook
-function useOnClickOutside(ref, handler) {
-  useEffect(
-    () => {
-      const listener = (event) => {
-        // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref.current.contains(event.target)) {
-          console.log("click inside");
-          return;
-        }
-        console.log("click outside");
-        if (window.innerWidth < 640) {
-          handler(event);
-        }
-      };
-      document.addEventListener("mousedown", listener);
-      document.addEventListener("touchstart", listener);
-      return () => {
-        document.removeEventListener("mousedown", listener);
-        document.removeEventListener("touchstart", listener);
-      };
-    },
-    // Add ref and handler to effect dependencies
-    // It's worth noting that because passed in handler is a new ...
-    // ... function on every render that will cause this effect ...
-    // ... callback/cleanup to run every render. It's not a big deal ...
-    // ... but to optimize you can wrap handler in useCallback before ...
-    // ... passing it into this hook.
-    [ref, handler]
-  );
-}
-
 function Sidebar(props) {
   const handleClick = () => {
     if (window.innerWidth < 768) {
       props.onclick();
     }
   };
-  const ref = useRef();
-  // State for our modal
-  const [isModalOpen, setModalOpen] = useState(false);
-  // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, () => props.onclick());
 
   // Full Sidebar
   if (props.isfull) {
@@ -62,7 +25,7 @@ function Sidebar(props) {
         {/*Sidebar*/}
         <div className="flex items-center sm:w-full w-[270px] p-3 py-2 h-[64px] border-b-[.1em] border-b  "></div>
         <div
-          ref={ref}
+          onClick={handleClick}
           id="sidebar"
           className=" sm:w-full  w-[270px] p-3 h-screen shadow-lg  overflow-y-auto "
         >

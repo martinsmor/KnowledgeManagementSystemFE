@@ -26,7 +26,7 @@ function Sort(props) {
   return (
     <div
       data-tip={"Urutkan Berdasar " + sortType}
-      className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end"
+      className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
     >
       <label
         tabIndex={0}
@@ -159,7 +159,7 @@ function GridList(props) {
   return (
     <div
       className={
-        "md:flex hidden bg-white hidden flex-row h-10 justify-center items-center min-w-[86px] border-gray-400"
+        "md:flex rounded-md hidden bg-white hidden flex-row h-10 justify-center items-center min-w-[86px] border-gray-400"
       }
     >
       <button
@@ -504,9 +504,9 @@ function Beranda(props) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    httpClient.getHomeContent().then((res) => {
-      console.log(res.data);
-    });
+    // httpClient.getHomeContent().then((res) => {
+    //   console.log(res.data);
+    // });
   }, []);
   // Grid or List Untuk tampilan konten
   // Filter and Sort untuk request ke API
@@ -540,7 +540,7 @@ function Beranda(props) {
     >
       <div
         className={
-          "flex flex-row gap-x-4 w-full bg-gray-100 md:flex-nowrap flex-wrap p-2 pl-4 gap-y-2 rounded-md justify-between"
+          "sm:flex hidden flex-row gap-x-4 w-full bg-gray-100 md:flex-nowrap flex-wrap p-2 pl-4 gap-y-2 rounded-md justify-between"
         }
       >
         <div className={"flex flex-col w-full"}>

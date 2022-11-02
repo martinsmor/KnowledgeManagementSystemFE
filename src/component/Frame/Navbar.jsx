@@ -60,9 +60,9 @@ function Notification() {
       </button>
       <ul
         tabIndex={0}
-        className="menu menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box w-72"
+        className="menu menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded border-2 border-opacity-2   bg-base-100 rounded-box w-72"
       >
-        <li className="h-8"></li>
+        <li className="h-8 rounded-full"></li>
         <li className="h-8"></li>
         <li className="h-8"></li>
         <li className="h-8"></li>
@@ -84,10 +84,10 @@ function MenuOms() {
       </button>
       <ul
         tabIndex={0}
-        className="menu dd w-64 menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box"
+        className="menu dd w-64 menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border rounded-md border-2 border-opacity-2   bg-base-100 rounded-box"
       >
-        <li className="">
-          <Link to={"/beranda"} href="#">
+        <li className=" border">
+          <Link to={"/beranda"} className="" href="#">
             <img className="w-8" src={kmsIcon} alt="" />
             Knowledge Management
           </Link>
@@ -143,22 +143,12 @@ function Navbar(props) {
     >
       <div className="navbar-start ml-1.5">
         <div className="flex items-center absolute ">
-          {props.isfull && window.innerWidth < 640 ? (
-            <button
-              disabled
-              onClick={handleClick}
-              className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
-            >
-              <img className="w-4" src={barIcon} alt="" />
-            </button>
-          ) : (
-            <button
-              onClick={handleClick}
-              className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
-            >
-              <img className="w-4" src={barIcon} alt="" />
-            </button>
-          )}
+          <button
+            onClick={handleClick}
+            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+          >
+            <img className="w-4" src={barIcon} alt="" />
+          </button>
 
           <Link className="" to="/beranda">
             Knowledge Management

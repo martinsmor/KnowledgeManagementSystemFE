@@ -4,6 +4,8 @@ import CommentICon from "../../assets/icon/Comment.jsx";
 import Like from "../../assets/icon/Like.jsx";
 import ReactQuill from "react-quill";
 import { useState } from "react";
+import ReactPlayer from "react-player";
+import video from "../../assets/video.mp4";
 
 let modules = {
   toolbar: [
@@ -15,8 +17,7 @@ let modules = {
       { indent: "-1" },
       { indent: "+1" },
     ],
-    ["link", "image"],
-    ["clean"],
+    ["link"],
   ],
 };
 
@@ -33,7 +34,7 @@ function Konten(props) {
           "bg-white rounded-md  rounded-b-none border-t border-x border-gray-300"
         }
       >
-        <div className={"sm:p-12 p-2 pt-4"}>
+        <div className={"sm:p-12 p-4 pt-4"}>
           <div className="flex flex-row justify-between">
             <div className="flex flex-row">
               <div className="avatar mr-4">
@@ -75,7 +76,17 @@ function Konten(props) {
             <h1 className="my-6 mb-2 font-bold text-3xl">
               Pencatatan kehamilan mantan ART
             </h1>
-            <p className="text-lg leading-8">
+            <div className="player-wrapper">
+              <ReactPlayer
+                className="react-player"
+                url="https://www.youtube.com/watch?v=oAZK7e_iHAQ"
+                controls
+                width="100%"
+                height="100%"
+              />
+            </div>
+
+            <p className="text-lg leading-8 pt-4">
               Kehamilan yang dialami mantan ART yang sudah pindah apakah
               tercatat? Pertanyaan ditujukan untuk rumah tangga ini, tidak
               ditanya terkait ART yang telah pindah (bukan ART lagi). Jadi,
@@ -122,7 +133,7 @@ function Konten(props) {
       >
         <div
           id={"comment"}
-          className={"flex flex-col sm:p-12 p-2 pt-4 gap-y-6 "}
+          className={"flex flex-col sm:p-12 p-4 pt-4 gap-y-6 "}
         >
           <h1 className={"text-3xl font-semibold"}>Comments ( 3 ) </h1>
           {/*profile with comment*/}

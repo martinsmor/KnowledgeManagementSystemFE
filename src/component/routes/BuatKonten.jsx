@@ -75,7 +75,7 @@ function BuatKonten(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] pt-4 md:p-8 p-2 flex flex-col"
+      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] pt-4 md:p-8 p-4 flex flex-col"
     >
       <form className={"flex flex-col gap-y-3"} onSubmit={handleSubmit}>
         <div className={"flex flex-col gap-y-1"}>
