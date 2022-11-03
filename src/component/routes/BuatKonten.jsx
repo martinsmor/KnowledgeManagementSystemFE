@@ -79,13 +79,13 @@ function BuatKonten(props) {
     >
       <form className={"flex flex-col gap-y-3"} onSubmit={handleSubmit}>
         <div className={"flex flex-col gap-y-1"}>
-          <label className={"text-lg font-semibold"} htmlFor="">
+          <label className={"text-lg font-medium"} htmlFor="">
             Pilih Jenis Konten
           </label>
           <select
             value={jenisKonten}
             onChange={handleJenisKonten}
-            className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+            className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
           >
             <option>Artikel</option>
             <option>Pertanyaan</option>
@@ -95,13 +95,13 @@ function BuatKonten(props) {
           </select>
         </div>
         <div className={"flex flex-col gap-y-1"}>
-          <label className={"text-lg font-semibold"} htmlFor="">
+          <label className={"text-lg font-medium"} htmlFor="">
             Kategori Konten
           </label>
           <select
             value={jenisKonten}
             onChange={handleJenisKonten}
-            className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 focus:outline border border-gray-400 "
+            className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 focus:outline border border-gray-400 "
           >
             <option>Artikel</option>
             <option>Pertanyaan</option>
@@ -111,7 +111,7 @@ function BuatKonten(props) {
           </select>
         </div>
         <div className={"flex flex-col gap-y-1 "}>
-          <label className="text-lg font-semibold" htmlFor="title">
+          <label className="text-lg font-medium" htmlFor="title">
             Judul Konten
           </label>
           <input
@@ -120,11 +120,11 @@ function BuatKonten(props) {
             type="text"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            className="border border-gray-400 px-3 rounded w-full p-2 focus:outline-2 focus:outline-blue-500"
+            className="border border-gray-400 px-3 rounded w-full p-2 focus:outline-2 focus:outline-blue-500 hover:border hover:border-black"
           />
         </div>
         <div className={"flex flex-col gap-y-1 "}>
-          <label className="text-lg font-semibold" htmlFor="title">
+          <label className="text-lg font-medium" htmlFor="title">
             Tags Konten
           </label>
           <Autocomplete
@@ -143,7 +143,7 @@ function BuatKonten(props) {
 
         {jenisKonten === "Artikel" || jenisKonten === "Pertanyaan" ? (
           <div className={"flex flex-col gap-y-1"}>
-            <label className="text-lg font-semibold" htmlFor="title">
+            <label className="text-lg font-medium" htmlFor="title">
               Tulis Konten
             </label>
             <ReactQuill

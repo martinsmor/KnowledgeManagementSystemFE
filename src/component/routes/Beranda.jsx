@@ -116,7 +116,7 @@ function Filter(props) {
               <select
                 value={jenisKonten}
                 onChange={handleJenisKonten}
-                className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded-md  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+                className="select transition-none min-h-0 h-10 w-full form-select appearance-none block w-full px-3  text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
                 <option>-</option>
                 <option>Han Solo</option>
@@ -128,7 +128,7 @@ function Filter(props) {
               <select
                 value={kategoriKonten}
                 onChange={handleKategoriKonten}
-                className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded-md  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+                className="select transition-none w-full  min-h-0 h-10 form-select appearance-none block w-full px-3 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
                 <option>-</option>
                 <option>Han Solo</option>
@@ -137,13 +137,13 @@ function Filter(props) {
             </div>
           </div>
           <div className="modal-action">
-            <label onClick={handleReset} className="btn rounded-md">
+            <label onClick={handleReset} className="btn btn-sm rounded h-10">
               Reset
             </label>
             <label
               onClick={handleSimpan}
               htmlFor="my-modal-4"
-              className="btn rounded-md btn-primary"
+              className="btn btn-sm  btn-primary rounded h-10"
             >
               Simpan
             </label>
