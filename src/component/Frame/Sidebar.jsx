@@ -20,6 +20,7 @@ function useOutsideAlerter(ref, handler) {
       if (ref.current && !ref.current.contains(event.target)) {
         if (window.innerWidth < 640) {
           handler(event);
+          console.log("You clicked outside of me!");
         }
       }
     }
@@ -49,7 +50,10 @@ function Sidebar(props) {
       <div className="flex flex-col  sm:w-[270px] w-screen  sm:z-30 z-50 items-start fixed">
         {/*Sidebar*/}
         <div className="top-sidebar bg-white flex items-center sm:w-full w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b">
-          <button className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 ">
+          <button
+            disabled
+            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+          >
             <img className="w-4" src={barIcon} alt="" />
           </button>
 
