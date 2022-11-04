@@ -137,10 +137,10 @@ function Konten(props) {
         >
           <h1 className={"text-3xl font-semibold"}>Comments ( 3 ) </h1>
           {/*profile with comment*/}
-          <div className="flex flex-row gap-x-2 pr-14">
+          <div className="flex flex-row gap-x-2 sm:pr-14 pr-4">
             <div className={"pt-2"}>
               <div className="avatar">
-                <div className="w-12 rounded-full">
+                <div className="sm:w-8 w-6 rounded-full">
                   <img src={profilePic} />
                 </div>
               </div>
@@ -163,10 +163,10 @@ function Konten(props) {
             </div>
           </div>
 
-          <div className="flex flex-row-reverse gap-x-2 pl-14">
+          <div className="flex flex-row-reverse gap-x-2 sm:pl-14 pl-4">
             <div className={"pt-2"}>
               <div className="avatar">
-                <div className="w-12 rounded-full">
+                <div className="sm:w-8 w-6 rounded-full">
                   <img src={profilePic} />
                 </div>
               </div>

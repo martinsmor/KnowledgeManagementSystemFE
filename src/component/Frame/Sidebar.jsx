@@ -1,4 +1,5 @@
 // Component: Sidebar
+// Terbagi menjadi 2 code, yaitu sidebar full dan sidebar mini. saat di mobile sidebar  mini akan hilang
 import barIcon from "../../assets/icon/bar.svg";
 import homeIcon from "../../assets/icon/home.svg";
 import settingIcon from "../../assets/icon/setting.svg";
@@ -218,8 +219,8 @@ function Sidebar(props) {
     //    Mini Sidebar
   } else {
     return (
-      <div className="flex flex-col z-50  fixed ">
-        <div className="top-sidebar bg-white flex items-center sm:w-full w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b-[.1em] border-b ">
+      <div className="flex w-0 sm:w-fit flex-col z-50  fixed ">
+        <div className="top-sidebar bg-white flex items-center sm:w-0 w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b-[.1em] border-b ">
           <button
             onClick={handleClick}
             className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "

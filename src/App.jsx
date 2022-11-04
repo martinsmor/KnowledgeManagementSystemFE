@@ -6,7 +6,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Beranda from "./component/routes/Beranda";
+import Beranda from "./component/routes/Beranda/Beranda.jsx";
 import Profile from "./component/routes/Profile";
 import Pengguna from "./component/routes/pengaturan/Pengguna";
 import Main from "./component/Frame/Main";
@@ -46,7 +46,10 @@ function App() {
             element={<Beranda isfull={fullSidebar} />}
           ></Route>
           <Route path="profile" element={<Profile />} />
-          <Route path="pengaturan/pengguna" element={<Pengguna isfull={fullSidebar} />} />
+          <Route
+            path="pengaturan/pengguna"
+            element={<Pengguna isfull={fullSidebar} />}
+          />
           <Route path="konten" element={<Konten isfull={fullSidebar} />} />
           <Route
             path="kontensaya"
@@ -60,7 +63,10 @@ function App() {
             path="editkonten"
             element={<EditKonten isfull={fullSidebar} />}
           />
-          <Route path="pengaturan/approval" element={<Approval isfull={fullSidebar} />} />
+          <Route
+            path="pengaturan/approval"
+            element={<Approval isfull={fullSidebar} />}
+          />
         </Route>
         <Route path="signin" element={<SignIn />} />
         <Route path="*" element={<Navigate to="/" replace />} />
