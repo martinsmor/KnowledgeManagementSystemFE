@@ -219,7 +219,7 @@ function Sidebar(props) {
     //    Mini Sidebar
   } else {
     return (
-      <div className="flex w-0 sm:w-fit flex-col z-50  fixed ">
+      <div className="flex w-0 sm:w-fit flex-col z-20  fixed ">
         <div className="top-sidebar bg-white flex items-center sm:w-0 w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b-[.1em] border-b ">
           <button
             onClick={handleClick}
