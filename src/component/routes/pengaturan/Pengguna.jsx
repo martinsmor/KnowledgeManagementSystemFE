@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import httpClient from "../../../httpClient.js";
+
 
 function SearchBar() {
   const [search, setSearch] = useState("");
+
+  
 
   function handleSearch(e) {
     setSearch(e.target.value);
@@ -11,6 +16,7 @@ function SearchBar() {
   }
 
   return (
+    
     <div className="flex flex-row w-full justify-center items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
@@ -32,6 +38,7 @@ function Pengguna(props) {
     setUpdateRole(e.target.value);
   };
 
+  
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -85,12 +92,12 @@ function Pengguna(props) {
             </select>
           </div>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn rounded">
+            <label htmlFor="my-modal" className="btn rounded btn-sm h-10">
               Cancel
             </label>
             <label
               htmlFor="my-modal"
-              className="btn btn-primary text-white rounded"
+              className="btn btn-primary btn-sm text-white rounded h-10"
             >
               Simpan
             </label>

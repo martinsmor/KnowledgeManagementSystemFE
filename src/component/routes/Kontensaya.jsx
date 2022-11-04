@@ -53,7 +53,65 @@ function Kontensaya(props) {
               <td>Bagaimana Pencatatan Kelahiran</td>
               <td>24 Agustus 2022</td>
               <td>
-                <div className="badge badge-error badge-outline">Ditolak</div>
+                <div className="badge badge-error badge-outline w-20">Ditolak</div>
+              </td>
+              <td className="w-[260px]">
+                <Link to={"/konten"}>
+                  <button className="btn btn-info rounded btn-sm text-white">
+                    Detail
+                  </button>
+                </Link>
+                <Link
+                  to={"/editkonten"}
+                  href="frontend/src/Views/User/AturMember.jsx"
+                >
+                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                    Edit
+                  </button>
+                </Link>
+                <label
+                  htmlFor="my-modal"
+                  className="btn btn-error rounded btn-sm  text-white"
+                >
+                  Delete
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Bagaimana Pencatatan Kelahiran</td>
+              <td>24 Agustus 2022</td>
+              <td>
+                <div  className="badge badge-outline w-20">Pending</div>
+              </td>
+              <td className="w-[260px]">
+                <Link to={"/konten"}>
+                  <button className="btn btn-info rounded btn-sm text-white">
+                    Detail
+                  </button>
+                </Link>
+                <Link
+                  to={"/editkonten"}
+                  href="frontend/src/Views/User/AturMember.jsx"
+                >
+                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                    Edit
+                  </button>
+                </Link>
+                <label
+                  htmlFor="my-modal"
+                  className="btn btn-error rounded btn-sm  text-white"
+                >
+                  Delete
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Bagaimana Pencatatan Kelahiran</td>
+              <td>24 Agustus 2022</td>
+              <td>
+                <div className="badge badge-outline w-20 badge-success">Diterima</div>
               </td>
               <td className="w-[260px]">
                 <Link to={"/konten"}>
@@ -89,12 +147,12 @@ function Kontensaya(props) {
           </h3>
           <p className="py-4">Bagaimana Pencatatan Kelahiran</p>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn rounded">
+            <label htmlFor="my-modal" className="btn rounded btn-sm h-10">
               Cancel
             </label>
             <label
               htmlFor="my-modal"
-              className="btn btn-error text-white rounded"
+              className="btn btn-error text-white rounded  btn-sm h-10"
             >
               Delete
             </label>

@@ -24,7 +24,7 @@ function SignIn() {
       className={"min-w-screen min-h-screen flex justify-center items-center"}
     >
       <div
-        className={"w-96 p-8 pt-6 pb-12 border-2 bg-white rounded-md shadow-md"}
+        className={"w-96 p-8 pt-6 pb-12 border-2 bg-white rounded-md shadow-sm"}
       >
         <img src={ssobps} alt="logo" className={"w-full mx-auto pb-2 "} />
         <form onSubmit={submit}>
@@ -34,7 +34,7 @@ function SignIn() {
             </label>
             <input
               className={
-                "p-2 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500 "
+                "p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500 "
               }
               type="text"
               placeholder="Username"
@@ -49,7 +49,7 @@ function SignIn() {
               Password
             </label>
             <input
-              className="p-2 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+              className="p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
               type="password"
               placeholder="Password"
               name="password"
