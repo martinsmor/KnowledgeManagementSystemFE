@@ -15,6 +15,7 @@ function Sidebar(props) {
   const handleClick = () => {
     if (window.innerWidth < 768) {
       props.onclick();
+      // console.log("click");
     }
   };
 
@@ -25,9 +26,9 @@ function Sidebar(props) {
         {/*Sidebar*/}
         <div className="flex items-center sm:w-full w-[270px] p-3 py-2 h-[64px] border-b-[.1em] border-b  "></div>
         <div
-          onClick={handleClick}
+          // onClick={handleClick}
           id="sidebar"
-          className=" sm:w-full  w-[270px] p-3 h-screen shadow-lg  overflow-y-auto "
+          className=" sm:w-full  w-full p-3 h-screen shadow-lg  overflow-y-auto "
         >
           <nav>
             <ul className="overflow-hidden">
@@ -118,7 +119,7 @@ function Sidebar(props) {
                 </div>
                 <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
                   <Link
-                    onClick={handleClick}
+                    // onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="Pengguna"
                   >
@@ -127,7 +128,7 @@ function Sidebar(props) {
                     </span>
                   </Link>
                   <Link
-                    onClick={handleClick}
+                    // onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                     to="/"
                   >
