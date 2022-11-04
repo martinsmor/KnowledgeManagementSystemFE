@@ -2,17 +2,22 @@ import axios from "axios";
 
 const httpClient = axios.create();
 
-// Fungsi Untuk Menapatkan Profile Pengguna
-httpClient.getCurrentUser = function () {
-  console.log("getCurrentUser");
+httpClient.defaults.withCredentials = true;
+//access control allow origin
+
+//get token from local storage
+httpClient.getToken = function () {
+  return localStorage.getItem("token");
 };
 
-//Fungis Untuk Mendapatkan Konten Untuk Beranda
-httpClient.getHomeContent = function () {
+httpClient.logIn = function (credentials) {
   return this({
-    method: "GET",
-    url: "https://dummyjson.com/users",
+    method: "post",
+    url: "http://localhost:8080/login",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: credentials,
   });
 };
-
 export default httpClient;

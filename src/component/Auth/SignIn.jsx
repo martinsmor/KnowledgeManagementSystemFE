@@ -1,7 +1,9 @@
 // Sign In Page Menggunakan JWT
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ssobps from "../../assets/ssobps.png";
+import httpClient from "../../httpClient.js";
+import { data } from "autoprefixer";
 
 function SignIn() {
   const [username, setUsername] = useState("");
@@ -10,7 +12,8 @@ function SignIn() {
 
   const submit = async (event) => {
     event.preventDefault();
-    window.location.href = "/beranda";
+    httpClient.logIn({ username, password }).then((response) => {});
+    // window.location.href = "/beranda";
   };
   const usernameChange = (event) => {
     setUsername(event.target.value);

@@ -49,11 +49,7 @@ function Sidebar(props) {
       <div className="flex flex-col  sm:w-[270px] w-screen  sm:z-30 z-50 items-start fixed">
         {/*Sidebar*/}
         <div className="top-sidebar bg-white flex items-center sm:w-full w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b">
-          <button
-            ref={wrapperRef}
-            // onClick={handleClick}
-            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
-          >
+          <button className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 ">
             <img className="w-4" src={barIcon} alt="" />
           </button>
 
