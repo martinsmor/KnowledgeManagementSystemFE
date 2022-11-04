@@ -11,7 +11,31 @@ import tambahIcon from "../../assets/icon/tambah.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
+function useOutsideAlerter(ref, handler) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        if (window.innerWidth < 640) {
+          handler(event);
+        }
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, handler]);
+}
+
 function Sidebar(props) {
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, () => props.onclick());
   const handleClick = () => {
     if (window.innerWidth < 768) {
       props.onclick();
@@ -22,13 +46,25 @@ function Sidebar(props) {
   // Full Sidebar
   if (props.isfull) {
     return (
-      <div className="flex flex-col  sm:w-[270px] w-screen  z-30 items-start fixed">
+      <div className="flex flex-col  sm:w-[270px] w-screen  sm:z-30 z-50 items-start fixed">
         {/*Sidebar*/}
-        <div className="flex items-center sm:w-full w-[270px] p-3 py-2 h-[64px] border-b-[.1em] border-b  "></div>
+        <div className="top-sidebar bg-white flex items-center sm:w-full w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b">
+          <button
+            ref={wrapperRef}
+            // onClick={handleClick}
+            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+          >
+            <img className="w-4" src={barIcon} alt="" />
+          </button>
+
+          <Link className="" to="/beranda">
+            Knowledge Management
+          </Link>
+        </div>
         <div
-          // onClick={handleClick}
+          ref={wrapperRef}
           id="sidebar"
-          className=" sm:w-full  w-full p-3 h-screen shadow-lg  overflow-y-auto "
+          className=" sm:w-full  w-[280px] p-3 h-screen shadow-lg  overflow-y-auto "
         >
           <nav>
             <ul className="overflow-hidden">
@@ -103,7 +139,7 @@ function Sidebar(props) {
                           background: "#418afd",
                         }
                       : null
-                  } 
+                  }
                   className="flex min-h-[48px] overflow-hidden  active:bg-blue-300 flex-column hover:bg-base-200 hover:bg-opacity-40 p-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5  ml-1" src={contentsettingIcon} alt="" />
@@ -183,8 +219,18 @@ function Sidebar(props) {
   } else {
     return (
       <div className="flex flex-col z-50  fixed ">
-        <div className="flex items-center p-3 py-2 h-[64px] border-b-[.1em]  "></div>
+        <div className="top-sidebar bg-white flex items-center sm:w-full w-[290px] pl-3.5 p-3 py-2 h-[68px] border-b-[.1em] border-b ">
+          <button
+            onClick={handleClick}
+            className="btn btn-circle btn-outline border-none hover:bg-base-300 mr-2.5 "
+          >
+            <img className="w-4" src={barIcon} alt="" />
+          </button>
 
+          <Link className="" to="/beranda">
+            Knowledge Management
+          </Link>
+        </div>
         <div
           id="sidebar"
           className="md:w-[76px] w-0 h-screen md:p-3 p-0 shadow-lg "
@@ -252,14 +298,22 @@ function Sidebar(props) {
                 </NavLink>
               </li>
               <li className="my-2 tooltip1">
-                <Link
+                <NavLink
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#fff",
+                          background: "#418afd",
+                        }
+                      : null
+                  }
                   to={"/pengaturan/approval"}
                   className="hover:bg-opacity-40  flex  overflow-hidden  active:bg-blue-200 flex-column hover:bg-base-300 py-3 items-center rounded ease-in-out transition  duration-100"
                 >
                   <img className="w-5 ml-4" src={contentsettingIcon} alt="" />
                   <span className="txtsidebar">Approval Konten</span>
                   <span className="tooltiptext z-50">Approval Konten</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="collapse collapse-close overflow-hidden cursor-pointer">
                 <input

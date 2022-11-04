@@ -139,7 +139,7 @@ function Navbar(props) {
   return (
     <div
       id="navbar"
-      className="navbar z-50 drop-shadow-sm fixed bg-base-100 border-b-[.1em] justify-end "
+      className="navbar sm:z-50 z-40 drop-shadow-sm fixed bg-base-100 border-b-[.1em] justify-end "
     >
       <div className="navbar-start ml-1.5">
         <div className="flex items-center absolute ">
