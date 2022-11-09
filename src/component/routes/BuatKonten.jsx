@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import { Autocomplete, Chip, TextField } from "@mui/material";
+import httpClient from "../../httpClient.js";
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
@@ -42,6 +43,11 @@ const top100Films = [
 function BuatKonten(props) {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleCategory = (e) => {
+    setCategory("Sosial");
+  };
 
   let modules = {
     toolbar: [
@@ -62,8 +68,27 @@ function BuatKonten(props) {
     event.preventDefault();
     console.log(value);
     let data = {
-      title: title,
-      content: value,
+      username: "user1",
+      judul: title,
+      isi_konten: value,
+      type: jenisKonten,
+      tags: "dummy",
+      kategori: category,
+    };
+    console.log(data);
+    httpClient.createContent(data).then((res) => {
+      console.log(res);
+    });
+  };
+
+  const createKonten = () => {
+    let data = {
+      username: "dummy1",
+      judul: title,
+      isi_konten: value,
+      type: jenisKonten,
+      kategori: "category",
+      tags: "dummy2",
     };
   };
 
@@ -99,8 +124,8 @@ function BuatKonten(props) {
             Kategori Konten
           </label>
           <select
-            value={jenisKonten}
-            onChange={handleJenisKonten}
+            value={category}
+            onChange={handleCategory}
             className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 focus:outline border border-gray-400 "
           >
             <option>Artikel</option>

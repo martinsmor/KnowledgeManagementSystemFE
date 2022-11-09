@@ -5,14 +5,22 @@
 import { useState, createContext, useContext, useRef, useEffect } from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
+import httpClient from "../../../httpClient.js";
 
 function Beranda(props) {
+  useEffect(() => {
+    httpClient.readAllContent().then((data) => {
+      console.log(data.data);
+      setData(data.data);
+    });
+  }, []);
+
   const [data, setData] = useState([]);
 
   const [isGrid, setIsGrid] = useState(false);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState("Terbaru");
-  const [search, setSearch] = useState("d");
+  const [search, setSearch] = useState("");
 
   const handleSort = (e) => {
     setSort(e);
