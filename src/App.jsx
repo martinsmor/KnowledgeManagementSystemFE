@@ -18,6 +18,7 @@ import SignIn from "./component/Auth/SignIn.jsx";
 import Approval from "./component/routes/Approval.jsx";
 import EditKonten from "./component/routes/EditKonten.jsx";
 import UnitKerja from "./component/routes/pengaturan/UnitKerja";
+import Kategori from "./component/routes/pengaturan/Kategori.jsx";
 
 function App() {
   //state untuk menentukan apakah sidebar full atau tidak
@@ -71,6 +72,10 @@ function App() {
           <Route
             path="pengaturan/unitkerja"
             element={<UnitKerja isfull={fullSidebar} />}
+          />
+          <Route
+            path="pengaturan/kategori"
+            element={<Kategori isfull={fullSidebar} />}
           />
         </Route>
         <Route path="signin" element={<SignIn />} />

@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import httpClient from "../../../httpClient.js";
 
-
 function SearchBar() {
   const [search, setSearch] = useState("");
-
-  
 
   function handleSearch(e) {
     setSearch(e.target.value);
@@ -16,7 +13,6 @@ function SearchBar() {
   }
 
   return (
-    
     <div className="flex flex-row w-full justify-center items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
@@ -37,8 +33,14 @@ function Pengguna(props) {
   const handleupdateRole = (e) => {
     setUpdateRole(e.target.value);
   };
+  const [data, setData] = useState([]);
 
-  
+  useEffect(() => {
+    httpClient.readAllUser().then((res) => {
+      setData(res.data);
+    });
+  }, []);
+
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -57,20 +59,22 @@ function Pengguna(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Michael Schott</td>
-              <td>BPS Kabupaten Serang</td>
-              <td>Approval</td>
-              <td className="">
-                <label
-                  htmlFor="my-modal"
-                  className="btn btn-accent rounded btn-sm  text-white"
-                >
-                  Ubah Role
-                </label>
-              </td>
-            </tr>
+            {data.map((item, key) => (
+              <tr key={key + 1}>
+                <td>{key + 1}</td>
+                <td>{item.nama}</td>
+                <td>{item.unit_kerja}</td>
+                <td>{item.role}</td>
+                <td className="">
+                  <label
+                    htmlFor="my-modal"
+                    className="btn btn-accent rounded btn-sm  text-white"
+                  >
+                    Ubah Role
+                  </label>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

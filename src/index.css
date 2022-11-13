@@ -18,18 +18,18 @@
 /* Toolbar Styles */
 .ql-editor-haserror .ql-toolbar.ql-snow + .ql-container.ql-snow {
     border: 1px solid #f56565;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
     border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .ql-toolbar.ql-snow {
     font-family: inherit;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
     background-color: #fff;
     border: none;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -63,7 +63,7 @@
     padding-top: 64px;
     min-height: 200px;
     background-color: #fff;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     border: 1px solid #9ca3af;
 
 }
@@ -80,7 +80,7 @@
 }
 
 .ql-editor:focus {
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     box-shadow: 0 0 0 2px #3b82f6;
 }
 
@@ -93,4 +93,8 @@
     min-width: 300px !important;
     max-width: 450px;
     overflow: auto;
+}
+
+#navbar {
+    background-color: white;
 }

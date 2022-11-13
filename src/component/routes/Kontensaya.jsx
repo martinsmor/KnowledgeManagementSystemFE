@@ -1,8 +1,9 @@
 // Page Untuk Melihat Status Konten Yang telah
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
+import httpClient from "../../httpClient.js";
 
 //search bar component
 function SearchBar() {
@@ -30,6 +31,36 @@ function SearchBar() {
 }
 
 function Kontensaya(props) {
+  const [data, setData] = useState([]);
+  const [deleteData, setDelete] = useState("");
+
+  useEffect(() => {
+    httpClient.readContentByUsername("user1").then((res) => {
+      setData(res.data);
+      res.data.map((item) => {
+        //  change date format from yyyy-mm-dd to dd-mm-yyyy month name
+        let date = new Date(item.tanggal);
+        let month = date.toLocaleString("default", { month: "long" });
+        let day = date.getDate();
+        let year = date.getFullYear();
+        item.tanggal = day + " " + month + " " + year;
+      });
+
+      console.log(res.data);
+    }, []);
+  }, []);
+
+  function handleDelete(e) {
+    setDelete(e);
+    console.log(e);
+  }
+
+  function confirmDelete() {
+    httpClient.deleteContent(deleteData).then((res) => {
+      console.log(res);
+    });
+  }
+
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -48,93 +79,40 @@ function Kontensaya(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Bagaimana Pencatatan Kelahiran</td>
-              <td>24 Agustus 2022</td>
-              <td>
-                <div className="badge badge-error badge-outline w-20">Ditolak</div>
-              </td>
-              <td className="w-[260px]">
-                <Link to={"/konten"}>
-                  <button className="btn btn-info rounded btn-sm text-white">
-                    Detail
-                  </button>
-                </Link>
-                <Link
-                  to={"/editkonten"}
-                  href="frontend/src/Views/User/AturMember.jsx"
-                >
-                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
-                    Edit
-                  </button>
-                </Link>
-                <label
-                  htmlFor="my-modal"
-                  className="btn btn-error rounded btn-sm  text-white"
-                >
-                  Delete
-                </label>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Bagaimana Pencatatan Kelahiran</td>
-              <td>24 Agustus 2022</td>
-              <td>
-                <div  className="badge badge-outline w-20">Pending</div>
-              </td>
-              <td className="w-[260px]">
-                <Link to={"/konten"}>
-                  <button className="btn btn-info rounded btn-sm text-white">
-                    Detail
-                  </button>
-                </Link>
-                <Link
-                  to={"/editkonten"}
-                  href="frontend/src/Views/User/AturMember.jsx"
-                >
-                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
-                    Edit
-                  </button>
-                </Link>
-                <label
-                  htmlFor="my-modal"
-                  className="btn btn-error rounded btn-sm  text-white"
-                >
-                  Delete
-                </label>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Bagaimana Pencatatan Kelahiran</td>
-              <td>24 Agustus 2022</td>
-              <td>
-                <div className="badge badge-outline w-20 badge-success">Diterima</div>
-              </td>
-              <td className="w-[260px]">
-                <Link to={"/konten"}>
-                  <button className="btn btn-info rounded btn-sm text-white">
-                    Detail
-                  </button>
-                </Link>
-                <Link
-                  to={"/editkonten"}
-                  href="frontend/src/Views/User/AturMember.jsx"
-                >
-                  <button className="btn btn-success mx-2 rounded btn-sm text-white">
-                    Edit
-                  </button>
-                </Link>
-                <label
-                  htmlFor="my-modal"
-                  className="btn btn-error rounded btn-sm  text-white"
-                >
-                  Delete
-                </label>
-              </td>
-            </tr>
+            {data.map((item, index) => (
+              <tr key={index + 1}>
+                <td>{index + 1}</td>
+                <td>{item.judul}</td>
+                <td>{item.tanggal}</td>
+                <td>
+                  <div className="badge badge-error badge-outline w-20">
+                    {item.status}
+                  </div>
+                </td>
+                <td className="w-[260px]">
+                  <Link to={"/konten"}>
+                    <button className="btn btn-info rounded btn-sm text-white">
+                      Detail
+                    </button>
+                  </Link>
+                  <Link
+                    to={"/editkonten"}
+                    href="frontend/src/Views/User/AturMember.jsx"
+                  >
+                    <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                      Edit
+                    </button>
+                  </Link>
+                  <label
+                    htmlFor="my-modal"
+                    onClick={() => handleDelete(item.contentId)}
+                    className="btn btn-error rounded btn-sm  text-white"
+                  >
+                    Delete
+                  </label>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -151,6 +129,7 @@ function Kontensaya(props) {
               Cancel
             </label>
             <label
+              onClick={confirmDelete}
               htmlFor="my-modal"
               className="btn btn-error text-white rounded  btn-sm h-10"
             >

@@ -88,10 +88,6 @@ body {
     color: #f3f3f3;
 }
 
-#navbar {
-    background-color: white;
-}
-
 
 .tooltip1 .tooltiptext {
     margin-left: 67px;
@@ -158,4 +154,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.ql-tooltip {
+    z-index: 9999;
 }

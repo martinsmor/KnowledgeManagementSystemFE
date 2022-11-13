@@ -193,7 +193,7 @@ function Sidebar(props) {
                   <Link
                     onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
-                    to="/"
+                    to="/pengaturan/kategori"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Kategori

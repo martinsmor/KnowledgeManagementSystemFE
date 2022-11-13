@@ -25,7 +25,7 @@ httpClient.logIn = function (credentials) {
 httpClient.createContent = function (konten) {
   return this({
     method: "post",
-    url: "http://localhost:8080/create_content",
+    url: "http://localhost:8080/api/content",
     data: konten,
   });
 };
@@ -36,11 +36,25 @@ httpClient.readAllContent = function () {
     url: "http://localhost:8080/beranda/",
   });
 };
+// Lihat Konten Berdasarkan Username
+httpClient.readContentByUsername = function (username) {
+  return this({
+    method: "get",
+    url: `http://localhost:8080/api/content/${username}`,
+  });
+};
 //Lihat Detail Konten
 httpClient.readContent = function (id) {
   return this({
     method: "get",
     url: "http://localhost:8080/detail/?contentId=" + id,
+  });
+};
+//Delete Konten
+httpClient.deleteContent = function (id) {
+  return this({
+    method: "delete",
+    url: `http://localhost:8080/api/content/${id}`,
   });
 };
 
@@ -73,6 +87,48 @@ httpClient.updateUnitKerja = function (id, unitKerja) {
     method: "put",
     url: `http://localhost:8080/unitkerja/${id}`,
     data: unitKerja,
+  });
+};
+
+// Kategori CRUD
+// Create Kategori
+// View Kategori
+httpClient.readKategori = function () {
+  return this({
+    method: "get",
+    url: "http://localhost:8080/api/category",
+  });
+};
+// Create Kategori
+httpClient.createKategori = function (kategori) {
+  return this({
+    method: "post",
+    url: "http://localhost:8080/api/category",
+    data: kategori,
+  });
+};
+// Delete Kategori
+httpClient.deleteKategori = function (id) {
+  return this({
+    method: "delete",
+    url: `http://localhost:8080/api/category/${id}`,
+  });
+};
+// Update Kategori
+httpClient.updateKategori = function (id, kategori) {
+  return this({
+    method: "put",
+    url: `http://localhost:8080/api/category/${id}`,
+    data: kategori,
+  });
+};
+
+// CRUD User
+// Read All User
+httpClient.readAllUser = function () {
+  return this({
+    method: "get",
+    url: "http://localhost:8080/api/user",
   });
 };
 
