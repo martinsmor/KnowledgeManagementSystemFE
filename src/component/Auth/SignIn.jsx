@@ -12,7 +12,7 @@ function SignIn() {
 
   const submit = async (event) => {
     event.preventDefault();
-    httpClient.logIn({ username, password }).then((response) => {});
+    httpClient.auth({ username, password }).then((response) => {});
     // window.location.href = "/beranda";
   };
   const usernameChange = (event) => {

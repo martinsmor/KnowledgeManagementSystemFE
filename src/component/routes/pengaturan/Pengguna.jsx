@@ -30,16 +30,37 @@ function SearchBar() {
 
 function Pengguna(props) {
   const [updateRole, setUpdateRole] = useState("");
-  const handleupdateRole = (e) => {
-    setUpdateRole(e.target.value);
-  };
   const [data, setData] = useState([]);
+  const [dataRole, setDataRole] = useState([]);
+  const [idUpdate, setIdUpdate] = useState("");
 
   useEffect(() => {
     httpClient.readAllUser().then((res) => {
       setData(res.data);
+      console.log(res.data);
+    });
+    httpClient.readAllRole().then((res) => {
+      setDataRole(res.data);
     });
   }, []);
+
+  const handleupdateRole = (id, nama) => {
+    setUpdateRole(id);
+    console.log(id);
+    setIdUpdate(nama);
+  };
+  const handleChange = (e) => {
+    setUpdateRole(e.target.value);
+    console.log(e.target.value);
+  };
+  const confirmUpdate = () => {
+    let data = {
+      role: updateRole,
+    };
+    httpClient.updateRole(idUpdate, data).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <div
@@ -69,6 +90,7 @@ function Pengguna(props) {
                   <label
                     htmlFor="my-modal"
                     className="btn btn-accent rounded btn-sm  text-white"
+                    onClick={() => handleupdateRole(item.role, item.username)}
                   >
                     Ubah Role
                   </label>
@@ -87,12 +109,20 @@ function Pengguna(props) {
             <label htmlFor="">Role</label>
             <select
               value={updateRole}
-              onChange={handleupdateRole}
+              onChange={handleChange}
               className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
             >
-              <option>-</option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
+              {dataRole.map((item, key) =>
+                item.role === updateRole ? (
+                  <option key={key} value={item.role} selected>
+                    {item.role}
+                  </option>
+                ) : (
+                  <option key={key} value={item.role}>
+                    {item.role}
+                  </option>
+                )
+              )}
             </select>
           </div>
           <div className="modal-action">
@@ -102,6 +132,7 @@ function Pengguna(props) {
             <label
               htmlFor="my-modal"
               className="btn btn-primary btn-sm text-white rounded h-10"
+              onClick={confirmUpdate}
             >
               Simpan
             </label>

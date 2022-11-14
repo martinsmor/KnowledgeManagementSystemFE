@@ -5,6 +5,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import Beranda from "./component/routes/Beranda/Beranda.jsx";
 import Profile from "./component/routes/Profile";
@@ -19,6 +20,16 @@ import Approval from "./component/routes/Approval.jsx";
 import EditKonten from "./component/routes/EditKonten.jsx";
 import UnitKerja from "./component/routes/pengaturan/UnitKerja";
 import Kategori from "./component/routes/pengaturan/Kategori.jsx";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   //state untuk menentukan apakah sidebar full atau tidak
@@ -37,6 +48,8 @@ function App() {
   //Router
   return (
     <BrowserRouter>
+      <ScrollToTop />
+
       <Routes>
         <Route
           path="/"

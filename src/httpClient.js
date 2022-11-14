@@ -10,10 +10,10 @@ httpClient.getToken = function () {
   return localStorage.getItem("token");
 };
 
-httpClient.logIn = function (credentials) {
+httpClient.auth = function (credentials) {
   return this({
     method: "post",
-    url: "http://localhost:8080/login",
+    url: "http://localhost:8080/api/auth",
     headers: {
       "Content-Type": "application/json",
     },
@@ -33,7 +33,7 @@ httpClient.createContent = function (konten) {
 httpClient.readAllContent = function () {
   return this({
     method: "get",
-    url: "http://localhost:8080/beranda/",
+    url: "http://localhost:8080/api/beranda",
   });
 };
 // Lihat Konten Berdasarkan Username
@@ -47,7 +47,7 @@ httpClient.readContentByUsername = function (username) {
 httpClient.readContent = function (id) {
   return this({
     method: "get",
-    url: "http://localhost:8080/detail/?contentId=" + id,
+    url: `http://localhost:8080/api/view/${id}`,
   });
 };
 //Delete Konten
@@ -58,35 +58,29 @@ httpClient.deleteContent = function (id) {
   });
 };
 
-// CRUD Unit Kerja
-// Create Unit Kerja
-httpClient.createUnitKerja = function (unitKerja) {
+// Comment
+// Create Comment
+httpClient.createComment = function (comment) {
   return this({
     method: "post",
-    url: "http://localhost:8080/unitkerja/",
-    data: unitKerja,
+    url: `http://localhost:8080/api/comment/${id}`,
+    data: comment,
   });
 };
+// Read Comment by Content ID
+httpClient.readCommentByContentId = function (id) {
+  return this({
+    method: "get",
+    url: `http://localhost:8080/api/comment/${id}`,
+  });
+};
+
+// CRUD Unit Kerja
 // Read Unit Kerja
 httpClient.readUnitKerja = function () {
   return this({
     method: "get",
-    url: "http://localhost:8080/unitkerja",
-  });
-};
-// Delete Unit Kerja
-httpClient.deleteUnitKerja = function (id) {
-  return this({
-    method: "delete",
-    url: `http://localhost:8080/unitkerja/${id}`,
-  });
-};
-// Update Unit Kerja
-httpClient.updateUnitKerja = function (id, unitKerja) {
-  return this({
-    method: "put",
-    url: `http://localhost:8080/unitkerja/${id}`,
-    data: unitKerja,
+    url: "http://localhost:8080/api/unitkerja",
   });
 };
 
@@ -129,6 +123,71 @@ httpClient.readAllUser = function () {
   return this({
     method: "get",
     url: "http://localhost:8080/api/user",
+  });
+};
+// Read User by Username
+httpClient.readUserByUsername = function (username) {
+  return this({
+    method: "get",
+    url: `http://localhost:8080/api/user/${username}`,
+  });
+};
+
+//Read All Role
+httpClient.readAllRole = function () {
+  return this({
+    method: "get",
+    url: "http://localhost:8080/api/user/role",
+  });
+};
+// Update Role
+httpClient.updateRole = function (username, role) {
+  return this({
+    method: "put",
+    url: `http://localhost:8080/api/user/${username}`,
+    data: role,
+  });
+};
+
+// Change Status Content (Approve/Reject)
+httpClient.changeStatusContent = function (id, status) {
+  return this({
+    method: "put",
+    url: `http://localhost:8080/api/approval/${id}`,
+    data: status,
+  });
+};
+
+// Read Approval Content
+httpClient.readApprovalContent = function () {
+  return this({
+    method: "get",
+    url: "http://localhost:8080/api/approval/user2",
+  });
+};
+
+// Add Feedback To Rejected Content
+httpClient.addFeedback = function (id, data) {
+  return this({
+    method: "post",
+    url: `http://localhost:8080/api/approval/${id}`,
+    data: data,
+  });
+};
+
+// Comment Content
+httpClient.addComment = function (id, data) {
+  return this({
+    method: "post",
+    url: `http://localhost:8080/api/comment/${id}`,
+    data: data,
+  });
+};
+// Read Comment by Content ID
+httpClient.readCommentByContentId = function (id) {
+  return this({
+    method: "get",
+    url: `http://localhost:8080/api/comment/${id}`,
   });
 };
 

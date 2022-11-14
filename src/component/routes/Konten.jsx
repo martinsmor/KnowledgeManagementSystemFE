@@ -27,6 +27,8 @@ function Konten(props) {
   const [value, setValue] = useState("");
   const { id } = useParams();
   const [data, setData] = useState({});
+  const [comment, setComment] = useState([]);
+
   const handleHTML = (html) => {
     return { __html: html };
   };
@@ -35,7 +37,21 @@ function Konten(props) {
       console.log(data.data);
       setData(data.data);
     });
+    httpClient.readCommentByContentId(id).then((res) => {
+      console.log(res.data);
+      setComment(res.data);
+    });
   }, []);
+
+  const addComment = () => {
+    let data = {
+      comment: value,
+      username: "user1",
+    };
+    httpClient.addComment(id, data).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <div
@@ -106,7 +122,7 @@ function Konten(props) {
       </div>
       <div
         className={
-          "bg-white rounded-md rounded-t-none border border-gray-300 shadow-xs"
+          "bg-white rounded-md rounded-t-none border border-gray-300 shadow-xs w-full "
         }
       >
         <div
@@ -115,59 +131,40 @@ function Konten(props) {
         >
           <h1 className={"text-3xl font-semibold"}>Comments ( 3 ) </h1>
           {/*profile with comment*/}
-          <div className="flex flex-row gap-x-2 sm:pr-14 pr-4">
-            <div className={"pt-2"}>
-              <div className="avatar">
-                <div className="sm:w-8 w-6 rounded-full">
-                  <img src={profilePic} />
+          {comment.map((item, key) => {
+            return (
+              <div className="flex flex-row gap-x-2 sm:pr-14 pr-4">
+                <div className={"pt-2"}>
+                  <div className="avatar">
+                    <div className="sm:w-8 w-6 rounded-full">
+                      <img src={profilePic} />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={"p-4 border border-gray-300 rounded-md w-full "}
+                >
+                  <h4 className={"text-lg font-semibold"}>{item.username}</h4>
+                  <div
+                    className="prose prose-lg prose-gray block m-0 max-w-none text-black"
+                    dangerouslySetInnerHTML={handleHTML(item.isi_comment)}
+                  ></div>
                 </div>
               </div>
-            </div>
-            <div className={"p-4 border border-gray-300 rounded-md"}>
-              <h4 className={"text-lg font-semibold"}>Arya Stark</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Consequatur libero quibusdam vitae. Animi commodi dolores eius
-                esse fugit magnam neque nesciunt, non quas quidem quos repellat
-                sit tempore veniam voluptatibus! Lorem ipsum do l or sit amet,
-                consectetur adipisicing elit. Consequatur libero quibusdam
-                vitae. Animi commodi dolores eius esse fugit magnam neque
-                nesciunt, non quas quidem quos repellat sit tempore veniam
-                voluptatibus! Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Consequatur libero quibusdam vitae. Animi
-                commodi dolores eius esse fugit magnam neque nesciunt, non quas
-                quidem quos repellat sit tempore veniam voluptatibus!
-              </p>
-            </div>
-          </div>
+            );
+          })}
 
-          <div className="flex flex-row-reverse gap-x-2 sm:pl-14 pl-4">
-            <div className={"pt-2"}>
-              <div className="avatar">
-                <div className="sm:w-8 w-6 rounded-full">
-                  <img src={profilePic} />
-                </div>
-              </div>
-            </div>
-            <div className={"p-4 border border-gray-300 rounded-md"}>
-              <h4 className={"text-lg font-semibold"}>Arya Stark</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Deleniti dolore exercitationem magni odit voluptatem. Ad aliquam
-                commodi dolorem doloremque et expedita, ipsa omnis, optio
-                placeat quia tenetur unde velit vero?
-              </p>
-            </div>
-          </div>
-
-          <div className={"px-14"}>
+          <div className={"sm:px-14"}>
             <ReactQuill
               placeholder={"Tambah Komentar ..."}
               modules={modules}
               value={value}
               onChange={setValue}
             />
-            <button className={"btn mt-2 btn-primary rounded-md"}>
+            <button
+              onClick={addComment}
+              className={"btn mt-2 btn-primary rounded-md sm:w-auto w-full"}
+            >
               Submit
             </button>
           </div>
