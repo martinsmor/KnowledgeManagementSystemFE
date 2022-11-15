@@ -57,7 +57,7 @@ function BuatKonten(props) {
   };
 
   const handleCategory = (e) => {
-    setCategory(e.target.value);
+    handleChangeCover(e);
   };
 
   const handleSubmit = (event) => {
@@ -81,6 +81,10 @@ function BuatKonten(props) {
       console.log(res);
     });
   };
+  const resetFileInput = (e) => {
+    let randomString = Math.random().toString(36);
+    setCover("");
+  };
 
   return (
     <div
@@ -102,13 +106,31 @@ function BuatKonten(props) {
           />
         </div>
         <div className={"flex flex-col gap-y-1 "}>
-          <label className="text-lg font-medium" htmlFor="title">
-            Cover Konten
-          </label>
+          <label className="text-lg font-medium">Cover Konten</label>
+          <div className={"flex flex-row gap-2"}>
+            <label
+              className="btn btn-primary rounded w-fit btn-sm font-medium"
+              htmlFor="cover"
+            >
+              Upload Cover
+            </label>
+            {Cover && (
+              <button
+                onClick={resetFileInput}
+                type={"button"}
+                className="btn rounded btn-error btn-sm w-fit text-white"
+              >
+                Hapus Cover
+              </button>
+            )}
+          </div>
+
           <input
+            id={"cover"}
             type="file"
             onChange={handleChangeCover}
             accept="image/jpg,.gif,.png,.svg,.jpeg"
+            className={"hidden"}
           />
         </div>
         {Cover && (
