@@ -111,7 +111,14 @@ function BuatKonten(props) {
             accept="image/jpg,.gif,.png,.svg,.jpeg"
           />
         </div>
-        <img src={Cover} className={"w-1/3"} alt="dfas" />
+        {Cover && (
+          <div className={"flex flex-col gap-y-1 "}>
+            <label className="text-lg font-medium" htmlFor="title">
+              Preview Cover
+            </label>
+            <img src={Cover} className={"w-1/3"} alt="dfas" />
+          </div>
+        )}
 
         <div className={"flex flex-col gap-y-1"}>
           <label className={"text-lg font-medium"} htmlFor="">

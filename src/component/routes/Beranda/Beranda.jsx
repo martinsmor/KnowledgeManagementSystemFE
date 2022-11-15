@@ -6,8 +6,12 @@ import { useState, createContext, useContext, useRef, useEffect } from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
 import httpClient from "../../../httpClient.js";
+import { UserContext } from "../../../App.jsx";
 
 function Beranda(props) {
+  const value = useContext(UserContext);
+
+  console.log(value);
   useEffect(() => {
     httpClient.readAllContent().then((data) => {
       console.log(data.data);

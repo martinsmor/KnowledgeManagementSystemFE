@@ -9,20 +9,81 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 import React from "react";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import sortIcon from "../../assets/icon/sort.svg";
 
 //search bar component
 function SearchBar(props) {
   return (
-    <div className="flex flex-row w-full justify-center items-center">
+    <div className="flex flex-row w-full justify-center gap-x-4 items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-1/2 -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full -ml-10 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
+      <div
+        data-tip={"Urutkan Berdasar " + props.sort}
+        className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+      >
+        <label
+          tabIndex={0}
+          className={
+            "sm:flex hidden flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
+          }
+        >
+          <img className={"w-5"} src={sortIcon} alt="" />
+          {props.sort}
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
+        >
+          <li>
+            <button onClick={() => props.handleSort("Terbaru")}>Terbaru</button>
+          </li>
+          <li>
+            <button onClick={() => props.handleSort("Judul")}>Judul</button>
+          </li>
+        </ul>
+      </div>
+      <div
+        data-tip={"Urutkan Berdasar " + props.filter}
+        className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+      >
+        <label
+          tabIndex={0}
+          className={
+            "sm:flex hidden  flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
+          }
+        >
+          <img className={"w-5"} src={sortIcon} alt="" />
+          {props.filter}
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
+        >
+          <li>
+            <button onClick={() => props.handleFilter("Pending")}>
+              Pending
+            </button>
+          </li>
+          <li>
+            <button onClick={() => props.handleFilter("Approved")}>
+              Approved
+            </button>
+          </li>
+          <li>
+            <button onClick={() => props.handleFilter("Rejected")}>
+              Rejected
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
@@ -34,6 +95,17 @@ function Kontensaya(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
+  const [sort, setSort] = useState("Terbaru");
+  const [filter, setFilter] = useState("Pending");
+  const [loading, setLoading] = useState(true);
+
+  const handleFilter = (filter) => {
+    setFilter(filter);
+  };
+
+  const handleSort = (event) => {
+    setSort(event);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,7 +113,7 @@ function Kontensaya(props) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   };
 
   function handleSearch(e) {
@@ -59,11 +131,14 @@ function Kontensaya(props) {
   });
 
   useEffect(() => {
+    setLoading(true);
     let data = {
       search: search,
       username: "user1",
-      row_content: rowsPerPage,
-      page_content: page + 1,
+      limit: rowsPerPage,
+      page: page + 1,
+      sort: sort,
+      filter: filter,
     };
     httpClient.readContentByUsername(data).then((res) => {
       setData(res.data.content);
@@ -76,10 +151,10 @@ function Kontensaya(props) {
         let year = date.getFullYear();
         item.tanggal = day + " " + month + " " + year;
       });
-
+      setLoading(false);
       console.log(res.data);
     });
-  }, [search, page, rowsPerPage]);
+  }, [search, page, rowsPerPage, sort, filter]);
 
   function handleDelete(e) {
     setDelete(e);
@@ -97,7 +172,14 @@ function Kontensaya(props) {
       id={props.isfull ? "maincontent" : "maincontent1"}
       className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
     >
-      <SearchBar search={search} debouncedResults={debouncedResults} />
+      <SearchBar
+        search={search}
+        debouncedResults={debouncedResults}
+        handleSort={handleSort}
+        sort={sort}
+        filter={filter}
+        handleFilter={handleFilter}
+      />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
         <table className="min-w-screen table overflow-x-auto min-w-full ">
           <thead className="bg-white">
@@ -110,40 +192,72 @@ function Kontensaya(props) {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
-              <tr key={index + 1}>
-                <td>{index + 1}</td>
-                <td>{item.judul}</td>
-                <td>{item.tanggal}</td>
-                <td>
-                  <div className="badge badge-error badge-outline w-20">
-                    {item.status}
-                  </div>
-                </td>
-                <td className="w-[260px]">
-                  <Link to={"/konten"}>
-                    <button className="btn btn-info rounded btn-sm text-white">
-                      Detail
-                    </button>
-                  </Link>
-                  <Link
-                    to={"/editkonten"}
-                    href="frontend/src/Views/User/AturMember.jsx"
-                  >
-                    <button className="btn btn-success mx-2 rounded btn-sm text-white">
-                      Edit
-                    </button>
-                  </Link>
-                  <label
-                    htmlFor="my-modal"
-                    onClick={() => handleDelete(item.contentId)}
-                    className="btn btn-error rounded btn-sm  text-white"
-                  >
-                    Delete
-                  </label>
+            {loading
+              ? [...Array(10)].map((item, index) => (
+                  <tr className="bg-white border-b min-h-[65px]">
+                    <td className="bg-white">
+                      <progress className="progress"></progress>
+                    </td>
+                    <td className="bg-white">
+                      <progress className="progress"></progress>
+                    </td>
+                    <td className="bg-white">
+                      <progress className="progress"></progress>
+                    </td>
+                    <td className="bg-white">
+                      <progress className="progress"></progress>
+                    </td>
+                    <td className="bg-white">
+                      <progress className="progress"></progress>
+                    </td>
+                  </tr>
+                ))
+              : null}
+
+            {count === 0 ? (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  Konten Tidak Ditemukan
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.map((item, index) => (
+                <tr key={index + 1}>
+                  <td className={"text-center font-semibold"}>
+                    {index + 1 + page * 10}
+                  </td>
+                  <td>{item.judul}</td>
+                  <td>{item.tanggal}</td>
+                  <td>
+                    <div className="badge badge-error badge-outline w-20">
+                      {item.status}
+                    </div>
+                  </td>
+                  <td className="w-[260px]">
+                    <Link to={"/konten"}>
+                      <button className="btn btn-info rounded btn-sm text-white">
+                        Detail
+                      </button>
+                    </Link>
+                    <Link
+                      to={"/editkonten"}
+                      href="frontend/src/Views/User/AturMember.jsx"
+                    >
+                      <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                        Edit
+                      </button>
+                    </Link>
+                    <label
+                      htmlFor="my-modal"
+                      onClick={() => handleDelete(item.contentId)}
+                      className="btn btn-error rounded btn-sm  text-white"
+                    >
+                      Delete
+                    </label>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
