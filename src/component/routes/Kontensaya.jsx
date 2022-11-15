@@ -1,27 +1,24 @@
 // Page Untuk Melihat Status Konten Yang telah
-
+import debounce from "lodash.debounce";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
 import httpClient from "../../httpClient.js";
+import ReactPaginate from "react-paginate";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import TablePagination from "@mui/material/TablePagination";
+import React from "react";
 
 //search bar component
-function SearchBar() {
-  const [search, setSearch] = useState("");
-
-  function handleSearch(e) {
-    setSearch(e.target.value);
-    console.log(e.target.value);
-  }
-
+function SearchBar(props) {
   return (
     <div className="flex flex-row w-full justify-center items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
       </div>
       <input
-        onChange={handleSearch}
-        value={search}
+        onChange={props.debouncedResults}
         className="w-1/2 -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
@@ -33,11 +30,45 @@ function SearchBar() {
 function Kontensaya(props) {
   const [data, setData] = useState([]);
   const [deleteData, setDelete] = useState("");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [count, setCount] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
+  };
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
+
+  const debouncedResults = useMemo(() => {
+    return debounce(handleSearch, 300);
+  }, []);
 
   useEffect(() => {
-    httpClient.readContentByUsername("user1").then((res) => {
-      setData(res.data);
-      res.data.map((item) => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+
+  useEffect(() => {
+    let data = {
+      search: search,
+      username: "user1",
+      row_content: rowsPerPage,
+      page_content: page + 1,
+    };
+    httpClient.readContentByUsername(data).then((res) => {
+      setData(res.data.content);
+      setCount(res.data.total);
+      res.data.content.map((item) => {
         //  change date format from yyyy-mm-dd to dd-mm-yyyy month name
         let date = new Date(item.tanggal);
         let month = date.toLocaleString("default", { month: "long" });
@@ -47,8 +78,8 @@ function Kontensaya(props) {
       });
 
       console.log(res.data);
-    }, []);
-  }, []);
+    });
+  }, [search, page, rowsPerPage]);
 
   function handleDelete(e) {
     setDelete(e);
@@ -66,7 +97,7 @@ function Kontensaya(props) {
       id={props.isfull ? "maincontent" : "maincontent1"}
       className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
     >
-      <SearchBar />
+      <SearchBar search={search} debouncedResults={debouncedResults} />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
         <table className="min-w-screen table overflow-x-auto min-w-full ">
           <thead className="bg-white">
@@ -116,6 +147,14 @@ function Kontensaya(props) {
           </tbody>
         </table>
       </div>
+      <TablePagination
+        component="div"
+        count={count}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">

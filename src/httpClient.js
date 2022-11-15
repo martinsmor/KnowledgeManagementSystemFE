@@ -37,10 +37,12 @@ httpClient.readAllContent = function () {
   });
 };
 // Lihat Konten Berdasarkan Username
-httpClient.readContentByUsername = function (username) {
+httpClient.readContentByUsername = function (data) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/content/${username}`,
+    url: `http://localhost:8080/api/content/`,
+    //  parameternya
+    params: data,
   });
 };
 //Lihat Detail Konten
