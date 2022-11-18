@@ -1,30 +1,25 @@
 // Page Untuk Melihat Status Konten Yang telah
 
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
+import debounce from "lodash.debounce";
+import TablePagination from "@mui/material/TablePagination";
+import plusIcon from "../../../assets/icon/plus.svg";
 
 //search bar component
-function SearchBar() {
-  const [search, setSearch] = useState("");
-
-  function handleSearch(e) {
-    setSearch(e.target.value);
-    console.log(e.target.value);
-  }
-
+function SearchBar(props) {
   return (
     <div className="flex flex-row w-full justify-center items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
       </div>
       <input
-        onChange={handleSearch}
-        value={search}
-        className="w-1/2 -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        onChange={props.debouncedResults}
+        className="w-full -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
-        placeholder="Cari Konten"
+        placeholder="Cari Kategori"
       />
     </div>
   );
@@ -35,13 +30,46 @@ function Kategori(props) {
   const [clickData, setClick] = useState("");
   const [tambahKategori, setTambahKategori] = useState("");
   const [namaKategori, setNamaKategori] = useState("");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [count, setCount] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  }
+
+  const debouncedResults = useMemo(() => {
+    return debounce(handleSearch, 300);
+  }, []);
 
   useEffect(() => {
-    httpClient.readKategori().then((res) => {
-      setData(res.data);
-      console.log(res.data);
-    }, []);
-  }, []);
+    let data = {
+      search: search,
+      limit: rowsPerPage,
+      page: page + 1,
+    };
+    httpClient.readKategori(data).then((res) => {
+      setData(res.data.kategori);
+      setCount(res.data.total);
+      // console.log(res.data);
+    });
+  }, [search, page, rowsPerPage]);
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
 
   function handleClick(id, nama) {
     setClick(id);
@@ -88,16 +116,20 @@ function Kategori(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
+      className="absolute content flex flex-col gap-y-2 gap-x-6 top-[64px] md:p-8 p-4 "
     >
-      <SearchBar />
-      <div>
+      <div className={"flex gap-2 sm:flex-row flex-col "}>
         <label
           htmlFor="my-modal1"
-          className="btn btn-primary rounded btn-sm h-[40px] text-white"
+          className="btn btn-primary rounded-md btn-sm h-[40px] text-white flex justify-center items-center gap-2"
         >
+          <img className={"w-5"} src={plusIcon} alt="plus" />
           Tambah Kategori
         </label>
+        <SearchBar debouncedResults={debouncedResults} />
+      </div>
+
+      <div>
         <input type="checkbox" id="my-modal1" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
           <div className="modal-box sm:rounded">
@@ -164,6 +196,14 @@ function Kategori(props) {
           </tbody>
         </table>
       </div>
+      <TablePagination
+        component="div"
+        count={count}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">

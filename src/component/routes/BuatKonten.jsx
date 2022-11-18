@@ -41,9 +41,14 @@ function BuatKonten(props) {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    httpClient.readKategori().then((res) => {
+    let data = {
+      limit: 100,
+      page: 1,
+      search: "",
+    };
+    httpClient.readKategori(data).then((res) => {
       console.log(res.data);
-      setCategories(res.data);
+      setCategories(res.data.kategori);
     });
   }, []);
 
@@ -57,7 +62,7 @@ function BuatKonten(props) {
   };
 
   const handleCategory = (e) => {
-    handleChangeCover(e);
+    setCategory(e.target.value);
   };
 
   const handleSubmit = (event) => {

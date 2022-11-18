@@ -79,20 +79,22 @@ httpClient.readCommentByContentId = function (id) {
 
 // CRUD Unit Kerja
 // Read Unit Kerja
-httpClient.readUnitKerja = function () {
+httpClient.readUnitKerja = function (data) {
   return this({
     method: "get",
     url: "http://localhost:8080/api/unitkerja",
+    params: data,
   });
 };
 
 // Kategori CRUD
 // Create Kategori
 // View Kategori
-httpClient.readKategori = function () {
+httpClient.readKategori = function (data) {
   return this({
     method: "get",
     url: "http://localhost:8080/api/category",
+    params: data,
   });
 };
 // Create Kategori
@@ -121,10 +123,11 @@ httpClient.updateKategori = function (id, kategori) {
 
 // CRUD User
 // Read All User
-httpClient.readAllUser = function () {
+httpClient.readAllUser = function (data) {
   return this({
     method: "get",
     url: "http://localhost:8080/api/user",
+    params: data,
   });
 };
 // Read User by Username
@@ -161,10 +164,11 @@ httpClient.changeStatusContent = function (id, status) {
 };
 
 // Read Approval Content
-httpClient.readApprovalContent = function () {
+httpClient.readApprovalContent = function (data) {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/approval/user2",
+    url: "http://localhost:8080/api/approval/",
+    params: data,
   });
 };
 
