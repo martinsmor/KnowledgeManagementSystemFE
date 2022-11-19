@@ -9,7 +9,13 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Skeleton,
+} from "@mui/material";
 import sortIcon from "../../assets/icon/sort.svg";
 
 //search bar component
@@ -68,6 +74,9 @@ function SearchBar(props) {
           className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
         >
           <li>
+            <button onClick={() => props.handleFilter("All")}>Semua</button>
+          </li>
+          <li>
             <button onClick={() => props.handleFilter("Pending")}>
               Pending
             </button>
@@ -96,7 +105,7 @@ function Kontensaya(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
   const [sort, setSort] = useState("Terbaru");
-  const [filter, setFilter] = useState("Pending");
+  const [filter, setFilter] = useState("All");
   const [loading, setLoading] = useState(true);
 
   const handleFilter = (filter) => {
@@ -132,6 +141,7 @@ function Kontensaya(props) {
 
   useEffect(() => {
     setLoading(true);
+    setData([]);
     let data = {
       search: search,
       username: "user1",
@@ -196,19 +206,19 @@ function Kontensaya(props) {
               ? [...Array(10)].map((item, index) => (
                   <tr className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
-                      <progress className="progress"></progress>
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                     <td className="bg-white">
-                      <progress className="progress"></progress>
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                     <td className="bg-white">
-                      <progress className="progress"></progress>
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                     <td className="bg-white">
-                      <progress className="progress"></progress>
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                     <td className="bg-white">
-                      <progress className="progress"></progress>
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
                 ))
@@ -226,7 +236,9 @@ function Kontensaya(props) {
                   <td className={"text-center font-semibold"}>
                     {index + 1 + page * 10}
                   </td>
-                  <td>{item.judul}</td>
+                  <td className={"max-w-[400px] whitespace-normal "}>
+                    {item.judul}
+                  </td>
                   <td>{item.tanggal}</td>
                   <td>
                     <div className="badge badge-error badge-outline w-20">
@@ -234,13 +246,13 @@ function Kontensaya(props) {
                     </div>
                   </td>
                   <td className="w-[260px]">
-                    <Link to={"/konten"}>
+                    <Link to={"/konten/" + item.contentId}>
                       <button className="btn btn-info rounded btn-sm text-white">
                         Detail
                       </button>
                     </Link>
                     <Link
-                      to={"/editkonten"}
+                      to={"/editkonten/" + item.contentId}
                       href="frontend/src/Views/User/AturMember.jsx"
                     >
                       <button className="btn btn-success mx-2 rounded btn-sm text-white">

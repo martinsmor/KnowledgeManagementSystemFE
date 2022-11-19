@@ -2,32 +2,47 @@
 //Path: src\component\routes\Beranda.jsx
 //Berisi Fitur Search, Sort, Setting, dan List/Grid Konten
 
-import { useState, createContext, useContext, useRef, useEffect } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
 import httpClient from "../../../httpClient.js";
 import { UserContext } from "../../../App.jsx";
+import debounce from "lodash.debounce";
 
 function Beranda(props) {
   const value = useContext(UserContext);
 
   console.log(value);
-  useEffect(() => {
-    httpClient.readAllContent().then((data) => {
-      console.log(data.data);
-      setData(data.data);
-    });
-  }, []);
 
   const [data, setData] = useState([]);
 
   const [isGrid, setIsGrid] = useState(false);
-  const [filter, setFilter] = useState([]);
-  const [sort, setSort] = useState("Terbaru");
+  const [filter, setFilter] = useState("");
+  const [sort, setSort] = useState("tanggal");
   const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
+  const debouncedResults = useMemo(() => {
+    return debounce(handleSearch, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
   const handleSort = (e) => {
     setSort(e);
+    console.log(e);
   };
 
   const handleFilter = (e) => {
@@ -44,9 +59,6 @@ function Beranda(props) {
       setIsGrid(true);
     }
   };
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
 
   return (
     <div
@@ -61,8 +73,9 @@ function Beranda(props) {
         handleSort={handleSort}
         search={search}
         handleSearch={handleSearch}
+        debouncedResults={debouncedResults}
       />
-      <AllKonten isGrid={isGrid} />
+      <AllKonten isGrid={isGrid} search={search} sort={sort} filter={filter} />
     </div>
   );
 }

@@ -169,7 +169,9 @@ function Kategori(props) {
           <tbody>
             {data.map((item, index) => (
               <tr key={index + 1}>
-                <td>{index + 1}</td>
+                <td className={"text-center font-semibold w-[80px]"}>
+                  {index + 1 + page * 10}
+                </td>
                 <td>{item.nama_kategori}</td>
                 <td className="w-[260px]">
                   <label

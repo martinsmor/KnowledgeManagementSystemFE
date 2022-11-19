@@ -112,7 +112,10 @@ function Konten(props) {
             {/*    height="100%"*/}
             {/*  />*/}
             {/*</div>*/}
-
+            <img
+              src={"http://localhost:8080/assets/" + data.thumbnail}
+              alt=""
+            />
             <div
               className="prose prose-lg prose-gray block m-0 max-w-none text-black"
               dangerouslySetInnerHTML={handleHTML(data.isi_konten)}

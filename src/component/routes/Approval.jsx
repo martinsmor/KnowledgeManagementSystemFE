@@ -5,16 +5,17 @@ import httpClient from "../../httpClient.js";
 import debounce from "lodash.debounce";
 import TablePagination from "@mui/material/TablePagination";
 import sortIcon from "../../assets/icon/sort.svg";
+import { Skeleton } from "@mui/material";
 
 function SearchBar(props) {
   return (
-    <div className="flex flex-row w-full justify-center items-center">
+    <div className="flex flex-row w-full justify-center gap-4 items-center">
       <div className={"z-20"}>
         <img className={"w-4 ml-4"} src={searchIcon} alt="search" />
       </div>
       <input
         onChange={props.debouncedResults}
-        className="sm:w-1/2 w-full -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="sm:w-full w-full -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
@@ -56,6 +57,7 @@ function Approval(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
   const [sort, setSort] = useState("Terbaru");
+  const [loading, setLoading] = useState(false);
 
   const handleSort = (event) => {
     setSort(event);
@@ -80,6 +82,7 @@ function Approval(props) {
   });
 
   useEffect(() => {
+    setLoading(true);
     let data = {
       search: search,
       username: "user2",
@@ -90,6 +93,7 @@ function Approval(props) {
     httpClient.readApprovalContent(data).then((res) => {
       setData(res.data.content);
       setCount(res.data.total);
+      setLoading(false);
     });
   }, [search, page, rowsPerPage, sort]);
 
@@ -155,11 +159,36 @@ function Approval(props) {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, key) => {
+            {loading
+              ? [...Array(10)].map((item, index) => (
+                  <tr className="bg-white border-b min-h-[65px]">
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                  </tr>
+                ))
+              : null}
+            {data.map((item, index) => {
               return (
-                <tr key={key + 1}>
-                  <td>{key + 1}</td>
-                  <td>{item.judul}</td>
+                <tr key={index + 1}>
+                  <td className={"text-center font-semibold w-[80px]"}>
+                    {index + 1 + page * 10}
+                  </td>
+                  <td className={"max-w-[400px] whitespace-normal "}>
+                    {item.judul}
+                  </td>
                   <td>{item.tanggal}</td>
                   <td>{item.username}</td>
                   <td className="w-[260px]">

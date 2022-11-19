@@ -60,6 +60,9 @@ function BuatKonten(props) {
       setCover(reader.result);
     };
   };
+  useEffect(() => {
+    console.log(tags);
+  }, [tags]);
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
@@ -72,6 +75,7 @@ function BuatKonten(props) {
     tags.forEach((tag) => {
       tagsString += tag + ",";
     });
+    tagsString = tagsString.substring(0, tagsString.length - 1);
     console.log(tagsString);
     let data = {
       username: "user1",
@@ -175,7 +179,7 @@ function BuatKonten(props) {
           </label>
           <Autocomplete
             multiple
-            onChange={(event, value) => tags.push(value)}
+            onChange={(event, value) => setTags(value)}
             id="tags-outlined"
             options={tagsAll.map((option) => option.title)}
             freeSolo

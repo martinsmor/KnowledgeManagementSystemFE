@@ -84,7 +84,9 @@ function UnitKerja(props) {
             {data.map((item, index) => (
               <>
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td className={"text-center font-semibold w-[80px]"}>
+                    {index + 1 + page * 10}
+                  </td>
                   <td>{item.unit_kerja}</td>
                 </tr>
               </>

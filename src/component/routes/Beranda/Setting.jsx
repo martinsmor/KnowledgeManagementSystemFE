@@ -1,10 +1,11 @@
 //sort component
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import sortIcon from "../../../assets/icon/sort.svg";
 import FilterIcon from "../../../assets/icon/FilterIcon.jsx";
 import listIcon from "../../../assets/icon/list.svg";
 import gridIcon from "../../../assets/icon/gridberanda.svg";
 import searchIcon from "../../../assets/icon/search.svg";
+import httpClient from "../../../httpClient.js";
 
 function Sort(props) {
   const [sortType, setSortType] = useState("Terbaru");
@@ -33,10 +34,10 @@ function Sort(props) {
         className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
       >
         <li>
-          <button onClick={() => handleSort("Terbaru")}>Terbaru</button>
+          <button onClick={() => handleSort("tanggal")}>Terbaru</button>
         </li>
         <li>
-          <button onClick={() => handleSort("Popularitas")}>Popularitas</button>
+          <button onClick={() => handleSort("liked")}>Popularitas</button>
         </li>
       </ul>
     </div>
@@ -47,8 +48,9 @@ function Sort(props) {
 function Filter(props) {
   const [jenisKonten, setJenisKonten] = useState("-");
   const [kategoriKonten, setKategoriKonten] = useState("-");
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState("");
   const [isFilter, setIsFilter] = useState(false);
+  const [data, setData] = useState([]);
 
   const handleJenisKonten = (e) => {
     setJenisKonten(e.target.value);
@@ -64,7 +66,7 @@ function Filter(props) {
   };
   const handleSimpan = () => {
     setFilter([jenisKonten, kategoriKonten]);
-    props.filter([jenisKonten, kategoriKonten]);
+    props.filter(kategoriKonten);
     setIsFilter(true);
     console.log(filter);
   };
@@ -77,6 +79,17 @@ function Filter(props) {
       setKategoriKonten(filter[1]);
     }
   };
+  useEffect(() => {
+    let data = {
+      limit: 100,
+      page: 1,
+      search: "",
+    };
+    httpClient.readKategori(data).then((res) => {
+      setData(res.data.kategori);
+      console.log(res.data.kategori);
+    });
+  }, []);
 
   return (
     <>
@@ -103,27 +116,20 @@ function Filter(props) {
           <h3 className="text-3xl font-bold mb-3">Filter Konten</h3>
           <div className="flex flex-col gap-y-2">
             <div className={"flex flex-col"}>
-              <label htmlFor="">Jenis Konten</label>
-              <select
-                value={jenisKonten}
-                onChange={handleJenisKonten}
-                className="select transition-none min-h-0 h-10 w-full form-select appearance-none block w-full px-3  text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
-              >
-                <option>-</option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
-              </select>
-            </div>
-            <div className={"flex flex-col"}>
               <label htmlFor="">Kategori</label>
               <select
                 value={kategoriKonten}
                 onChange={handleKategoriKonten}
                 className="select transition-none w-full  min-h-0 h-10 form-select appearance-none block w-full px-3 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
-                <option>-</option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
+                <option value={""}>-</option>
+                {data.map((item, index) => {
+                  return (
+                    <option key={index} value={item.nama_kategori}>
+                      {item.nama_kategori}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -181,18 +187,13 @@ function GridList(props) {
 
 //search bar component
 function SearchBar(props) {
-  function handleSearch(e) {
-    props.handleSearch(e.target.value);
-  }
-
   return (
     <div className="flex flex-row w-full justify-center px-4 sm:px-0 items-center">
       <div className={"z-20 -ml-5 "}>
         <img className={"w-4  "} src={searchIcon} alt="search" />
       </div>
       <input
-        onChange={props.handleSearch}
-        value={props.search}
+        onChange={props.debouncedResults}
         className="-ml-7 w-full h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Search"
@@ -210,7 +211,11 @@ function Setting(props) {
         }
       >
         <div className={"flex flex-col w-full"}>
-          <SearchBar search={props.search} handleSearch={props.handleSearch} />
+          <SearchBar
+            search={props.search}
+            handleSearch={props.handleSearch}
+            debouncedResults={props.debouncedResults}
+          />
         </div>
         <div className={"flex flex-row gap-x-3"}>
           <GridList

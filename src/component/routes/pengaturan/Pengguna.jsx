@@ -234,9 +234,11 @@ function Pengguna(props) {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, key) => (
-              <tr key={key + 1}>
-                <td>{key + 1}</td>
+            {data.map((item, index) => (
+              <tr key={index + 1}>
+                <td className={"text-center font-semibold w-[80px]"}>
+                  {index + 1 + page * 10}
+                </td>
                 <td>{item.nama}</td>
                 <td>{item.unit_kerja}</td>
                 <td>{item.role}</td>

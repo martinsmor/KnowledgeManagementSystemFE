@@ -29,11 +29,20 @@ httpClient.createContent = function (konten) {
     data: konten,
   });
 };
+// Update Konten
+httpClient.updateContent = function (id, konten) {
+  return this({
+    method: "put",
+    url: `http://localhost:8080/api/content/${id}`,
+    data: konten,
+  });
+};
 // Lihat Konten
-httpClient.readAllContent = function () {
+httpClient.readAllContent = function (data) {
   return this({
     method: "get",
     url: "http://localhost:8080/api/beranda",
+    params: data,
   });
 };
 // Lihat Konten Berdasarkan Username

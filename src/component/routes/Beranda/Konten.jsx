@@ -9,11 +9,16 @@ function AllKonten(props) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    httpClient.readAllContent().then((data) => {
+    let params = {
+      search: props.search,
+      sort: props.sort,
+      filter: props.filter,
+    };
+    httpClient.readAllContent(params).then((data) => {
       console.log(data.data);
       setData(data.data);
     });
-  }, []);
+  }, [props.search, props.sort, props.filter]);
 
   const handleHTML = (html) => {
     let clean = html.replace(/(<([^>]+)>)/gi, "");
@@ -49,11 +54,26 @@ function AllKonten(props) {
                     <div className="text-sm">{item.tanggal}</div>
                   </div>
                 </div>
-                <div className={""}>
-                  <h2 className="card-title text-2xl py-1">{item.judul}</h2>
-                  <p className={"line-clamp-2 "}>
-                    {handleHTML(item.isi_konten)}
-                  </p>
+                <div className={"flex justify-between gap-8 pr-6"}>
+                  <div className={""}>
+                    <h2 className="card-title text-2xl py-1 line-clamp-2">
+                      {item.judul}
+                    </h2>
+                    <p className={"line-clamp-2"}>
+                      {handleHTML(item.isi_konten)}
+                    </p>
+                  </div>
+                  {item.thumbnail !== "default.png" ? (
+                    <div className={"lg:block hidden"}>
+                      <img
+                        className={
+                          "rounded-md object-cover min-w-[200px] border   min-h-[120px] max-h-[120px] max-w-[200px]"
+                        }
+                        src={"http://localhost:8080/assets/" + item.thumbnail}
+                        alt=""
+                      />
+                    </div>
+                  ) : null}
                 </div>
 
                 <div>
@@ -66,7 +86,10 @@ function AllKonten(props) {
                       <span>
                         <LikeIcon />
                       </span>
-                      <span className={"ml-2 text-sm"}> 2 Reactions</span>
+                      <span className={"ml-2 text-sm"}>
+                        {" "}
+                        {item.liked} Reactions
+                      </span>
                     </div>
                     <div
                       className={
@@ -77,38 +100,6 @@ function AllKonten(props) {
                         <CommentICon />
                       </span>
                       <span className={"ml-2 text-sm"}> 2 Comments</span>
-                    </div>
-                    <div
-                      className={
-                        props.isGrid
-                          ? "hidden"
-                          : "md:flex hidden flex-row justify-center items-center"
-                      }
-                    >
-                      <span
-                        className={
-                          "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                        }
-                      >
-                        {" "}
-                        #SP2020
-                      </span>
-                      <span
-                        className={
-                          "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                        }
-                      >
-                        {" "}
-                        #Kehamilan
-                      </span>
-                      <span
-                        className={
-                          "text-sm hover:border-blue-100 hover:bg-blue-50 transition border border-white py-1.5 px-3 rounded-md "
-                        }
-                      >
-                        {" "}
-                        #Asisten
-                      </span>
                     </div>
                   </div>
                 </div>

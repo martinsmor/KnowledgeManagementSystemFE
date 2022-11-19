@@ -17,9 +17,9 @@ import Kontensaya from "./component/routes/Kontensaya.jsx";
 import BuatKonten from "./component/routes/BuatKonten";
 import SignIn from "./component/Auth/SignIn.jsx";
 import Approval from "./component/routes/Approval.jsx";
-import EditKonten from "./component/routes/EditKonten.jsx";
 import UnitKerja from "./component/routes/pengaturan/UnitKerja";
 import Kategori from "./component/routes/pengaturan/Kategori.jsx";
+import EditKonten from "./component/routes/EditKonten.jsx";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 export const UserContext = React.createContext();
@@ -98,6 +98,10 @@ function App() {
               <Route
                 path="pengaturan/kategori"
                 element={<Kategori isfull={fullSidebar} />}
+              />
+              <Route
+                path="/editkonten/:id"
+                element={<EditKonten isfull={fullSidebar} />}
               />
             </Route>
             <Route path="signin" element={<SignIn />} />
