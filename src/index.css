@@ -15,6 +15,10 @@
     background-color: #F5F5F5;
 }
 
+body {
+    height: 100vh;
+}
+
 /* Toolbar Styles */
 .ql-editor-haserror .ql-toolbar.ql-snow + .ql-container.ql-snow {
     border: 1px solid #f56565;

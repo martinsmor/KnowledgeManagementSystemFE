@@ -87,7 +87,6 @@ function Filter(props) {
     };
     httpClient.readKategori(data).then((res) => {
       setData(res.data.kategori);
-      console.log(res.data.kategori);
     });
   }, []);
 
