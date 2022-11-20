@@ -75,7 +75,13 @@ function Beranda(props) {
         handleSearch={handleSearch}
         debouncedResults={debouncedResults}
       />
-      <AllKonten isGrid={isGrid} search={search} sort={sort} filter={filter} />
+      <AllKonten
+        isFull={props.isfull}
+        isGrid={isGrid}
+        search={search}
+        sort={sort}
+        filter={filter}
+      />
     </div>
   );
 }

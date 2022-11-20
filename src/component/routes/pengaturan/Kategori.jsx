@@ -7,6 +7,8 @@ import httpClient from "../../../httpClient.js";
 import debounce from "lodash.debounce";
 import TablePagination from "@mui/material/TablePagination";
 import plusIcon from "../../../assets/icon/plus.svg";
+import { useSnackbar } from "notistack";
+import { Skeleton } from "@mui/material";
 
 //search bar component
 function SearchBar(props) {
@@ -34,6 +36,9 @@ function Kategori(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,16 +59,27 @@ function Kategori(props) {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
+    setError(false);
     let data = {
       search: search,
       limit: rowsPerPage,
       page: page + 1,
     };
-    httpClient.readKategori(data).then((res) => {
-      setData(res.data.kategori);
-      setCount(res.data.total);
-      // console.log(res.data);
-    });
+    httpClient
+      .readKategori(data)
+      .then((res) => {
+        setData(res.data.kategori);
+        setCount(res.data.total);
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        setError(true);
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search, page, rowsPerPage]);
   useEffect(() => {
     return () => {
@@ -78,29 +94,66 @@ function Kategori(props) {
   }
 
   function confirmDelete() {
-    httpClient.deleteKategori(clickData).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .deleteKategori(clickData)
+      .then((res) => {
+        console.log(res);
+        // delete kategori from data state
+        setData(data.filter((item) => item.kategoriId !== clickData));
+        enqueueSnackbar("Berhasil Menghapus Kategori", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      });
   }
 
   function confirmSimpan() {
     console.log("simpan");
-    let data = {
+    let data1 = {
       name: tambahKategori,
     };
-    console.log(data);
-    httpClient.createKategori(data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .createKategori(data1)
+      .then((res) => {
+        console.log(res);
+        // push new kategori to data state
+        let newData = {
+          kategoriId: res.data.messages.id,
+          nama_kategori: res.data.messages.name,
+        };
+        console.log(newData);
+        setData([...data, newData]);
+        enqueueSnackbar("Berhasil Menambah Kategori", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      })
+      .finally(() => {
+        setTambahKategori("");
+      });
   }
 
   function confirmEdit() {
-    let data = {
+    let data1 = {
       name: namaKategori,
     };
-    httpClient.updateKategori(clickData, data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .updateKategori(clickData, data1)
+      .then((res) => {
+        console.log(res);
+        // update kategori from data state
+        let newData = data.map((item) => {
+          if (item.kategoriId === clickData) {
+            item.nama_kategori = namaKategori;
+          }
+          return item;
+        });
+        setData(newData);
+        enqueueSnackbar("Berhasil Mengubah Kategori", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      });
   }
 
   function handleTambahKategori(e) {
@@ -167,6 +220,28 @@ function Kategori(props) {
             </tr>
           </thead>
           <tbody>
+            {error ? (
+              <tr>
+                <td colSpan={3} className="text-center">
+                  Mohon Maaf, Terjadi Kesalahan
+                </td>
+              </tr>
+            ) : null}
+            {loading
+              ? [...Array(10)].map((item, index) => (
+                  <tr className="bg-white border-b min-h-[65px]">
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                  </tr>
+                ))
+              : null}
             {data.map((item, index) => (
               <tr key={index + 1}>
                 <td className={"text-center font-semibold w-[80px]"}>

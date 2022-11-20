@@ -10,13 +10,17 @@ import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 import React from "react";
 import {
+  Alert,
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   Skeleton,
+  Snackbar,
 } from "@mui/material";
 import sortIcon from "../../assets/icon/sort.svg";
+import { useSnackbar } from "notistack";
 
 //search bar component
 function SearchBar(props) {
@@ -107,6 +111,7 @@ function Kontensaya(props) {
   const [sort, setSort] = useState("Terbaru");
   const [filter, setFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const handleFilter = (filter) => {
     setFilter(filter);
@@ -138,8 +143,10 @@ function Kontensaya(props) {
       debouncedResults.cancel();
     };
   });
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
+    setError(false);
     setLoading(true);
     setData([]);
     let data = {
@@ -150,20 +157,29 @@ function Kontensaya(props) {
       sort: sort,
       filter: filter,
     };
-    httpClient.readContentByUsername(data).then((res) => {
-      setData(res.data.content);
-      setCount(res.data.total);
-      res.data.content.map((item) => {
-        //  change date format from yyyy-mm-dd to dd-mm-yyyy month name
-        let date = new Date(item.tanggal);
-        let month = date.toLocaleString("default", { month: "long" });
-        let day = date.getDate();
-        let year = date.getFullYear();
-        item.tanggal = day + " " + month + " " + year;
+    httpClient
+      .readContentByUsername(data)
+      .then((res) => {
+        setData(res.data.content);
+        setCount(res.data.total);
+        res.data.content.map((item) => {
+          //  change date format from yyyy-mm-dd to dd-mm-yyyy month name
+          let date = new Date(item.tanggal);
+          let month = date.toLocaleString("default", { month: "long" });
+          let day = date.getDate();
+          let year = date.getFullYear();
+          item.tanggal = day + " " + month + " " + year;
+        });
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      setLoading(false);
-      console.log(res.data);
-    });
   }, [search, page, rowsPerPage, sort, filter]);
 
   function handleDelete(e) {
@@ -172,9 +188,18 @@ function Kontensaya(props) {
   }
 
   function confirmDelete() {
-    httpClient.deleteContent(deleteData).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .deleteContent(deleteData)
+      .then((res) => {
+        enqueueSnackbar("Konten Berhasi Dihapus", { variant: "success" });
+        //  delete data from state
+        setData(data.filter((item) => item.contentId !== deleteData));
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "success",
+        });
+      });
   }
 
   return (
@@ -202,6 +227,13 @@ function Kontensaya(props) {
             </tr>
           </thead>
           <tbody>
+            {error ? (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  Mohon Maaf, Terjadi Kesalahan
+                </td>
+              </tr>
+            ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr className="bg-white border-b min-h-[65px]">

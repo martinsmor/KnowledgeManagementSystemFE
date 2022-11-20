@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import httpClient from "../../../httpClient.js";
 import TablePagination from "@mui/material/TablePagination";
 import debounce from "lodash.debounce";
+import { useSnackbar } from "notistack";
+import { Skeleton } from "@mui/material";
 
 function SearchBar(props) {
   return (
@@ -27,6 +29,9 @@ function UnitKerja(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   function handleSearch(e) {
     setSearch(e.target.value);
@@ -43,17 +48,25 @@ function UnitKerja(props) {
   };
 
   useEffect(() => {
+    setLoading(true);
     console.log("search", search);
     let data = {
       search: search,
       limit: rowsPerPage,
       page: page + 1,
     };
-    httpClient.readUnitKerja(data).then((data) => {
-      console.log(data.data.unit_kerja);
-      setData(data.data.unit_kerja);
-      setCount(data.data.total);
-    });
+    httpClient
+      .readUnitKerja(data)
+      .then((data) => {
+        setData(data.data.unit_kerja);
+        setCount(data.data.total);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search, page, rowsPerPage]);
 
   const debouncedResults = useMemo(() => {
@@ -81,6 +94,31 @@ function UnitKerja(props) {
             </tr>
           </thead>
           <tbody>
+            {count === 0 ? (
+              <tr className="border-b">
+                <td className="p-3"></td>
+                <td className="p-3">Unit Kerja Tidak Ditemukan</td>
+              </tr>
+            ) : null}
+            {error ? (
+              <tr>
+                <td colSpan={2} className="text-center">
+                  Mohon Maaf, Terjadi Kesalahan
+                </td>
+              </tr>
+            ) : null}
+            {loading
+              ? [...Array(10)].map((item, index) => (
+                  <tr className="bg-white border-b min-h-[65px]">
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                  </tr>
+                ))
+              : null}
             {data.map((item, index) => (
               <>
                 <tr key={index}>

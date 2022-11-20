@@ -118,7 +118,7 @@ function BuatKonten(props) {
           <label className="text-lg font-medium">Cover Konten</label>
           <div className={"flex flex-row gap-2"}>
             <label
-              className="btn btn-primary rounded w-fit btn-sm font-medium"
+              className="btn btn-primary rounded h-[40px] w-fit btn-sm font-medium"
               htmlFor="cover"
             >
               Upload Cover
@@ -127,7 +127,7 @@ function BuatKonten(props) {
               <button
                 onClick={resetFileInput}
                 type={"button"}
-                className="btn rounded btn-error btn-sm w-fit text-white"
+                className="btn rounded btn-error  h-[40px]  btn-sm w-fit text-white"
               >
                 Hapus Cover
               </button>

@@ -6,6 +6,8 @@ import httpClient from "../../../httpClient.js";
 import TablePagination from "@mui/material/TablePagination";
 import debounce from "lodash.debounce";
 import FilterIcon from "../../../assets/icon/FilterIcon.jsx";
+import { Skeleton } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 function SearchBar(props) {
   const [jenisKonten, setJenisKonten] = useState("-");
@@ -49,7 +51,7 @@ function SearchBar(props) {
         onChange={props.debouncedResults}
         className="w-full -ml-11 h-10 p-2 pl-11 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
-        placeholder="Cari Pengguna Berdasarkan Nama"
+        placeholder="Cari Pengguna"
       />
       <label
         onClick={handleFilter}
@@ -133,6 +135,9 @@ function Pengguna(props) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(["", ""]);
   const [dataUnitKerja, setDataUnitKerja] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleFilter = (e) => {
     setFilter(e);
@@ -157,6 +162,9 @@ function Pengguna(props) {
   }, []);
 
   useEffect(() => {
+    setError(false);
+    setLoading(true);
+    setData([]);
     let data = {
       search: search,
       limit: rowsPerPage,
@@ -164,11 +172,20 @@ function Pengguna(props) {
       unitkerja: filter[0],
       role: filter[1],
     };
-    httpClient.readAllUser(data).then((res) => {
-      setData(res.data.user);
-      setCount(res.data.total);
-      console.log(res.data.user);
-    });
+    httpClient
+      .readAllUser(data)
+      .then((res) => {
+        setData(res.data.user);
+        setCount(res.data.total);
+        console.log(res.data.user);
+      })
+      .catch((err) => {
+        setError(true);
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search, page, rowsPerPage, filter]);
 
   const handleupdateRole = (id, nama) => {
@@ -191,12 +208,26 @@ function Pengguna(props) {
   };
 
   const confirmUpdate = () => {
-    let data = {
+    let data1 = {
       role: updateRole,
     };
-    httpClient.updateRole(idUpdate, data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .updateRole(idUpdate, data1)
+      .then((res) => {
+        // change role in data state
+        let newData = data.map((item) => {
+          if (item.username === idUpdate) {
+            item.role = updateRole;
+          }
+          return item;
+        });
+        setData(newData);
+        enqueueSnackbar("Berhasil Mengubah Role", { variant: "success" });
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      });
   };
 
   const debouncedResults = useMemo(() => {
@@ -234,6 +265,34 @@ function Pengguna(props) {
             </tr>
           </thead>
           <tbody>
+            {error ? (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  Mohon Maaf, Terjadi Kesalahan
+                </td>
+              </tr>
+            ) : null}
+            {loading
+              ? [...Array(10)].map((item, index) => (
+                  <tr className="bg-white border-b min-h-[65px]">
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                    <td className="bg-white">
+                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                    </td>
+                  </tr>
+                ))
+              : null}
             {data.map((item, index) => (
               <tr key={index + 1}>
                 <td className={"text-center font-semibold w-[80px]"}>

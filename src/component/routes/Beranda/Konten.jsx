@@ -2,9 +2,10 @@
 import { Link } from "react-router-dom";
 import LikeIcon from "../../../assets/icon/Like.jsx";
 import CommentICon from "../../../assets/icon/Comment.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import httpClient from "../../../httpClient.js";
 import { CircularProgress, Skeleton, Typography } from "@mui/material";
+import notfound from "../../../assets/notfound.png";
 
 const Loading = (props) => {
   return (
@@ -33,41 +34,75 @@ const Loading = (props) => {
             <Skeleton width={100} height={15} animation="wave" />
           </div>
         </div>
-        <div className={"flex justify-between gap-8 pr-6"}>
-          <div className={""}>
-            <Skeleton animation="wave" width={500} height={30} />
-            <Skeleton animation="wave" width={700} height={20} />
-            <Skeleton animation="wave" width={760} height={20} />
-            <Skeleton animation="wave" width={720} height={20} />
-            <Skeleton animation="wave" width={750} height={20} />
-          </div>
+        {props.isFull ? (
+          <div className={"flex justify-between gap-8 pr-6"}>
+            <div className={""}>
+              {props.isGrid ? (
+                <>
+                  <Skeleton animation="wave" width={200} height={30} />
+                  <Skeleton animation="wave" width={240} height={20} />
+                  <Skeleton animation="wave" width={260} height={20} />
+                  <Skeleton animation="wave" width={220} height={20} />
+                  <Skeleton animation="wave" width={250} height={20} />
+                </>
+              ) : (
+                <>
+                  <Skeleton animation="wave" width={500} height={30} />
+                  <Skeleton animation="wave" width={600} height={20} />
+                  <Skeleton animation="wave" width={660} height={20} />
+                  <Skeleton animation="wave" width={620} height={20} />
+                  <Skeleton animation="wave" width={650} height={20} />
+                </>
+              )}
+            </div>
 
-          <div className={props.isGrid ? "hidden" : "lg:block hidden"}>
-            <Skeleton variant="rounded" width={210} height={120} />
+            <div className={props.isGrid ? "hidden" : "lg:block hidden"}>
+              <Skeleton variant="rounded" width={210} height={120} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={"flex justify-between gap-8 pr-6"}>
+            <div className={""}>
+              {props.isGrid ? (
+                <>
+                  <Skeleton animation="wave" width={200} height={30} />
+                  <Skeleton animation="wave" width={240} height={20} />
+                  <Skeleton animation="wave" width={260} height={20} />
+                  <Skeleton animation="wave" width={220} height={20} />
+                  <Skeleton animation="wave" width={250} height={20} />
+                </>
+              ) : (
+                <>
+                  <Skeleton animation="wave" width={500} height={30} />
+                  <Skeleton animation="wave" width={700} height={20} />
+                  <Skeleton animation="wave" width={760} height={20} />
+                  <Skeleton animation="wave" width={720} height={20} />
+                  <Skeleton animation="wave" width={750} height={20} />
+                </>
+              )}
+            </div>
+
+            <div className={props.isGrid ? "hidden" : "lg:block hidden"}>
+              <Skeleton variant="rounded" width={210} height={120} />
+            </div>
+          </div>
+        )}
 
         <div>
           <div className="flex flex-row gap-x-1 mt-2">
             <div
               className={
-                "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
+                "flex transition hover:bg-gray-100 py-1.5 rounded-md flex-row justify-center items-center"
               }
             >
-              <span>
-                <LikeIcon />
-              </span>
-              <span className={"ml-2 text-sm"}> 3 Reactions</span>
+              <Skeleton animation="wave" width={100} height={20} />
             </div>
             <div
               className={
                 "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
               }
             >
-              <span>
-                <CommentICon />
-              </span>
-              <span className={"ml-2 text-sm"}> 2 Comments</span>
+              <Skeleton animation="wave" width={100} height={20} />
             </div>
           </div>
         </div>
@@ -78,24 +113,38 @@ const Loading = (props) => {
 
 function AllKonten(props) {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(10);
+  const [count, setCount] = useState(1);
+  const [loading2, setLoading2] = useState(false);
 
-  // window.onscroll = function () {
-  //   if (
-  //     window.innerHeight + window.scrollY >=
-  //     document.getElementById("maincontent").offsetHeight - 500
-  //   ) {
-  //     console.log("asd");
-  //     // if (page < maxPage) {
-  //     //   setPage(page + 1);
-  //     // }
-  //   }
-  // };
+  window.onscroll = function () {
+    if (props.isFull) {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.getElementById("maincontent").offsetHeight - 500
+      ) {
+        handleLoadMore2();
+      }
+    } else {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.getElementById("maincontent1").offsetHeight - 500
+      ) {
+        handleLoadMore2();
+      }
+    }
+  };
+  const handleLoadMore2 = () => {
+    if (loading2) {
+      return;
+    }
+    handleLoadMore();
+  };
 
   useEffect(() => {
-    setLoading(true);
+    setPage(1);
     let params = {
       search: props.search,
       sort: props.sort,
@@ -105,6 +154,7 @@ function AllKonten(props) {
     };
     httpClient.readAllContent(params).then((data) => {
       setData(data.data.data);
+      setCount(data.data.total);
       setMaxPage(Math.ceil(data.data.total / 10));
       setLoading(false);
     });
@@ -118,6 +168,7 @@ function AllKonten(props) {
   };
 
   useEffect(() => {
+    setLoading2(true);
     let params = {
       search: props.search,
       sort: props.sort,
@@ -127,6 +178,7 @@ function AllKonten(props) {
     };
     httpClient.readAllContent(params).then((data) => {
       handleAddData(data.data.data);
+      setLoading2(false);
     });
   }, [page]);
 
@@ -142,7 +194,18 @@ function AllKonten(props) {
 
   return (
     <div className={"flex flex-row sm:gap-4 gap-2 z-10 flex-wrap "}>
-      {loading ? <Loading isGrid={props.isGrid} /> : null}
+      {loading
+        ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+            <Loading isFull={props.isFull} isGrid={props.isGrid} />
+          ))
+        : null}
+      {count === 0 ? (
+        <div className={"flex flex-col mx-auto justify-center items-center"}>
+          <img src={notfound} alt={"empty"} className={"w-3/4"} />
+          <span>Konten Tidak Ditemukan</span>
+          Coba cari dengan kata kunci lain atau hapus filter
+        </div>
+      ) : null}
 
       {data === []
         ? null
@@ -152,8 +215,8 @@ function AllKonten(props) {
               to={"/konten/" + item.contentId}
               className={
                 props.isGrid
-                  ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
-                  : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+                  ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border-2 border-gray-300 sm:rounded-md rounded-none"
+                  : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border-2 border-gray-300 sm:rounded-md rounded-none"
               }
             >
               <div className="card-body p-6 gap-y-1">
@@ -173,10 +236,10 @@ function AllKonten(props) {
                 </div>
                 <div className={"flex justify-between gap-8 pr-6"}>
                   <div className={""}>
-                    <h2 className="card-title text-2xl py-1 line-clamp-2">
+                    <h2 className="font-semibold text-xl py-1 line-clamp-2">
                       {item.judul}
                     </h2>
-                    <p className={"line-clamp-2"}>
+                    <p className={"line-clamp-2 text-md"}>
                       {handleHTML(item.isi_konten)}
                     </p>
                   </div>
@@ -225,12 +288,15 @@ function AllKonten(props) {
               </div>
             </Link>
           ))}
-      <button
-        onClick={handleLoadMore}
-        className="btn btn-sm rounded mx-auto btn-secondary"
-      >
-        Load More Content
-      </button>
+      {!loading && page < maxPage ? (
+        <div className={"w-full my-8 flex justify-center"}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <div className={"w-full  my-8 flex justify-center"}>
+          <span>Tidak Ada Konten Lagi</span>
+        </div>
+      )}
       {/*{page < maxPage ? (*/}
       {/*  <div className={"flex justify-center items-center w-full"}>*/}
       {/*    <CircularProgress />*/}

@@ -206,4 +206,29 @@ httpClient.readCommentByContentId = function (id) {
   });
 };
 
+// is Liked by User
+httpClient.isLiked = function (data, id) {
+  return this({
+    method: "get",
+    url: `http://localhost:8080/api/like/${id}`,
+    params: data,
+  });
+};
+// Like Content
+httpClient.likeContent = function (id, data) {
+  return this({
+    method: "post",
+    url: `http://localhost:8080/api/like/${id}`,
+    data: data,
+  });
+};
+// Unlike Content
+httpClient.unlikeContent = function (id, data) {
+  return this({
+    method: "post",
+    url: `http://localhost:8080/api/unlike/${id}`,
+    data: data,
+  });
+};
+
 export default httpClient;

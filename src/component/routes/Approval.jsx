@@ -6,6 +6,7 @@ import debounce from "lodash.debounce";
 import TablePagination from "@mui/material/TablePagination";
 import sortIcon from "../../assets/icon/sort.svg";
 import { Skeleton } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 function SearchBar(props) {
   return (
@@ -15,7 +16,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="sm:w-full w-full -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="sm:w-full w-full -ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
@@ -57,7 +58,9 @@ function Approval(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [count, setCount] = useState(10);
   const [sort, setSort] = useState("Terbaru");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
+  const [error, setError] = useState(false);
 
   const handleSort = (event) => {
     setSort(event);
@@ -82,6 +85,7 @@ function Approval(props) {
   });
 
   useEffect(() => {
+    setError(false);
     setLoading(true);
     let data = {
       search: search,
@@ -90,11 +94,19 @@ function Approval(props) {
       page: page + 1,
       sort: sort,
     };
-    httpClient.readApprovalContent(data).then((res) => {
-      setData(res.data.content);
-      setCount(res.data.total);
-      setLoading(false);
-    });
+    httpClient
+      .readApprovalContent(data)
+      .then((res) => {
+        setData(res.data.content);
+        setCount(res.data.total);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Terjadi kesalahan", { variant: "error" });
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search, page, rowsPerPage, sort]);
 
   function handleSearch(e) {
@@ -103,21 +115,40 @@ function Approval(props) {
   }
 
   const confirmTerima = () => {
-    let data = {
+    let data1 = {
       status: "Approved",
     };
-    httpClient.changeStatusContent(clicked, data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .changeStatusContent(clicked, data1)
+      .then((res) => {
+        enqueueSnackbar("Konten Berhasil Diterima", {
+          variant: "success",
+        });
+        setData(data.filter((item) => item.contentId !== clicked));
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+      });
   };
 
   const confirmTolak = () => {
-    let data = {
+    let data1 = {
       status: "Rejected",
     };
-    httpClient.changeStatusContent(clicked, data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .changeStatusContent(clicked, data1)
+      .then((res) => {
+        console.log(res);
+        enqueueSnackbar("Konten Berhasil Ditolak", { variant: "success" });
+        setData(data.filter((item) => item.contentId !== clicked));
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
+      });
     let data2 = {
       feedback: feedback,
       from: "user1",
@@ -159,6 +190,13 @@ function Approval(props) {
             </tr>
           </thead>
           <tbody>
+            {error ? (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  Terjadi Kesalahan
+                </td>
+              </tr>
+            ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr className="bg-white border-b min-h-[65px]">
@@ -180,36 +218,44 @@ function Approval(props) {
                   </tr>
                 ))
               : null}
-            {data.map((item, index) => {
-              return (
-                <tr key={index + 1}>
-                  <td className={"text-center font-semibold w-[80px]"}>
-                    {index + 1 + page * 10}
-                  </td>
-                  <td className={"max-w-[400px] whitespace-normal "}>
-                    {item.judul}
-                  </td>
-                  <td>{item.tanggal}</td>
-                  <td>{item.username}</td>
-                  <td className="w-[260px]">
-                    <label
-                      htmlFor="my-modal"
-                      onClick={() => setClicked(item.contentId)}
-                      className="btn btn-primary mx-2 rounded btn-sm text-white"
-                    >
-                      Terima
-                    </label>
-                    <label
-                      htmlFor="my-modal1"
-                      onClick={() => handleTolak(item.contentId)}
-                      className="btn btn-error mx-2 rounded btn-sm text-white"
-                    >
-                      Tolak
-                    </label>
-                  </td>
-                </tr>
-              );
-            })}
+            {count === 0 ? (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  Konten Tidak Ditemukan
+                </td>
+              </tr>
+            ) : (
+              data.map((item, index) => {
+                return (
+                  <tr key={index + 1}>
+                    <td className={"text-center font-semibold w-[80px]"}>
+                      {index + 1 + page * 10}
+                    </td>
+                    <td className={"max-w-[400px] whitespace-normal "}>
+                      {item.judul}
+                    </td>
+                    <td>{item.tanggal}</td>
+                    <td>{item.username}</td>
+                    <td className="w-[260px]">
+                      <label
+                        htmlFor="my-modal"
+                        onClick={() => setClicked(item.contentId)}
+                        className="btn btn-primary mx-2 rounded btn-sm text-white"
+                      >
+                        Terima
+                      </label>
+                      <label
+                        htmlFor="my-modal1"
+                        onClick={() => handleTolak(item.contentId)}
+                        className="btn btn-error mx-2 rounded btn-sm text-white"
+                      >
+                        Tolak
+                      </label>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

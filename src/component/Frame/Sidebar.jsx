@@ -163,51 +163,91 @@ function Sidebar(props) {
                   </span>
                 </div>
                 <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
-                  <Link
+                  <NavLink
                     // onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: "#fff",
+                            background: "#418afd",
+                          }
+                        : null
+                    }
                     to="pengaturan/pengguna"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Pengguna
                     </span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     // onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: "#fff",
+                            background: "#418afd",
+                          }
+                        : null
+                    }
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Menu Akses
                     </span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: "#fff",
+                            background: "#418afd",
+                          }
+                        : null
+                    }
                     to="/"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Grup Akses
                     </span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: "#fff",
+                            background: "#418afd",
+                          }
+                        : null
+                    }
                     to="/pengaturan/kategori"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Kategori
                     </span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     onClick={handleClick}
                     className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: "#fff",
+                            background: "#418afd",
+                          }
+                        : null
+                    }
                     to="/pengaturan/unitkerja"
                   >
                     <span className="block max-h-[24px] ml-1 overflow-hidden">
                       Unit Kerja
                     </span>
-                  </Link>
+                  </NavLink>
                 </ul>
               </li>
               <li className="my-2  min-h-[30px]"></li>
