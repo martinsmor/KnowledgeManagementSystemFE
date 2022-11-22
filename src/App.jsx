@@ -22,6 +22,7 @@ import Kategori from "./component/routes/pengaturan/Kategori.jsx";
 import EditKonten from "./component/routes/EditKonten.jsx";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { SnackbarProvider } from "notistack";
+import httpClient from "./httpClient.js";
 
 export const UserContext = React.createContext();
 
@@ -38,11 +39,13 @@ function ScrollToTop() {
 function App() {
   //state untuk menentukan apakah sidebar full atau tidak
   const [fullSidebar, setFullSidebar] = useState(false);
+  const [user, setUser] = useState(httpClient.getCurrentUser());
 
   useEffect(() => {
     if (window.innerWidth > 768) {
       setFullSidebar(true);
     }
+    console.log(user);
   }, []);
 
   const handleSidebar = () => {
@@ -52,7 +55,7 @@ function App() {
 
   //Router
   return (
-    <UserContext.Provider value="Reed">
+    <UserContext.Provider value={user}>
       <SnackbarProvider maxSnack={3}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
@@ -106,7 +109,7 @@ function App() {
                   element={<EditKonten isfull={fullSidebar} />}
                 />
               </Route>
-              <Route path="signin" element={<SignIn />} />
+              <Route path="auth" element={<SignIn />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </BrowserRouter>

@@ -4,15 +4,35 @@ import { useEffect, useState } from "react";
 import ssobps from "../../assets/ssobps.png";
 import httpClient from "../../httpClient.js";
 import { data } from "autoprefixer";
+import { useSnackbar } from "notistack";
 
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const submit = async (event) => {
     event.preventDefault();
-    httpClient.auth({ username, password }).then((response) => {});
+    httpClient
+      .auth({ username, password })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success === true) {
+          enqueueSnackbar("Berhasil Login", {
+            variant: "success",
+          });
+        } else {
+          enqueueSnackbar("Username atau Password Tidak Sesuai", {
+            variant: "error",
+          });
+        }
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+      });
     // window.location.href = "/beranda";
   };
   const usernameChange = (event) => {

@@ -1,15 +1,20 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const httpClient = axios.create();
-
 httpClient.defaults.withCredentials = true;
-//access control allow origin
 
 //get token from local storage
 httpClient.getToken = function () {
   return localStorage.getItem("token");
 };
 
+//set token to local storage and return it
+httpClient.setToken = function (token) {
+  localStorage.setItem("token", token);
+  return token;
+};
+// Login
 httpClient.auth = function (credentials) {
   return this({
     method: "post",
@@ -18,7 +23,25 @@ httpClient.auth = function (credentials) {
       "Content-Type": "application/json",
     },
     data: credentials,
+  }).then((serverResponse) => {
+    const token = serverResponse.data.token;
+    if (token) {
+      this.defaults.headers.common.token = token;
+      this.setToken(token);
+      return serverResponse;
+    }
   });
+};
+// LogOut
+httpClient.logOut = function () {
+  localStorage.removeItem("token");
+  // delete this.defaults.headers.common.token
+  return true;
+};
+// Decode JWT to get username, nama, role, unit kerja
+httpClient.getCurrentUser = function () {
+  const token = this.getToken();
+  return token ? jwtDecode(token) : null;
 };
 //CRUD Konten
 // Create Konten
@@ -230,5 +253,8 @@ httpClient.unlikeContent = function (id, data) {
     data: data,
   });
 };
-
+// send bearer token every request except login and beranda
+httpClient.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${httpClient.getToken()}`;
 export default httpClient;

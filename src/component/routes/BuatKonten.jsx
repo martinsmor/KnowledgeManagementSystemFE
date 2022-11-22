@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import { Autocomplete, Chip, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
+import { useSnackbar } from "notistack";
 
 const tagsAll = [
   { title: "#SP2020", year: 1994 },
@@ -39,6 +40,7 @@ function BuatKonten(props) {
   const [Cover, setCover] = useState("");
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     let data = {
@@ -46,10 +48,17 @@ function BuatKonten(props) {
       page: 1,
       search: "",
     };
-    httpClient.readKategori(data).then((res) => {
-      console.log(res.data);
-      setCategories(res.data.kategori);
-    });
+    httpClient
+      .readKategori(data)
+      .then((res) => {
+        console.log(res.data);
+        setCategories(res.data.kategori);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+      });
   }, []);
 
   const handleChangeCover = (e) => {
@@ -86,9 +95,16 @@ function BuatKonten(props) {
       thumbnail: Cover,
     };
     console.log(data);
-    httpClient.createContent(data).then((res) => {
-      console.log(res);
-    });
+    httpClient
+      .createContent(data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+      });
   };
   const resetFileInput = (e) => {
     let randomString = Math.random().toString(36);
@@ -118,7 +134,7 @@ function BuatKonten(props) {
           <label className="text-lg font-medium">Cover Konten</label>
           <div className={"flex flex-row gap-2"}>
             <label
-              className="btn btn-primary rounded h-[40px] w-fit btn-sm font-medium"
+              className="btn btn-primary rounded h-[40px] w-fit btn-sm font-medium text-md capitalize hover:underline transition"
               htmlFor="cover"
             >
               Upload Cover
@@ -127,7 +143,7 @@ function BuatKonten(props) {
               <button
                 onClick={resetFileInput}
                 type={"button"}
-                className="btn rounded btn-error  h-[40px]  btn-sm w-fit text-white"
+                className="btn rounded btn-error  h-[40px]  btn-sm w-fit text-white text-md capitalize hover:underline transition"
               >
                 Hapus Cover
               </button>
@@ -147,7 +163,13 @@ function BuatKonten(props) {
             <label className="text-lg font-medium" htmlFor="title">
               Preview Cover
             </label>
-            <img src={Cover} className={"w-1/3"} alt="dfas" />
+            <img
+              src={Cover}
+              className={
+                "max-h-[120px] max-w-[200px] rounded-md object-cover border"
+              }
+              alt="dfas"
+            />
           </div>
         )}
 
@@ -156,6 +178,7 @@ function BuatKonten(props) {
             Kategori Konten
           </label>
           <select
+            required={true}
             value={category}
             onChange={handleCategory}
             className="select font-normal transition-none min-h-0 h-[40px] w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 focus:outline border border-gray-400 "
@@ -201,9 +224,10 @@ function BuatKonten(props) {
             onChange={setValue}
           />
         </div>
+
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full bg-[#1848CE] hover:bg-[#0636bd] hover:underline"
         >
           Submit
         </button>

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import httpClient from "../../../httpClient.js";
 import { CircularProgress, Skeleton, Typography } from "@mui/material";
 import notfound from "../../../assets/notfound.png";
+import { useSnackbar } from "notistack";
 
 const Loading = (props) => {
   return (
@@ -62,7 +63,7 @@ const Loading = (props) => {
           </div>
         ) : (
           <div className={"flex justify-between gap-8 pr-6"}>
-            <div className={""}>
+            <div className={"sm:block hidden"}>
               {props.isGrid ? (
                 <>
                   <Skeleton animation="wave" width={200} height={30} />
@@ -80,6 +81,13 @@ const Loading = (props) => {
                   <Skeleton animation="wave" width={750} height={20} />
                 </>
               )}
+            </div>
+            <div className={"sm:hidden block"}>
+              <Skeleton animation="wave" width={260} height={30} />
+              <Skeleton animation="wave" width={300} height={20} />
+              <Skeleton animation="wave" width={300} height={20} />
+              <Skeleton animation="wave" width={300} height={20} />
+              <Skeleton animation="wave" width={300} height={20} />
             </div>
 
             <div className={props.isGrid ? "hidden" : "lg:block hidden"}>
@@ -118,6 +126,8 @@ function AllKonten(props) {
   const [maxPage, setMaxPage] = useState(10);
   const [count, setCount] = useState(1);
   const [loading2, setLoading2] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const [error, setError] = useState(false);
 
   window.onscroll = function () {
     if (props.isFull) {
@@ -144,6 +154,7 @@ function AllKonten(props) {
   };
 
   useEffect(() => {
+    setError(false);
     setPage(1);
     let params = {
       search: props.search,
@@ -176,10 +187,21 @@ function AllKonten(props) {
       page: page,
       limit: 10,
     };
-    httpClient.readAllContent(params).then((data) => {
-      handleAddData(data.data.data);
-      setLoading2(false);
-    });
+    httpClient
+      .readAllContent(params)
+      .then((data) => {
+        handleAddData(data.data.data);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+        setLoading2(false);
+      });
   }, [page]);
 
   const handleHTML = (html) => {
@@ -196,7 +218,7 @@ function AllKonten(props) {
     <div className={"flex flex-row sm:gap-4 gap-2 z-10 flex-wrap "}>
       {loading
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <Loading isFull={props.isFull} isGrid={props.isGrid} />
+            <Loading key={item} isFull={props.isFull} isGrid={props.isGrid} />
           ))
         : null}
       {count === 0 ? (
@@ -220,14 +242,23 @@ function AllKonten(props) {
               }
             >
               <div className="card-body p-6 gap-y-1">
+                <img
+                  className={
+                    !props.isGrid
+                      ? "hidden"
+                      : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
+                  }
+                  src={"http://localhost:8080/assets/" + item.thumbnail}
+                  alt=""
+                />
                 <div className="flex flex-row">
-                  <div className="avatar mr-4">
+                  <div className={props.isGrid ? "hidden" : "avatar mr-4"}>
                     <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
                       <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
                     </div>
                   </div>
                   <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
-                    <div className={"sm:text-normal text-sm"}>
+                    <div className={"sm:text-normal text-sm font-medium"}>
                       {item.username}
                     </div>
                     <span className={"sm:hidden "}>&#183;</span>
@@ -239,7 +270,11 @@ function AllKonten(props) {
                     <h2 className="font-semibold text-xl py-1 line-clamp-2">
                       {item.judul}
                     </h2>
-                    <p className={"line-clamp-2 text-md"}>
+                    <p
+                      className={
+                        props.isGrid ? "hidden" : "line-clamp-2 text-md"
+                      }
+                    >
                       {handleHTML(item.isi_konten)}
                     </p>
                   </div>

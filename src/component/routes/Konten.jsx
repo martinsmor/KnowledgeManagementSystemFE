@@ -174,6 +174,7 @@ function Konten(props) {
             {/*  />*/}
             {/*</div>*/}
             <img
+              className={"w-full"}
               src={"http://localhost:8080/assets/" + data.thumbnail}
               alt=""
             />
