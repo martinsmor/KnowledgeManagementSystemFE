@@ -30,7 +30,13 @@ function SearchBar(props) {
             "sm:flex hidden flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
           }
         >
-          <img className={"w-5"} src={sortIcon} alt="" />
+          <svg
+            className={"w-5"}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"
+          >
+            <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
+          </svg>
           {props.sort}
         </label>
         <ul
@@ -61,6 +67,13 @@ function Approval(props) {
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState(false);
+  const [judulClicked, setJudulClicked] = useState("");
+
+  const handleTerima = (id) => {
+    setClicked(id);
+    let clickData = data.filter((item) => item.contentId === id);
+    setJudulClicked(clickData[0].judul);
+  };
 
   const handleSort = (event) => {
     setSort(event);
@@ -116,7 +129,7 @@ function Approval(props) {
 
   const confirmTerima = () => {
     let data1 = {
-      status: "Approved",
+      status: "Diterima",
     };
     httpClient
       .changeStatusContent(clicked, data1)
@@ -136,7 +149,7 @@ function Approval(props) {
 
   const confirmTolak = () => {
     let data1 = {
-      status: "Rejected",
+      status: "Ditolak",
     };
     httpClient
       .changeStatusContent(clicked, data1)
@@ -164,6 +177,7 @@ function Approval(props) {
 
   const handleTolak = (id) => {
     setClicked(id);
+
     setFeedback("");
   };
 
@@ -239,7 +253,7 @@ function Approval(props) {
                     <td className="w-[260px]">
                       <label
                         htmlFor="my-modal"
-                        onClick={() => setClicked(item.contentId)}
+                        onClick={() => handleTerima(item.contentId)}
                         className="btn btn-primary mx-2 rounded btn-sm text-white"
                       >
                         Terima
@@ -274,7 +288,7 @@ function Approval(props) {
           <h3 className="font-bold text-lg">
             Apakah anda yakin ingin Menerima Konten ini?
           </h3>
-          <p className="py-4">Bagaimana Pencatatan Kelahiran</p>
+          <p className="py-4">{judulClicked}</p>
           <div className="modal-action">
             <label htmlFor="my-modal" className="btn rounded btn-sm h-10">
               Cancel
@@ -293,7 +307,7 @@ function Approval(props) {
       <input type="checkbox" id="my-modal1" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box sm:rounded">
-          <h3 className="font-bold text-lg">
+          <h3 className="font-bold text-lg mb-2">
             Apakah anda yakin ingin Menolak Konten ini?
           </h3>
           <div className={"flex flex-col"}>

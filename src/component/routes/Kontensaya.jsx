@@ -1,7 +1,7 @@
 // Page Untuk Melihat Status Konten Yang telah
 import debounce from "lodash.debounce";
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
 import httpClient from "../../httpClient.js";
 import ReactPaginate from "react-paginate";
@@ -9,6 +9,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 import React from "react";
+import infoIcon from "../../assets/icon/info.svg";
 import {
   Alert,
   Button,
@@ -21,6 +22,7 @@ import {
 } from "@mui/material";
 import sortIcon from "../../assets/icon/sort.svg";
 import { useSnackbar } from "notistack";
+import { UserContext } from "../../App.jsx";
 
 //search bar component
 function SearchBar(props) {
@@ -31,7 +33,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full -ml-10 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full  dark:bg-[#171717]  -ml-10 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
@@ -45,7 +47,13 @@ function SearchBar(props) {
             "sm:flex hidden flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
           }
         >
-          <img className={"w-5"} src={sortIcon} alt="" />
+          <svg
+            className={"w-5"}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"
+          >
+            <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
+          </svg>
           {props.sort}
         </label>
         <ul
@@ -61,7 +69,7 @@ function SearchBar(props) {
         </ul>
       </div>
       <div
-        data-tip={"Urutkan Berdasar " + props.filter}
+        data-tip={"Hanya Tampilkan " + props.filter}
         className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
@@ -70,7 +78,13 @@ function SearchBar(props) {
             "sm:flex hidden  flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border-2 rounded-md  px-3"
           }
         >
-          <img className={"w-5"} src={sortIcon} alt="" />
+          <svg
+            className={"w-5"}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+          </svg>
           {props.filter}
         </label>
         <ul
@@ -81,18 +95,18 @@ function SearchBar(props) {
             <button onClick={() => props.handleFilter("All")}>Semua</button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Pending")}>
-              Pending
+            <button onClick={() => props.handleFilter("Menunggu")}>
+              Menunggu
             </button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Approved")}>
-              Approved
+            <button onClick={() => props.handleFilter("Diterima")}>
+              Diterima
             </button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Rejected")}>
-              Rejected
+            <button onClick={() => props.handleFilter("Ditolak")}>
+              Ditolak
             </button>
           </li>
         </ul>
@@ -102,8 +116,11 @@ function SearchBar(props) {
 }
 
 function Kontensaya(props) {
+  const user = useContext(UserContext);
+
   const [data, setData] = useState([]);
   const [deleteData, setDelete] = useState("");
+  const [deleteJudul, setDeleteJudul] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -151,7 +168,7 @@ function Kontensaya(props) {
     setData([]);
     let data = {
       search: search,
-      username: "user1",
+      username: user.username,
       limit: rowsPerPage,
       page: page + 1,
       sort: sort,
@@ -184,6 +201,8 @@ function Kontensaya(props) {
 
   function handleDelete(e) {
     setDelete(e);
+    let dataDelete = data.filter((item) => item.contentId === deleteData)[0];
+    setDeleteJudul(dataDelete.judul);
     console.log(e);
   }
 
@@ -205,7 +224,7 @@ function Kontensaya(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
+      className="absolute dark:bg-black content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
     >
       <SearchBar
         search={search}
@@ -216,17 +235,17 @@ function Kontensaya(props) {
         handleFilter={handleFilter}
       />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
-        <table className="min-w-screen table overflow-x-auto min-w-full ">
-          <thead className="bg-white">
-            <tr className="bg-white border-b">
-              <th className="bg-white"></th>
-              <th className="bg-white">Judul</th>
-              <th className="bg-white">Tanggal</th>
-              <th className="bg-white">Status</th>
-              <th className="bg-white">Action</th>
+        <table className="min-w-screen table overflow-x-auto min-w-full">
+          <thead className="bg-white  dark:bg-[#171717] ">
+            <tr className="bg-white dark:bg-[#171717]  border-b">
+              <th className="bg-white dark:bg-[#171717] "></th>
+              <th className="bg-white dark:bg-[#171717] ">Judul</th>
+              <th className="bg-white dark:bg-[#171717] ">Tanggal</th>
+              <th className="bg-white dark:bg-[#171717] ">Status</th>
+              <th className="bg-white dark:bg-[#171717] ">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className={" dark:bg-[#171717] "}>
             {error ? (
               <tr>
                 <td colSpan={5} className="text-center">
@@ -265,21 +284,44 @@ function Kontensaya(props) {
             ) : (
               data.map((item, index) => (
                 <tr key={index + 1}>
-                  <td className={"text-center font-semibold"}>
+                  <td
+                    className={"text-center font-semibold dark:bg-[#171717] "}
+                  >
                     {index + 1 + page * 10}
                   </td>
-                  <td className={"max-w-[400px] whitespace-normal "}>
+                  <td
+                    className={
+                      "max-w-[400px] whitespace-normal  dark:bg-[#171717] "
+                    }
+                  >
                     {item.judul}
                   </td>
-                  <td>{item.tanggal}</td>
-                  <td>
-                    <div className="badge badge-error badge-outline w-20">
-                      {item.status}
+                  <td className={" dark:bg-[#171717] "}>{item.tanggal}</td>
+                  <td className={" dark:bg-[#171717] "}>
+                    <div className={"flex flex-row gap-2"}>
+                      <div
+                        className={
+                          item.status === "Menunggu"
+                            ? "badge  badge-outline w-20"
+                            : item.status === "Diterima"
+                            ? "badge badge-success badge-outline w-20"
+                            : item.status === "Ditolak"
+                            ? "badge badge-error badge-outline w-20"
+                            : "badge badge-outline w-20"
+                        }
+                      >
+                        {item.status}
+                      </div>
+                      {item.status === "Ditolak" ? (
+                        <div className={"w-5 tooltip"} data-tip={item.feedback}>
+                          <img src={infoIcon} alt="" />
+                        </div>
+                      ) : null}
                     </div>
                   </td>
-                  <td className="w-[260px]">
+                  <td className="w-[260px] dark:bg-[#171717] ">
                     <Link to={"/konten/" + item.contentId}>
-                      <button className="btn btn-info rounded btn-sm text-white">
+                      <button className="btn btn-info rounded btn-sm text-white hover:underline">
                         Detail
                       </button>
                     </Link>
@@ -287,14 +329,14 @@ function Kontensaya(props) {
                       to={"/editkonten/" + item.contentId}
                       href="frontend/src/Views/User/AturMember.jsx"
                     >
-                      <button className="btn btn-success mx-2 rounded btn-sm text-white">
+                      <button className="btn btn-success mx-2 rounded btn-sm text-white hover:underline">
                         Edit
                       </button>
                     </Link>
                     <label
                       htmlFor="my-modal"
                       onClick={() => handleDelete(item.contentId)}
-                      className="btn btn-error rounded btn-sm  text-white"
+                      className="btn btn-error rounded btn-sm  text-white hover:underline"
                     >
                       Delete
                     </label>
@@ -317,10 +359,10 @@ function Kontensaya(props) {
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box sm:rounded">
-          <h3 className="font-bold text-lg">
+          <h3 className="font-bold text-xl">
             Apakah anda yakin ingin menghapus konten
           </h3>
-          <p className="py-4">Bagaimana Pencatatan Kelahiran</p>
+          <p className="py-4">{deleteJudul}</p>
           <div className="modal-action">
             <label htmlFor="my-modal" className="btn rounded btn-sm h-10">
               Cancel

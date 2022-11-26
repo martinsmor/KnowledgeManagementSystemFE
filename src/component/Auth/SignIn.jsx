@@ -17,15 +17,18 @@ function SignIn() {
     httpClient
       .auth({ username, password })
       .then((response) => {
-        console.log(response);
-        if (response.data.success === true) {
-          enqueueSnackbar("Berhasil Login", {
-            variant: "success",
-          });
-        } else {
+        // if response undefined
+        if (response === undefined) {
           enqueueSnackbar("Username atau Password Tidak Sesuai", {
             variant: "error",
           });
+        } else {
+          if (response.data.success === true) {
+            enqueueSnackbar("Berhasil Login", {
+              variant: "success",
+            });
+            window.location.href = "/beranda";
+          }
         }
       })
       .catch((err) => {
@@ -33,7 +36,6 @@ function SignIn() {
           variant: "error",
         });
       });
-    // window.location.href = "/beranda";
   };
   const usernameChange = (event) => {
     setUsername(event.target.value);

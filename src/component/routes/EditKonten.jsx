@@ -106,6 +106,7 @@ function EditKonten(props) {
     console.log(data);
     httpClient.updateContent(id, data).then((res) => {
       console.log(res);
+      window.location.href = "/konten/" + id;
     });
   };
   const resetFileInput = (e) => {

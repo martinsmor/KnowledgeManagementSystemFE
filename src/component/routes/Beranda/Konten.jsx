@@ -15,8 +15,8 @@ const Loading = (props) => {
       to={"/konten/"}
       className={
         props.isGrid
-          ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
-          : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+          ? "card dark:bg-[#171717]  dark:border-gray-900  kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
+          : "card dark:bg-[#171717]  dark:border-gray-900  kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
       }
     >
       <div className="card-body p-6 gap-y-1">
@@ -128,6 +128,7 @@ function AllKonten(props) {
   const [loading2, setLoading2] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState(false);
+  const [tags, setTags] = useState([]);
 
   window.onscroll = function () {
     if (props.isFull) {
@@ -215,7 +216,7 @@ function AllKonten(props) {
   };
 
   return (
-    <div className={"flex flex-row sm:gap-4 gap-2 z-10 flex-wrap "}>
+    <div className={"flex flex-row sm:gap-4 gap-1 z-10 flex-wrap "}>
       {loading
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
             <Loading key={item} isFull={props.isFull} isGrid={props.isGrid} />
@@ -237,20 +238,29 @@ function AllKonten(props) {
               to={"/konten/" + item.contentId}
               className={
                 props.isGrid
-                  ? "card kontancard transition hover:border-blue-400 sm:w-80 w-full bg-base-100 border-2 border-gray-300 sm:rounded-md rounded-none"
-                  : "card kontancard transition hover:border-blue-400  w-full bg-base-100 border-2 border-gray-300 sm:rounded-md rounded-none"
+                  ? "card dark:bg-[#171717] dark:accent-slate-200 kontancard items-around transition hover:border-blue-400 dark:hover:border-gray-600 sm:w-80 w-full bg-base-100 border border-gray-300 dark:border-gray-900 sm:rounded-md rounded-none"
+                  : "card dark:bg-[#171717] dark:accent-slate-200 kontancard transition hover:border-blue-400  w-full dark:hover:border-gray-600 bg-base-100 border border-gray-300 sm:rounded-md dark:border-gray-900 rounded-none"
               }
             >
-              <div className="card-body p-6 gap-y-1">
-                <img
-                  className={
-                    !props.isGrid
-                      ? "hidden"
-                      : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
-                  }
-                  src={"http://localhost:8080/assets/" + item.thumbnail}
-                  alt=""
-                />
+              <div
+                className={
+                  props.isGrid
+                    ? "card-body p-6 gap-y-1 flex-col justify-between"
+                    : "card-body p-6 gap-y-1 "
+                }
+              >
+                {item.thumbnail !== "default.png" ? (
+                  <img
+                    className={
+                      !props.isGrid
+                        ? "hidden"
+                        : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
+                    }
+                    src={"http://localhost:8080/assets/" + item.thumbnail}
+                    alt=""
+                  />
+                ) : null}
+
                 <div className="flex flex-row">
                   <div className={props.isGrid ? "hidden" : "avatar mr-4"}>
                     <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
@@ -259,7 +269,7 @@ function AllKonten(props) {
                   </div>
                   <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
                     <div className={"sm:text-normal text-sm font-medium"}>
-                      {item.username}
+                      {item.nama}
                     </div>
                     <span className={"sm:hidden "}>&#183;</span>
                     <div className="text-sm">{item.tanggal}</div>
@@ -270,6 +280,11 @@ function AllKonten(props) {
                     <h2 className="font-semibold text-xl py-1 line-clamp-2">
                       {item.judul}
                     </h2>
+                    {props.isGrid && item.thumbnail === "default.png" ? (
+                      <p className={"line-clamp-6 text-md "}>
+                        {handleHTML(item.isi_konten)}
+                      </p>
+                    ) : null}
                     <p
                       className={
                         props.isGrid ? "hidden" : "line-clamp-2 text-md"
@@ -297,27 +312,59 @@ function AllKonten(props) {
                   <div className="flex flex-row gap-x-1 mt-2">
                     <div
                       className={
-                        "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
+                        "flex transition hover:bg-rose-100 dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
                       }
                     >
                       <span>
-                        <LikeIcon />
+                        <svg
+                          className={"w-4 dark:fill-white"}
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z" />
+                        </svg>
                       </span>
                       <span className={"ml-2 text-sm"}>
                         {" "}
-                        {item.liked} Reactions
+                        {item.liked}
+                        <span className={"hidden sm:inline"}> Reactions</span>
                       </span>
                     </div>
                     <div
                       className={
-                        "flex transition hover:bg-gray-100 py-1.5 px-3 rounded-md flex-row justify-center items-center"
+                        "flex transition hover:bg-blue-100 dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
                       }
                     >
                       <span>
-                        <CommentICon />
+                        <svg
+                          className={"w-4 dark:fill-white"}
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" />
+                        </svg>
                       </span>
-                      <span className={"ml-2 text-sm"}> 2 Comments</span>
+                      <span className={"ml-2 text-sm"}>
+                        2<span className={"hidden sm:inline"}> Comments</span>
+                      </span>
                     </div>
+                    {tags !== ""
+                      ? item.tags
+                          .split(",")
+                          .slice(0, 3)
+                          .map((tag, index) => (
+                            <div
+                              key={index}
+                              className={
+                                props.isGrid
+                                  ? "hidden"
+                                  : "flex transition hover:bg-green-200  dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
+                              }
+                            >
+                              <span className={"text-sm"}>{tag}</span>
+                            </div>
+                          ))
+                      : null}
                   </div>
                 </div>
               </div>

@@ -19,7 +19,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full -ml-8 h-10 p-2 pl-9 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full -ml-8 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Kategori"
       />
@@ -90,7 +90,6 @@ function Kategori(props) {
   function handleClick(id, nama) {
     setClick(id);
     setNamaKategori(nama);
-    console.log(e);
   }
 
   function confirmDelete() {
@@ -176,7 +175,14 @@ function Kategori(props) {
           htmlFor="my-modal1"
           className="btn btn-primary rounded-md btn-sm h-[40px] text-white flex justify-center items-center gap-2"
         >
-          <img className={"w-5"} src={plusIcon} alt="plus" />
+          <svg
+            className={"w-5"}
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+          </svg>
           Tambah Kategori
         </label>
         <SearchBar debouncedResults={debouncedResults} />
@@ -186,12 +192,12 @@ function Kategori(props) {
         <input type="checkbox" id="my-modal1" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
           <div className="modal-box sm:rounded">
-            <h3 className="font-bold text-lg my-2">Tambah Kategori Baru</h3>
+            <h3 className="font-bold text-xl my-2">Tambah Kategori Baru</h3>
             <label htmlFor="tambahUnit">Nama Kategori</label>
             <input
               onChange={handleTambahKategori}
               value={tambahKategori}
-              className=" w-full h-12 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
+              className=" w-full mt-2 h-12 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
               type="text"
               placeholder="Nama Kategori"
             />
