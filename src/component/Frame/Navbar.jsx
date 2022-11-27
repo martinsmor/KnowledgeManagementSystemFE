@@ -18,8 +18,23 @@ import httpClient from "../../httpClient.js";
 import { AuthContext, UserContext } from "../../App.jsx";
 import profilePicture from "../../assets/default.jpg";
 
+const HOME_LINK = import.meta.env.VITE_HOME;
+
 // Profile
 function Profile() {
+  const user = useContext(UserContext);
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    httpClient.getProfile().then((res) => {
+      setProfile(res.data);
+      console.log(res.data);
+      user.profile_photo = res.data.profile_photo;
+    });
+    //  add profile_photo to user context
+    // user.profile_photo = "profile.profile_photo";
+  }, []);
+
   const handleLogOut = () => {
     httpClient.logOut();
     window.location.href = "/";
@@ -31,7 +46,14 @@ function Profile() {
         className="btn  btn-ghost dark:border dark:border-gray-400 p-0 btn-circle avatar"
       >
         <div className="w-10 rounded-full">
-          <img src={profilePicture} />
+          <img
+            alt={profile.nama}
+            src={
+              profile.profile_photo === ""
+                ? profilePicture
+                : HOME_LINK + "/profile/" + profile.profile_photo
+            }
+          />
         </div>
       </label>
       <ul

@@ -1,12 +1,32 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
+const API_LINK = import.meta.env.VITE_API_LINK;
+
 const httpClient = axios.create();
 httpClient.defaults.withCredentials = true;
+
+// get profile
+httpClient.getProfile = function () {
+  let user = this.getCurrentUser();
+  return this({
+    method: "get",
+    url: API_LINK + "/user/" + user.username,
+  });
+};
 
 //get token from local storage
 httpClient.getToken = function () {
   return localStorage.getItem("token");
+};
+
+// Read Approval Content
+httpClient.readApprovalContent = function (data) {
+  return this({
+    method: "get",
+    url: API_LINK + "/approval",
+    params: data,
+  });
 };
 
 //set token to local storage and return it
@@ -18,7 +38,7 @@ httpClient.setToken = function (token) {
 httpClient.auth = function (credentials) {
   return this({
     method: "post",
-    url: "http://localhost:8080/api/auth",
+    url: API_LINK + "/auth",
     headers: {
       "Content-Type": "application/json",
     },
@@ -48,7 +68,7 @@ httpClient.getCurrentUser = function () {
 httpClient.createContent = function (konten) {
   return this({
     method: "post",
-    url: "http://localhost:8080/api/content",
+    url: API_LINK + "/content",
     data: konten,
   });
 };
@@ -56,7 +76,7 @@ httpClient.createContent = function (konten) {
 httpClient.updateContent = function (id, konten) {
   return this({
     method: "put",
-    url: `http://localhost:8080/api/content/${id}`,
+    url: API_LINK + "/content/" + id,
     data: konten,
   });
 };
@@ -64,7 +84,7 @@ httpClient.updateContent = function (id, konten) {
 httpClient.readAllContent = function (data) {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/beranda",
+    url: API_LINK + "/beranda",
     params: data,
   });
 };
@@ -72,7 +92,7 @@ httpClient.readAllContent = function (data) {
 httpClient.readContentByUsername = function (data) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/content/`,
+    url: API_LINK + "/content",
     //  parameternya
     params: data,
   });
@@ -81,14 +101,14 @@ httpClient.readContentByUsername = function (data) {
 httpClient.readContent = function (id) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/view/${id}`,
+    url: API_LINK + "/view/" + id,
   });
 };
 //Delete Konten
 httpClient.deleteContent = function (id) {
   return this({
     method: "delete",
-    url: `http://localhost:8080/api/content/${id}`,
+    url: API_LINK + "/content/" + id,
   });
 };
 
@@ -97,7 +117,7 @@ httpClient.deleteContent = function (id) {
 httpClient.createComment = function (comment) {
   return this({
     method: "post",
-    url: `http://localhost:8080/api/comment/${id}`,
+    url: API_LINK + "/comment",
     data: comment,
   });
 };
@@ -105,7 +125,7 @@ httpClient.createComment = function (comment) {
 httpClient.readCommentByContentId = function (id) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/comment/${id}`,
+    url: API_LINK + "/comment/" + id,
   });
 };
 
@@ -114,7 +134,7 @@ httpClient.readCommentByContentId = function (id) {
 httpClient.readUnitKerja = function (data) {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/unitkerja",
+    url: API_LINK + "/unitkerja",
     params: data,
   });
 };
@@ -125,7 +145,7 @@ httpClient.readUnitKerja = function (data) {
 httpClient.readKategori = function (data) {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/category",
+    url: API_LINK + "/category",
     params: data,
   });
 };
@@ -133,7 +153,7 @@ httpClient.readKategori = function (data) {
 httpClient.createKategori = function (kategori) {
   return this({
     method: "post",
-    url: "http://localhost:8080/api/category",
+    url: API_LINK + "/category",
     data: kategori,
   });
 };
@@ -141,14 +161,14 @@ httpClient.createKategori = function (kategori) {
 httpClient.deleteKategori = function (id) {
   return this({
     method: "delete",
-    url: `http://localhost:8080/api/category/${id}`,
+    url: API_LINK + "/category/" + id,
   });
 };
 // Update Kategori
 httpClient.updateKategori = function (id, kategori) {
   return this({
     method: "put",
-    url: `http://localhost:8080/api/category/${id}`,
+    url: API_LINK + "/category/" + id,
     data: kategori,
   });
 };
@@ -158,7 +178,7 @@ httpClient.updateKategori = function (id, kategori) {
 httpClient.readAllUser = function (data) {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/user",
+    url: API_LINK + "/user",
     params: data,
   });
 };
@@ -166,7 +186,7 @@ httpClient.readAllUser = function (data) {
 httpClient.readUserByUsername = function (username) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/user/${username}`,
+    url: API_LINK + "/user/" + username,
   });
 };
 
@@ -174,14 +194,14 @@ httpClient.readUserByUsername = function (username) {
 httpClient.readAllRole = function () {
   return this({
     method: "get",
-    url: "http://localhost:8080/api/user/role",
+    url: API_LINK + "/user/role",
   });
 };
 // Update Role
 httpClient.updateRole = function (username, role) {
   return this({
     method: "put",
-    url: `http://localhost:8080/api/user/${username}`,
+    url: API_LINK + "/user/" + username,
     data: role,
   });
 };
@@ -190,17 +210,8 @@ httpClient.updateRole = function (username, role) {
 httpClient.changeStatusContent = function (id, status) {
   return this({
     method: "put",
-    url: `http://localhost:8080/api/approval/${id}`,
+    url: API_LINK + "/approval/" + id,
     data: status,
-  });
-};
-
-// Read Approval Content
-httpClient.readApprovalContent = function (data) {
-  return this({
-    method: "get",
-    url: "http://localhost:8080/api/approval/",
-    params: data,
   });
 };
 
@@ -208,7 +219,7 @@ httpClient.readApprovalContent = function (data) {
 httpClient.addFeedback = function (id, data) {
   return this({
     method: "post",
-    url: `http://localhost:8080/api/approval/${id}`,
+    url: API_LINK + "/approval/" + id,
     data: data,
   });
 };
@@ -217,7 +228,7 @@ httpClient.addFeedback = function (id, data) {
 httpClient.addComment = function (id, data) {
   return this({
     method: "post",
-    url: `http://localhost:8080/api/comment/${id}`,
+    url: API_LINK + "/comment/" + id,
     data: data,
   });
 };
@@ -225,7 +236,7 @@ httpClient.addComment = function (id, data) {
 httpClient.readCommentByContentId = function (id) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/comment/${id}`,
+    url: API_LINK + "/comment/" + id,
   });
 };
 
@@ -233,7 +244,7 @@ httpClient.readCommentByContentId = function (id) {
 httpClient.isLiked = function (data, id) {
   return this({
     method: "get",
-    url: `http://localhost:8080/api/like/${id}`,
+    url: API_LINK + "/like/" + id,
     params: data,
   });
 };
@@ -241,7 +252,7 @@ httpClient.isLiked = function (data, id) {
 httpClient.likeContent = function (id, data) {
   return this({
     method: "post",
-    url: `http://localhost:8080/api/like/${id}`,
+    url: API_LINK + "/like/" + id,
     data: data,
   });
 };
@@ -249,7 +260,7 @@ httpClient.likeContent = function (id, data) {
 httpClient.unlikeContent = function (id, data) {
   return this({
     method: "post",
-    url: `http://localhost:8080/api/unlike/${id}`,
+    url: API_LINK + "/unlike/" + id,
     data: data,
   });
 };

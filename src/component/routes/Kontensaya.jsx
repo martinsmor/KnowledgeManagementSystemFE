@@ -33,13 +33,13 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full  dark:bg-[#171717]  -ml-10 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full  dark:bg-[#171717]  sm:-ml-10 -ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
       <div
         data-tip={"Urutkan Berdasar " + props.sort}
-        className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        className="sm:inline-block hidden  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -70,7 +70,7 @@ function SearchBar(props) {
       </div>
       <div
         data-tip={"Hanya Tampilkan " + props.filter}
-        className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        className="sm:inline-block hidden tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -213,6 +213,7 @@ function Kontensaya(props) {
         enqueueSnackbar("Konten Berhasi Dihapus", { variant: "success" });
         //  delete data from state
         setData(data.filter((item) => item.contentId !== deleteData));
+        setCount(count - 1);
       })
       .catch((err) => {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
@@ -255,7 +256,7 @@ function Kontensaya(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr className="bg-white border-b min-h-[65px]">
+                  <tr key={index} className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
@@ -313,8 +314,14 @@ function Kontensaya(props) {
                         {item.status}
                       </div>
                       {item.status === "Ditolak" ? (
-                        <div className={"w-5 tooltip"} data-tip={item.feedback}>
-                          <img src={infoIcon} alt="" />
+                        <div className={"tooltip"} data-tip={item.feedback}>
+                          <svg
+                            className={"w-5 fill-rose-500"}
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                          >
+                            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                          </svg>
                         </div>
                       ) : null}
                     </div>

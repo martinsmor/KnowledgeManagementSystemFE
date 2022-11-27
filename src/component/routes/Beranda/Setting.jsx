@@ -235,13 +235,13 @@ function GridList(props) {
 //search bar component
 function SearchBar(props) {
   return (
-    <div className="flex  flex-row w-full justify-center px-4 sm:px-0 items-center mb-2 sm:mb-0">
+    <div className="flex  flex-row w-full justify-center px-4 pr-1 sm:px-0 items-center mb-2 sm:mb-0">
       <div className={"z-20 -ml-5 "}>
         <img className={"w-4  "} src={searchIcon} alt="search" />
       </div>
       <input
         onChange={props.debouncedResults}
-        className="-ml-7 text-white dark:bg-[#171717]  w-full h-10 p-2 pl-9 px-3 border border-gray-400 dark:focus:border-none rounded-md focus:outline-2  focus:outline-blue-500"
+        className="-ml-7 dark:text-white dark:bg-[#171717]  w-full h-10 p-2 pl-9 px-3 border border-gray-400 dark:focus:border-none rounded-md focus:outline-2  focus:outline-blue-500"
         type="text"
         placeholder="Search"
       />
@@ -254,7 +254,7 @@ function Setting(props) {
     <>
       <div
         className={
-          "sm:flex   dark:text-white gap-y-2 flex-row w-full md:flex-nowrap flex-wrap p-2 pl-4 gap-y-2 rounded-md justify-between pr-0"
+          "sm:flex   dark:text-white flex-row w-full md:flex-nowrap flex-wrap p-2 pl-4 gap-y-2 rounded-md justify-between pr-0"
         }
       >
         <div className={"flex flex-col w-full"}>

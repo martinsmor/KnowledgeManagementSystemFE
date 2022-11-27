@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
 import httpClient from "../../httpClient.js";
 import debounce from "lodash.debounce";
@@ -7,6 +7,7 @@ import TablePagination from "@mui/material/TablePagination";
 import sortIcon from "../../assets/icon/sort.svg";
 import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
+import { UserContext } from "../../App.jsx";
 
 function SearchBar(props) {
   return (
@@ -22,7 +23,7 @@ function SearchBar(props) {
       />
       <div
         data-tip={"Urutkan Berdasar " + props.sort}
-        className="tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        className="sm:inline-block hidden  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -68,6 +69,7 @@ function Approval(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState(false);
   const [judulClicked, setJudulClicked] = useState("");
+  const user = useContext(UserContext);
 
   const handleTerima = (id) => {
     setClicked(id);
@@ -102,7 +104,7 @@ function Approval(props) {
     setLoading(true);
     let data = {
       search: search,
-      username: "user2",
+      username: (user && user.username) || "xyz",
       limit: rowsPerPage,
       page: page + 1,
       sort: sort,
@@ -138,6 +140,7 @@ function Approval(props) {
           variant: "success",
         });
         setData(data.filter((item) => item.contentId !== clicked));
+        setCount(count - 1);
       })
       .catch((err) => {
         console.log(err);
@@ -157,6 +160,7 @@ function Approval(props) {
         console.log(res);
         enqueueSnackbar("Konten Berhasil Ditolak", { variant: "success" });
         setData(data.filter((item) => item.contentId !== clicked));
+        setCount(count - 1);
       })
       .catch((err) => {
         console.log(err);
@@ -164,7 +168,7 @@ function Approval(props) {
       });
     let data2 = {
       feedback: feedback,
-      from: "user1",
+      from: user.username,
     };
     httpClient.addFeedback(clicked, data2).then((res) => {
       console.log(res);
@@ -213,7 +217,7 @@ function Approval(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr className="bg-white border-b min-h-[65px]">
+                  <tr key={index} className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
@@ -249,7 +253,7 @@ function Approval(props) {
                       {item.judul}
                     </td>
                     <td>{item.tanggal}</td>
-                    <td>{item.username}</td>
+                    <td>{item.nama}</td>
                     <td className="w-[260px]">
                       <label
                         htmlFor="my-modal"

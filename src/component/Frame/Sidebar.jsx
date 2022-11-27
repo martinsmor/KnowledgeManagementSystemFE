@@ -187,7 +187,7 @@ function Sidebar(props) {
                       </div>
                       <ul className="collapse-content flex flex-col p-0 pb-0 transition-all duration-100 ease-linear ">
                         <NavLink
-                          // onClick={handleClick}
+                          onClick={handleClick}
                           className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"
                           style={({ isActive }) =>
                             isActive

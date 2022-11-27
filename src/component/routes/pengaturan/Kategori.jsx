@@ -123,6 +123,7 @@ function Kategori(props) {
         console.log(newData);
         setData([...data, newData]);
         enqueueSnackbar("Berhasil Menambah Kategori", { variant: "success" });
+        setCount(count + 1);
       })
       .catch((err) => {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
@@ -235,7 +236,7 @@ function Kategori(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr className="bg-white border-b min-h-[65px]">
+                  <tr key={index} className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
@@ -248,34 +249,42 @@ function Kategori(props) {
                   </tr>
                 ))
               : null}
-            {data.map((item, index) => (
-              <tr key={index + 1}>
-                <td className={"text-center font-semibold w-[80px]"}>
-                  {index + 1 + page * 10}
-                </td>
-                <td>{item.nama_kategori}</td>
-                <td className="w-[260px]">
-                  <label
-                    htmlFor="my-modal2"
-                    onClick={() =>
-                      handleClick(item.kategoriId, item.nama_kategori)
-                    }
-                    className="btn btn-success mx-2 rounded btn-sm text-white"
-                  >
-                    Edit
-                  </label>
-                  <label
-                    htmlFor="my-modal"
-                    onClick={() =>
-                      handleClick(item.kategoriId, item.nama_kategori)
-                    }
-                    className="btn btn-error rounded btn-sm  text-white"
-                  >
-                    Delete
-                  </label>
+            {count === 0 ? (
+              <tr>
+                <td colSpan={3} className="text-center">
+                  Kategori Tidak Ditemukan
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.map((item, index) => (
+                <tr key={index + 1}>
+                  <td className={"text-center font-semibold w-[80px]"}>
+                    {index + 1 + page * 10}
+                  </td>
+                  <td>{item.nama_kategori}</td>
+                  <td className="w-[260px]">
+                    <label
+                      htmlFor="my-modal2"
+                      onClick={() =>
+                        handleClick(item.kategoriId, item.nama_kategori)
+                      }
+                      className="btn btn-success mx-2 rounded btn-sm text-white"
+                    >
+                      Edit
+                    </label>
+                    <label
+                      htmlFor="my-modal"
+                      onClick={() =>
+                        handleClick(item.kategoriId, item.nama_kategori)
+                      }
+                      className="btn btn-error rounded btn-sm  text-white"
+                    >
+                      Delete
+                    </label>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

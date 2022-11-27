@@ -82,7 +82,7 @@ function UnitKerja(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col"
+      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col md:p-8 p-4"
     >
       <SearchBar search={search} debounceResults={debouncedResults} />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
@@ -109,7 +109,7 @@ function UnitKerja(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr className="bg-white border-b min-h-[65px]">
+                  <tr key={index} className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>

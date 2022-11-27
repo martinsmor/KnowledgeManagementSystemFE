@@ -7,6 +7,9 @@ import httpClient from "../../../httpClient.js";
 import { CircularProgress, Skeleton, Typography } from "@mui/material";
 import notfound from "../../../assets/notfound.png";
 import { useSnackbar } from "notistack";
+import profilePicture from "../../../assets/default.jpg";
+
+const HOME_LINK = import.meta.env.VITE_HOME;
 
 const Loading = (props) => {
   return (
@@ -256,7 +259,7 @@ function AllKonten(props) {
                         ? "hidden"
                         : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
                     }
-                    src={"http://localhost:8080/assets/" + item.thumbnail}
+                    src={HOME_LINK + "/assets/" + item.thumbnail}
                     alt=""
                   />
                 ) : null}
@@ -264,7 +267,15 @@ function AllKonten(props) {
                 <div className="flex flex-row">
                   <div className={props.isGrid ? "hidden" : "avatar mr-4"}>
                     <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
-                      <img src="https://i.pravatar.cc/150?u=fake@pravatar.com" />
+                      <img
+                        src={
+                          item.user_photo === ""
+                            ? profilePicture
+                            : HOME_LINK + "/profile/" + item.user_photo
+                        }
+                        alt="user"
+                      />
+                      } />
                     </div>
                   </div>
                   <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
@@ -302,7 +313,7 @@ function AllKonten(props) {
                           "rounded-md object-cover min-w-[200px] border   min-h-[120px] max-h-[120px] max-w-[200px]"
                         }
                         src={"http://localhost:8080/assets/" + item.thumbnail}
-                        alt=""
+                        alt="This is a Thumbnail of the content"
                       />
                     </div>
                   ) : null}
@@ -345,7 +356,8 @@ function AllKonten(props) {
                         </svg>
                       </span>
                       <span className={"ml-2 text-sm"}>
-                        2<span className={"hidden sm:inline"}> Comments</span>
+                        {item.commented}
+                        <span className={"hidden sm:inline"}> Comments</span>
                       </span>
                     </div>
                     {tags !== ""

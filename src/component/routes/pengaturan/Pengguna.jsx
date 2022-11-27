@@ -49,7 +49,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full -ml-11 h-10 p-2 pl-11 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full sm:-ml-11 -ml-9  h-10 p-2 pl-11 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Pengguna"
       />
@@ -299,25 +299,37 @@ function Pengguna(props) {
                   </tr>
                 ))
               : null}
-            {data.map((item, index) => (
-              <tr key={index + 1}>
-                <td className={"text-center font-semibold w-[80px]"}>
-                  {index + 1 + page * 10}
-                </td>
-                <td>{item.nama}</td>
-                <td>{item.unit_kerja}</td>
-                <td>{item.role}</td>
-                <td className="">
-                  <label
-                    htmlFor="my-modal"
-                    className="btn btn-accent rounded btn-sm  text-white"
-                    onClick={() => handleupdateRole(item.role, item.username)}
-                  >
-                    Ubah Role
-                  </label>
+            {count === 0 ? (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  Pengguna Tidak Ditemukan
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.map((item, index) => (
+                <tr key={index + 1}>
+                  <td className={"text-center font-semibold w-[80px]"}>
+                    {index + 1 + page * 10}
+                  </td>
+                  <td>{item.nama}</td>
+                  <td>{item.unit_kerja}</td>
+                  <td>{item.role}</td>
+                  <td className="">
+                    <label
+                      htmlFor="my-modal"
+                      className={
+                        item.role === "Administrator"
+                          ? "btn-disabled btn btn-accent rounded btn-sm  text-white"
+                          : "btn btn-accent rounded btn-sm  text-white"
+                      }
+                      onClick={() => handleupdateRole(item.role, item.username)}
+                    >
+                      Ubah Role
+                    </label>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

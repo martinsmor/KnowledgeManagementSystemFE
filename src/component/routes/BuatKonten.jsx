@@ -6,7 +6,7 @@ import ReactQuill, { Quill } from "react-quill";
 import { Autocomplete, Chip, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
 import { useSnackbar } from "notistack";
-import { AuthContext } from "../../App.jsx";
+import { AuthContext, UserContext } from "../../App.jsx";
 
 const tagsAll = [
   { title: "#SP2020", year: 1994 },
@@ -42,6 +42,8 @@ function BuatKonten(props) {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
+  const user = useContext(UserContext);
+
   const isLogin = useContext(AuthContext);
   useEffect(() => {
     if (!isLogin) {
@@ -95,7 +97,7 @@ function BuatKonten(props) {
     tagsString = tagsString.substring(0, tagsString.length - 1);
     console.log(tagsString);
     let data = {
-      username: "user2",
+      username: user.username,
       judul: title,
       isi_konten: value,
       tags: tagsString,

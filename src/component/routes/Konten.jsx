@@ -10,6 +10,9 @@ import httpClient from "../../httpClient.js";
 import { AuthContext, UserContext } from "../../App.jsx";
 import { useSnackbar } from "notistack";
 import { Skeleton } from "@mui/material";
+import profilePicture from "../../assets/default.jpg";
+
+const HOME_LINK = import.meta.env.VITE_HOME;
 
 const modules = {
   toolbar: [
@@ -102,6 +105,7 @@ function Konten(props) {
     return { __html: html };
   };
   useEffect(() => {
+    console.log(user);
     setIsLoading(true);
     httpClient.readContent(id).then((data) => {
       setData(data.data);
@@ -132,6 +136,7 @@ function Konten(props) {
     let data = {
       comment: value,
       username: user.username,
+      profile_photo: user.profile_photo,
     };
     httpClient.addComment(id, data).then((res) => {
       console.log(res);
@@ -139,7 +144,9 @@ function Konten(props) {
         isi_comment: value,
         username: user.username,
         nama: user.nama,
+        profile_photo: user.profile_photo,
       };
+      console.log(newComment);
       setComment([...comment, newComment]);
       setValue("");
       setCommentCount(commentCount + 1);
@@ -188,7 +195,14 @@ function Konten(props) {
               <div className="flex flex-row">
                 <div className="avatar mr-4">
                   <div className="w-12 rounded-full">
-                    <img src={profilePic} />
+                    <img
+                      alt={data.nama}
+                      src={
+                        data.profile_photo === ""
+                          ? profilePicture
+                          : HOME_LINK + "/profile/" + data.profile_photo
+                      }
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col justify-around ">
@@ -308,7 +322,14 @@ function Konten(props) {
                 <div className={"pt-2"}>
                   <div className="avatar">
                     <div className="sm:w-9 w-6 rounded-full">
-                      <img src={profilePic} />
+                      <img
+                        alt={item.username}
+                        src={
+                          item.profile_photo === ""
+                            ? profilePicture
+                            : HOME_LINK + "/profile/" + item.profile_photo
+                        }
+                      />
                     </div>
                   </div>
                 </div>

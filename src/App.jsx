@@ -48,7 +48,6 @@ function App() {
   const [role, setRole] = useState("12345");
 
   useEffect(() => {
-    console.log(httpClient.getCurrentUser());
     if (window.innerWidth > 768) {
       setFullSidebar(true);
     }
