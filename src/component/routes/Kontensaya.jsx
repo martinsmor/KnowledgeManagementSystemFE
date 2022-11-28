@@ -1,26 +1,12 @@
-// Page Untuk Melihat Status Konten Yang telah
+// Page Untuk Melihat Status Konten Yang telah di Buat
 import debounce from "lodash.debounce";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useMemo, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
 import httpClient from "../../httpClient.js";
-import ReactPaginate from "react-paginate";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 import React from "react";
-import infoIcon from "../../assets/icon/info.svg";
-import {
-  Alert,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Skeleton,
-  Snackbar,
-} from "@mui/material";
-import sortIcon from "../../assets/icon/sort.svg";
+import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { UserContext } from "../../App.jsx";
 
@@ -33,7 +19,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full  dark:bg-[#171717]  sm:-ml-10 -ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full  dark:bg-[#171717]  sm:-ml-10 -ml-12 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
@@ -179,14 +165,6 @@ function Kontensaya(props) {
       .then((res) => {
         setData(res.data.content);
         setCount(res.data.total);
-        res.data.content.map((item) => {
-          //  change date format from yyyy-mm-dd to dd-mm-yyyy month name
-          let date = new Date(item.tanggal);
-          let month = date.toLocaleString("default", { month: "long" });
-          let day = date.getDate();
-          let year = date.getFullYear();
-          item.tanggal = day + " " + month + " " + year;
-        });
       })
       .catch((err) => {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
@@ -203,7 +181,6 @@ function Kontensaya(props) {
     setDelete(e);
     let dataDelete = data.filter((item) => item.contentId === deleteData)[0];
     setDeleteJudul(dataDelete.judul);
-    console.log(e);
   }
 
   function confirmDelete() {
@@ -221,6 +198,14 @@ function Kontensaya(props) {
         });
       });
   }
+
+  const handleTanggal = (tanggal) => {
+    let date = new Date(tanggal);
+    let month = date.toLocaleString("default", { month: "long" });
+    let day = date.getDate();
+    let year = date.getFullYear();
+    return day + " " + month + " " + year;
+  };
 
   return (
     <div
@@ -297,7 +282,9 @@ function Kontensaya(props) {
                   >
                     {item.judul}
                   </td>
-                  <td className={" dark:bg-[#171717] "}>{item.tanggal}</td>
+                  <td className={" dark:bg-[#171717] "}>
+                    {handleTanggal(item.tanggal)}
+                  </td>
                   <td className={" dark:bg-[#171717] "}>
                     <div className={"flex flex-row gap-2"}>
                       <div
@@ -364,8 +351,8 @@ function Kontensaya(props) {
       />
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+      <div className="modal modal-bottom sm:modal-middle ">
+        <div className="modal-box sm:rounded rounded-md">
           <h3 className="font-bold text-xl">
             Apakah anda yakin ingin menghapus konten
           </h3>

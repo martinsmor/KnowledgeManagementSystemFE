@@ -1,10 +1,11 @@
+// Halaman Approval yang berisi konten yang harus di approve oleh approval di unit kerja yang sama dengan content creator
+
 import { Link } from "react-router-dom";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import searchIcon from "../../assets/icon/search.svg";
 import httpClient from "../../httpClient.js";
 import debounce from "lodash.debounce";
 import TablePagination from "@mui/material/TablePagination";
-import sortIcon from "../../assets/icon/sort.svg";
 import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { UserContext } from "../../App.jsx";
@@ -17,7 +18,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="sm:w-full w-full -ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="sm:w-full w-full -ml-12 sm:-ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
@@ -123,10 +124,16 @@ function Approval(props) {
         setLoading(false);
       });
   }, [search, page, rowsPerPage, sort]);
+  const handleTanggal = (tanggal) => {
+    let date = new Date(tanggal);
+    let month = date.toLocaleString("default", { month: "long" });
+    let day = date.getDate();
+    let year = date.getFullYear();
+    return day + " " + month + " " + year;
+  };
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    console.log(e.target.value);
   }
 
   const confirmTerima = () => {
@@ -143,7 +150,6 @@ function Approval(props) {
         setCount(count - 1);
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
           variant: "error",
         });
@@ -157,22 +163,18 @@ function Approval(props) {
     httpClient
       .changeStatusContent(clicked, data1)
       .then((res) => {
-        console.log(res);
         enqueueSnackbar("Konten Berhasil Ditolak", { variant: "success" });
         setData(data.filter((item) => item.contentId !== clicked));
         setCount(count - 1);
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
       });
     let data2 = {
       feedback: feedback,
       from: user.username,
     };
-    httpClient.addFeedback(clicked, data2).then((res) => {
-      console.log(res);
-    });
+    httpClient.addFeedback(clicked, data2).then((res) => {});
   };
 
   const handleFeedback = (e) => {
@@ -252,23 +254,30 @@ function Approval(props) {
                     <td className={"max-w-[400px] whitespace-normal "}>
                       {item.judul}
                     </td>
-                    <td>{item.tanggal}</td>
+                    <td>{handleTanggal(item.tanggal)}</td>
                     <td>{item.nama}</td>
-                    <td className="w-[260px]">
-                      <label
-                        htmlFor="my-modal"
-                        onClick={() => handleTerima(item.contentId)}
-                        className="btn btn-primary mx-2 rounded btn-sm text-white"
-                      >
-                        Terima
-                      </label>
-                      <label
-                        htmlFor="my-modal1"
-                        onClick={() => handleTolak(item.contentId)}
-                        className="btn btn-error mx-2 rounded btn-sm text-white"
-                      >
-                        Tolak
-                      </label>
+                    <td className="w-[260px] ">
+                      <div className={"gap-x-2 flex"}>
+                        <Link to={"/konten/" + item.contentId}>
+                          <button className="btn btn-info rounded btn-sm text-white hover:underline">
+                            Detail
+                          </button>
+                        </Link>
+                        <label
+                          htmlFor="my-modal"
+                          onClick={() => handleTerima(item.contentId)}
+                          className="btn btn-primary rounded btn-sm text-white"
+                        >
+                          Terima
+                        </label>
+                        <label
+                          htmlFor="my-modal1"
+                          onClick={() => handleTolak(item.contentId)}
+                          className="btn btn-error rounded btn-sm text-white"
+                        >
+                          Tolak
+                        </label>
+                      </div>
                     </td>
                   </tr>
                 );
@@ -288,7 +297,7 @@ function Approval(props) {
       {/*Terima Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+        <div className="modal-box rounded-md sm:rounded">
           <h3 className="font-bold text-lg">
             Apakah anda yakin ingin Menerima Konten ini?
           </h3>
@@ -310,7 +319,7 @@ function Approval(props) {
       {/*Tolak Modal */}
       <input type="checkbox" id="my-modal1" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+        <div className="modal-box rounded-md sm:rounded">
           <h3 className="font-bold text-lg mb-2">
             Apakah anda yakin ingin Menolak Konten ini?
           </h3>

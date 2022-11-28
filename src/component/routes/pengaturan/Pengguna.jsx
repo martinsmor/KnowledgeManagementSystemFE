@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+// Page Pengguna yang berisi pengguna dan mengubah role pengguna
+
 import React, { useEffect, useMemo, useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import httpClient from "../../../httpClient.js";
 import TablePagination from "@mui/material/TablePagination";
 import debounce from "lodash.debounce";
-import FilterIcon from "../../../assets/icon/FilterIcon.jsx";
 import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 
@@ -17,11 +16,9 @@ function SearchBar(props) {
 
   const handleJenisKonten = (e) => {
     setJenisKonten(e.target.value);
-    console.log(e.target.value);
   };
   const handleKategoriKonten = (e) => {
     setKategoriKonten(e.target.value);
-    console.log(e.target.value);
   };
   const handleReset = () => {
     setKategoriKonten("");
@@ -31,7 +28,6 @@ function SearchBar(props) {
     setFilter([jenisKonten, kategoriKonten]);
     props.filter([jenisKonten, kategoriKonten]);
     setIsFilter(true);
-    console.log(filter);
   };
   const handleFilter = () => {
     if (!isFilter) {
@@ -91,7 +87,9 @@ function SearchBar(props) {
                 <option value={""}>-</option>
                 {props.dataUnitKerja.map((item, index) => {
                   return (
-                    <option value={item.unit_kerja}>{item.unit_kerja}</option>
+                    <option key={index} value={item.unit_kerja}>
+                      {item.unit_kerja}
+                    </option>
                   );
                 })}
               </select>
@@ -151,7 +149,6 @@ function Pengguna(props) {
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    console.log(e.target.value);
   }
 
   useEffect(() => {
@@ -183,7 +180,6 @@ function Pengguna(props) {
       .then((res) => {
         setData(res.data.user);
         setCount(res.data.total);
-        console.log(res.data.user);
       })
       .catch((err) => {
         setError(true);
@@ -196,12 +192,10 @@ function Pengguna(props) {
 
   const handleupdateRole = (id, nama) => {
     setUpdateRole(id);
-    console.log(id);
     setIdUpdate(nama);
   };
   const handleChange = (e) => {
     setUpdateRole(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -231,7 +225,6 @@ function Pengguna(props) {
         enqueueSnackbar("Berhasil Mengubah Role", { variant: "success" });
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
       });
   };
@@ -280,7 +273,7 @@ function Pengguna(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr className="bg-white border-b min-h-[65px]">
+                  <tr key={index} className="bg-white border-b min-h-[65px]">
                     <td className="bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
@@ -344,7 +337,7 @@ function Pengguna(props) {
       {/*Modal For Ubah Role*/}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+        <div className="modal-box rounded-md sm:rounded">
           <h3 className="font-bold text-lg">Ubah Role Pengguna</h3>
           <div className={"flex flex-col"}>
             <label htmlFor="">Role</label>

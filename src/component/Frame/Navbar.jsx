@@ -1,21 +1,15 @@
 //Component Top Navbar
+import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import searchIcon from "../../assets/icon/search.svg";
-import omsIcon from "../../assets/icon/grid.svg";
-import notifIcon from "../../assets/icon/notif.svg";
-import profilePic from "../../assets/profile/profile.png";
 import { Link } from "react-router-dom";
+import httpClient from "../../httpClient.js";
+import { AuthContext, UserContext } from "../../App.jsx";
+import searchIcon from "../../assets/icon/search.svg";
 import kmsIcon from "../../assets/oms/kms.png";
 import onedriveIcon from "../../assets/oms/onedrive.png";
 import onlinetrainingIcon from "../../assets/oms/onlinetraining.png";
 import outlookIcon from "../../assets/oms/outlook.png";
 import projectmanagementIcon from "../../assets/oms/projectmanagement.png";
-import offIcon from "../../assets/icon/off.svg";
-import userIcon from "../../assets/icon/user.svg";
-import barIcon from "../../assets/icon/bar.svg";
-import { useContext, useEffect, useRef, useState } from "react";
-import httpClient from "../../httpClient.js";
-import { AuthContext, UserContext } from "../../App.jsx";
 import profilePicture from "../../assets/default.jpg";
 
 const HOME_LINK = import.meta.env.VITE_HOME;
@@ -26,13 +20,11 @@ function Profile() {
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
+    // Add Profile Picture to User
     httpClient.getProfile().then((res) => {
       setProfile(res.data);
-      console.log(res.data);
       user.profile_photo = res.data.profile_photo;
     });
-    //  add profile_photo to user context
-    // user.profile_photo = "profile.profile_photo";
   }, []);
 
   const handleLogOut = () => {
@@ -250,10 +242,6 @@ function SearchBar() {
 function Navbar(props) {
   const user = useContext(UserContext);
   const isLogin = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log("isLogin", isLogin);
-  }, []);
 
   const handleClick = () => {
     props.onclick();

@@ -1,15 +1,14 @@
 // Sign In Page Menggunakan JWT
+// Tidak Akan Dipakai Karena BPS menggunakan SSO
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ssobps from "../../assets/ssobps.png";
 import httpClient from "../../httpClient.js";
-import { data } from "autoprefixer";
 import { useSnackbar } from "notistack";
 
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
   const submit = async (event) => {
@@ -17,7 +16,6 @@ function SignIn() {
     httpClient
       .auth({ username, password })
       .then((response) => {
-        // if response undefined
         if (response === undefined) {
           enqueueSnackbar("Username atau Password Tidak Sesuai", {
             variant: "error",

@@ -1,12 +1,10 @@
-// Page Untuk Melihat Status Konten Yang telah
+// Page Kategori yang dapat diakses oleh admin, berisi edit, delete, dan tambah kategori
 
-import { Link } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
 import debounce from "lodash.debounce";
 import TablePagination from "@mui/material/TablePagination";
-import plusIcon from "../../../assets/icon/plus.svg";
 import { useSnackbar } from "notistack";
 import { Skeleton } from "@mui/material";
 
@@ -51,7 +49,6 @@ function Kategori(props) {
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    console.log(e.target.value);
   }
 
   const debouncedResults = useMemo(() => {
@@ -71,7 +68,6 @@ function Kategori(props) {
       .then((res) => {
         setData(res.data.kategori);
         setCount(res.data.total);
-        // console.log(res.data);
       })
       .catch((err) => {
         setError(true);
@@ -96,10 +92,10 @@ function Kategori(props) {
     httpClient
       .deleteKategori(clickData)
       .then((res) => {
-        console.log(res);
         // delete kategori from data state
         setData(data.filter((item) => item.kategoriId !== clickData));
         enqueueSnackbar("Berhasil Menghapus Kategori", { variant: "success" });
+        setCount(count - 1);
       })
       .catch((err) => {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", { variant: "error" });
@@ -107,20 +103,17 @@ function Kategori(props) {
   }
 
   function confirmSimpan() {
-    console.log("simpan");
     let data1 = {
       name: tambahKategori,
     };
     httpClient
       .createKategori(data1)
       .then((res) => {
-        console.log(res);
         // push new kategori to data state
         let newData = {
           kategoriId: res.data.messages.id,
           nama_kategori: res.data.messages.name,
         };
-        console.log(newData);
         setData([...data, newData]);
         enqueueSnackbar("Berhasil Menambah Kategori", { variant: "success" });
         setCount(count + 1);
@@ -140,7 +133,6 @@ function Kategori(props) {
     httpClient
       .updateKategori(clickData, data1)
       .then((res) => {
-        console.log(res);
         // update kategori from data state
         let newData = data.map((item) => {
           if (item.kategoriId === clickData) {
@@ -158,12 +150,10 @@ function Kategori(props) {
 
   function handleTambahKategori(e) {
     setTambahKategori(e.target.value);
-    console.log(e.target.value);
   }
 
   function handleEditKategori(e) {
     setNamaKategori(e.target.value);
-    console.log(e.target.value);
   }
 
   return (
@@ -192,7 +182,7 @@ function Kategori(props) {
       <div>
         <input type="checkbox" id="my-modal1" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box sm:rounded">
+          <div className="modal-box rounded-md sm:rounded">
             <h3 className="font-bold text-xl my-2">Tambah Kategori Baru</h3>
             <label htmlFor="tambahUnit">Nama Kategori</label>
             <input
@@ -299,7 +289,7 @@ function Kategori(props) {
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+        <div className="modal-box rounded-md sm:rounded">
           <h3 className="font-bold text-lg mt-2">
             Apakah anda yakin ingin menghapus kategori ini?
           </h3>

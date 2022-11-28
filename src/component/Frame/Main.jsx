@@ -2,7 +2,6 @@
 
 import Sidebar from "./Sidebar.jsx";
 import Navbar from "./Navbar.jsx";
-import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 function Main(props) {

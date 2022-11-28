@@ -57,7 +57,6 @@ function BuatKonten(props) {
     httpClient
       .readKategori(data)
       .then((res) => {
-        console.log(res.data);
         setCategories(res.data.kategori);
       })
       .catch((err) => {
@@ -68,6 +67,12 @@ function BuatKonten(props) {
   }, []);
 
   const handleChangeCover = (e) => {
+    if (file.size > 500000) {
+      enqueueSnackbar("Ukuran File Terlalu Besar (>500kb) ", {
+        variant: "error",
+      });
+      return;
+    }
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -75,9 +80,7 @@ function BuatKonten(props) {
       setCover(reader.result);
     };
   };
-  useEffect(() => {
-    console.log(tags);
-  }, [tags]);
+  useEffect(() => {}, [tags]);
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
@@ -85,7 +88,6 @@ function BuatKonten(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(value);
     let tagsString = "";
     tags.forEach((tag) => {
       //  add # if not exist
@@ -95,7 +97,6 @@ function BuatKonten(props) {
       tagsString += tag + ",";
     });
     tagsString = tagsString.substring(0, tagsString.length - 1);
-    console.log(tagsString);
     let data = {
       username: user.username,
       judul: title,
@@ -104,13 +105,10 @@ function BuatKonten(props) {
       kategori: category,
       thumbnail: Cover,
     };
-    console.log(data);
     httpClient
       .createContent(data)
       .then((res) => {
-        console.log(res);
         enqueueSnackbar("Konten Berhasil Dibuat", { variant: "success" });
-        console.log(res.data.messages.contentId);
         window.location.href = "/konten/" + res.data.messages.contentId;
       })
       .catch((err) => {
@@ -215,16 +213,31 @@ function BuatKonten(props) {
               Tags Konten
             </label>
             <Autocomplete
-              className={"bg-rose-500"}
               multiple
               onChange={(event, value) => setTags(value)}
               id="tags-outlined"
               options={tagsAll.map((option) => option.title)}
               freeSolo
               size="small"
-              sx={{ backgroundColor: "white", borderColor: "red" }}
+              sx={{
+                backgroundColor: "white",
+                borderWidth: 1,
+                borderRadius: 1,
+                borderColor: "gray.800",
+                "&:hover": { borderColor: "transparent" },
+              }}
               renderInput={(params) => (
-                <TextField {...params} variant="outlined" placeholder="Tags" />
+                <TextField
+                  sx={{
+                    backgroundColor: "white",
+                    borderWidth: 1,
+                    borderRadius: 1,
+                    borderColor: "gray.800",
+                    "&:hover": { borderColor: "transparent" },
+                  }}
+                  {...params}
+                  placeholder="Tags"
+                />
               )}
             />
           </div>

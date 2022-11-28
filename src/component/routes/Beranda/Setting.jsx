@@ -1,12 +1,9 @@
-//sort component
+// Setting component yang berisi search bar, filter, sort, dan grid/list
 import { useEffect, useState } from "react";
-import sortIcon from "../../../assets/icon/sort.svg";
-import FilterIcon from "../../../assets/icon/FilterIcon.jsx";
-import listIcon from "../../../assets/icon/list.svg";
-import gridIcon from "../../../assets/icon/gridberanda.svg";
 import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
 
+// Sort component
 function Sort(props) {
   const [sortType, setSortType] = useState("Terbaru");
 
@@ -70,11 +67,9 @@ function Filter(props) {
 
   const handleJenisKonten = (e) => {
     setJenisKonten(e.target.value);
-    console.log(e.target.value);
   };
   const handleKategoriKonten = (e) => {
     setKategoriKonten(e.target.value);
-    console.log(e.target.value);
   };
   const handleReset = () => {
     setKategoriKonten("");
@@ -84,7 +79,6 @@ function Filter(props) {
     setFilter([jenisKonten, kategoriKonten]);
     props.filter(kategoriKonten);
     setIsFilter(true);
-    console.log(filter);
   };
   const handleFilter = () => {
     if (!isFilter) {

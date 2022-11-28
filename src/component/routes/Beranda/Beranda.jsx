@@ -1,29 +1,16 @@
 //Merupakan Page Beranda yang dapat diakses oleh siapapun
-//Path: src\component\routes\Beranda.jsx
-//Berisi Fitur Search, Sort, Setting, dan List/Grid Konten
+//Fungsi Debounce untuk mengurangi jumlah request ke server
 
-import {
-  useState,
-  createContext,
-  useContext,
-  useRef,
-  useEffect,
-  useMemo,
-} from "react";
+import { useState, useEffect, useMemo } from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
-import httpClient from "../../../httpClient.js";
-import { AuthContext, UserContext } from "../../../App.jsx";
 import debounce from "lodash.debounce";
 
 function Beranda(props) {
-  const value = useContext(UserContext);
-  const [data, setData] = useState([]);
   const [isGrid, setIsGrid] = useState(false);
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("tanggal");
   const [search, setSearch] = useState("");
-  const isLogin = useContext(AuthContext);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -40,7 +27,6 @@ function Beranda(props) {
   });
   const handleSort = (e) => {
     setSort(e);
-    console.log(e);
   };
 
   const handleFilter = (e) => {

@@ -1,11 +1,8 @@
-import profilePic from "../../assets/profile/profile.png";
-import LikeIcon from "../../assets/icon/Like.jsx";
-import CommentICon from "../../assets/icon/Comment.jsx";
-import Like from "../../assets/icon/Like.jsx";
+// Halaman Konten yang telah dibuat, dapat like, unlike, dan komentar
+
 import ReactQuill from "react-quill";
 import { useContext, useEffect, useState } from "react";
-import ReactPlayer from "react-player";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import httpClient from "../../httpClient.js";
 import { AuthContext, UserContext } from "../../App.jsx";
 import { useSnackbar } from "notistack";
@@ -105,7 +102,6 @@ function Konten(props) {
     return { __html: html };
   };
   useEffect(() => {
-    console.log(user);
     setIsLoading(true);
     httpClient.readContent(id).then((data) => {
       setData(data.data);
@@ -139,14 +135,12 @@ function Konten(props) {
       profile_photo: user.profile_photo,
     };
     httpClient.addComment(id, data).then((res) => {
-      console.log(res);
       let newComment = {
         isi_comment: value,
         username: user.username,
         nama: user.nama,
         profile_photo: user.profile_photo,
       };
-      console.log(newComment);
       setComment([...comment, newComment]);
       setValue("");
       setCommentCount(commentCount + 1);
@@ -160,23 +154,25 @@ function Konten(props) {
       let data1 = {
         username: user.username,
       };
-      httpClient.unlikeContent(id, data1).then((res) => {
-        console.log(res);
-      });
+      httpClient.unlikeContent(id, data1).then((res) => {});
       setIsLike(false);
       setLikeCount(likeCount - 1);
     } else {
       let data1 = {
         username: user.username,
       };
-      httpClient.likeContent(id, data1).then((res) => {
-        console.log(res);
-      });
+      httpClient.likeContent(id, data1).then((res) => {});
       setIsLike(true);
       setLikeCount(likeCount + 1);
     }
   };
-
+  const handleTanggal = (tanggal) => {
+    let date = new Date(tanggal);
+    let month = date.toLocaleString("default", { month: "long" });
+    let day = date.getDate();
+    let year = date.getFullYear();
+    return day + " " + month + " " + year;
+  };
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -207,7 +203,7 @@ function Konten(props) {
                 </div>
                 <div className="flex flex-col justify-around ">
                   <div>{data.nama}</div>
-                  <div className="text-sm">{data.tanggal}</div>
+                  <div className="text-sm">{handleTanggal(data.tanggal)}</div>
                 </div>
               </div>
               <div className={"flex gap-x-2"}>
@@ -247,10 +243,9 @@ function Konten(props) {
                   </span>
                 </div>
 
-                <a
-                  href={"#comment"}
+                <div
                   className={
-                    "flex transition hover:bg-gray-100 dark:hover:bg-gray-700 px-4 rounded-md flex-row justify-center items-center"
+                    "flex transition  px-4 rounded-md flex-row justify-center items-center"
                   }
                 >
                   <span>
@@ -267,7 +262,7 @@ function Konten(props) {
                     {commentCount}
                     <span className={"sm:inline hidden"}> Comments</span>
                   </span>
-                </a>
+                </div>
               </div>
             </div>
 
@@ -284,11 +279,14 @@ function Konten(props) {
               {/*    height="100%"*/}
               {/*  />*/}
               {/*</div>*/}
-              <img
-                className={"w-full"}
-                src={"http://localhost:8080/assets/" + data.thumbnail}
-                alt=""
-              />
+              {data.thumbnail !== "default.png" ? (
+                <img
+                  className={"w-full"}
+                  src={HOME_LINK + "/assets/" + data.thumbnail}
+                  alt="Thumbnail Content"
+                />
+              ) : null}
+
               <div
                 className="prose prose-lg prose-gray block m-0 max-w-none text-black dark:text-slate-200"
                 dangerouslySetInnerHTML={handleHTML(data.isi_konten)}

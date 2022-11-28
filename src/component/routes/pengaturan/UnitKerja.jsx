@@ -1,5 +1,6 @@
+// Merupakan Page Unit Kerja yang ada
+
 import searchIcon from "../../../assets/icon/search.svg";
-import { Link } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import httpClient from "../../../httpClient.js";
 import TablePagination from "@mui/material/TablePagination";
@@ -35,7 +36,6 @@ function UnitKerja(props) {
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    console.log(e.target.value);
   }
 
   const handleChangePage = (event, newPage) => {
@@ -49,7 +49,6 @@ function UnitKerja(props) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("search", search);
     let data = {
       search: search,
       limit: rowsPerPage,

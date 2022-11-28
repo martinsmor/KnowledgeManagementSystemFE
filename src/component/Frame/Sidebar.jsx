@@ -1,37 +1,28 @@
 // Component: Sidebar
 // Terbagi menjadi 2 code, yaitu sidebar full dan sidebar mini. saat di mobile sidebar  mini akan hilang
+import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext, UserContext, RoleContext } from "../../App.jsx";
 import barIcon from "../../assets/icon/bar.svg";
 import homeIcon from "../../assets/icon/home.svg";
 import settingIcon from "../../assets/icon/setting.svg";
 import mycontentIcon from "../../assets/icon/mycontent.svg";
 import contentsettingIcon from "../../assets/icon/contentsetting.svg";
-import categoryIcon from "../../assets/icon/category.svg";
 import tambahIcon from "../../assets/icon/tambah.svg";
 
-// Router
-import { Link, NavLink } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext, UserContext, RoleContext } from "../../App.jsx";
-
+//Fungsi Untuk Mendeteksi Click Luar Komponen
 function useOutsideAlerter(ref, handler) {
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         if (window.innerWidth < 640) {
           handler(event);
-          console.log("You clicked outside of me!");
         }
       }
     }
 
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref, handler]);
@@ -41,13 +32,11 @@ function Sidebar(props) {
   const user = useContext(UserContext);
   const isLogin = useContext(AuthContext);
   const role = user ? user.role : null;
-  //role if user is exist
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, () => props.onclick());
   const handleClick = () => {
     if (window.innerWidth < 768) {
       props.onclick();
-      // console.log("click");
     }
   };
 
@@ -203,40 +192,6 @@ function Sidebar(props) {
                             Pengguna
                           </span>
                         </NavLink>
-                        {/*<NavLink*/}
-                        {/*  // onClick={handleClick}*/}
-                        {/*  className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"*/}
-                        {/*  style={({ isActive }) =>*/}
-                        {/*    isActive*/}
-                        {/*      ? {*/}
-                        {/*          color: "#fff",*/}
-                        {/*          background: "#418afd",*/}
-                        {/*        }*/}
-                        {/*      : null*/}
-                        {/*  }*/}
-                        {/*  to="/"*/}
-                        {/*>*/}
-                        {/*  <span className="block max-h-[24px] ml-1 overflow-hidden">*/}
-                        {/*    Menu Akses*/}
-                        {/*  </span>*/}
-                        {/*</NavLink>*/}
-                        {/*<NavLink*/}
-                        {/*  onClick={handleClick}*/}
-                        {/*  className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"*/}
-                        {/*  style={({ isActive }) =>*/}
-                        {/*    isActive*/}
-                        {/*      ? {*/}
-                        {/*          color: "#fff",*/}
-                        {/*          background: "#418afd",*/}
-                        {/*        }*/}
-                        {/*      : null*/}
-                        {/*  }*/}
-                        {/*  to="/"*/}
-                        {/*>*/}
-                        {/*  <span className="block max-h-[24px] ml-1 overflow-hidden">*/}
-                        {/*    Grup Akses*/}
-                        {/*  </span>*/}
-                        {/*</NavLink>*/}
                         <NavLink
                           onClick={handleClick}
                           className="p-2 my-0.5 pl-14 py-3 hover:bg-base-200 hover:bg-opacity-40 w-full rounded  duration-100"

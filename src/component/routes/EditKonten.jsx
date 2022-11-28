@@ -1,11 +1,14 @@
-// Merupakan Page untuk Membuat Konten
+// Merupakan Page untuk Mengedit Konten
 
 import "react-quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
-import ReactQuill, { Quill } from "react-quill";
-import { Autocomplete, Chip, TextField } from "@mui/material";
+import ReactQuill from "react-quill";
+import { Autocomplete, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
 import { useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
+
+const HOME_LINK = import.meta.env.VITE_HOME;
 
 const tagsAll = [
   { title: "#SP2020", year: 1994 },
@@ -43,6 +46,9 @@ function EditKonten(props) {
   const [data, setData] = useState({});
   const { id } = useParams();
   const [defaultTags, setDefaultTags] = useState([]);
+  const HOME_LINK = import.meta.env.VITE_HOME;
+  const [editThumbnail, setEditThumbnail] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     let data = {
@@ -51,11 +57,9 @@ function EditKonten(props) {
       search: "",
     };
     httpClient.readKategori(data).then((res) => {
-      console.log(res.data);
       setCategories(res.data.kategori);
     });
     httpClient.readContent(id).then((data) => {
-      console.log(data.data);
       setTitle(data.data.judul);
       setCategory(data.data.kategori);
       setValue(data.data.isi_konten);
@@ -69,7 +73,7 @@ function EditKonten(props) {
         tags.push(item);
       });
       if (data.data.thumbnail !== "default.png") {
-        setCover("http://localhost:8080/assets/" + data.data.thumbnail);
+        setCover(HOME_LINK + "/assets/" + data.data.thumbnail);
       }
     });
   }, []);
@@ -78,7 +82,16 @@ function EditKonten(props) {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    //if size > 1mb
+    if (file.size > 500000) {
+      enqueueSnackbar("Ukuran File Terlalu Besar (>500kb) ", {
+        variant: "error",
+      });
+      return;
+    }
+
     reader.onloadend = () => {
+      setEditThumbnail(true);
       setCover(reader.result);
     };
   };
@@ -89,7 +102,6 @@ function EditKonten(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(value);
     let tagsString = "";
     tags.forEach((tag) => {
       tagsString += tag + ",";
@@ -102,15 +114,15 @@ function EditKonten(props) {
       tags: tagsString,
       kategori: category,
       thumbnail: Cover,
+      editThumbnail: editThumbnail,
     };
-    console.log(data);
     httpClient.updateContent(id, data).then((res) => {
-      console.log(res);
       window.location.href = "/konten/" + id;
     });
   };
   const resetFileInput = (e) => {
     let randomString = Math.random().toString(36);
+    setEditThumbnail(true);
     setCover("");
   };
 
@@ -157,7 +169,7 @@ function EditKonten(props) {
             id={"cover"}
             type="file"
             onChange={handleChangeCover}
-            accept="image/jpg,.gif,.png,.svg,.jpeg"
+            accept="image/jpg,.gif,.png,.jpeg,.jpg"
             className={"hidden"}
           />
         </div>
