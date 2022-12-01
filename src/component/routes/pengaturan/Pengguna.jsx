@@ -45,7 +45,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full sm:-ml-11 -ml-9  h-10 p-2 pl-11 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full  dark:bg-[#171717] sm:-ml-11 -ml-9  h-10 p-2 pl-11 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Pengguna"
       />
@@ -53,11 +53,11 @@ function SearchBar(props) {
         onClick={handleFilter}
         htmlFor="my-modal-4"
         className={
-          "w-[150px] modal-button cursor-pointer gap-x-2 bg-white  flex flex-row h-10 justify-center items-center  border-gray-400 border rounded-md  px-3"
+          "w-[150px] dark:bg-[#171717] modal-button cursor-pointer gap-x-2 bg-white  flex flex-row h-10 justify-center items-center  border-gray-400 border rounded-md  px-3"
         }
       >
         <svg
-          className={"w-5"}
+          className={"w-5 dark:fill-white"}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
         >
@@ -72,7 +72,7 @@ function SearchBar(props) {
         className="modal sm:modal-middle modal-bottom cursor-pointer rounded-md"
       >
         <label
-          className="modal-box relative rounded-md sm:rounded-md"
+          className="modal-box  dark:bg-[#171717]  relative rounded-md sm:rounded-md"
           htmlFor=""
         >
           <h3 className="text-3xl font-bold mb-3">Filter Pengguna</h3>
@@ -82,7 +82,7 @@ function SearchBar(props) {
               <select
                 value={jenisKonten}
                 onChange={handleJenisKonten}
-                className="select transition-none min-h-0 h-10 w-full form-select appearance-none block w-full px-3  text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
+                className="select  dark:bg-[#171717] text-slate-200  transition-none min-h-0 h-10 w-full form-select appearance-none block w-full px-3  text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
                 <option value={""}>-</option>
                 {props.dataUnitKerja.map((item, index) => {
@@ -99,7 +99,7 @@ function SearchBar(props) {
               <select
                 value={kategoriKonten}
                 onChange={handleKategoriKonten}
-                className="select transition-none w-full  min-h-0 h-10 form-select appearance-none block w-full px-3 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
+                className="select  dark:bg-[#171717] text-slate-200 transition-none w-full  min-h-0 h-10 form-select appearance-none block w-full px-3 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
                 <option value={""}>-</option>
                 {props.dataRole.map((item, key) => (
@@ -167,6 +167,7 @@ function Pengguna(props) {
   useEffect(() => {
     setError(false);
     setLoading(true);
+    setData([]);
     setData([]);
     let data = {
       search: search,
@@ -242,7 +243,7 @@ function Pengguna(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
+      className="absolute  dark:bg-black  content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
     >
       <SearchBar
         search={search}
@@ -254,19 +255,19 @@ function Pengguna(props) {
       />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
         <table className="min-w-screen table overflow-x-auto min-w-full ">
-          <thead className="bg-white">
-            <tr className="bg-white border-b">
-              <th className="bg-white"></th>
-              <th className="bg-white">Nama</th>
-              <th className="bg-white">Unit Kerja</th>
-              <th className="bg-white">Role</th>
-              <th className="bg-white">Action</th>
+          <thead className="bg-white dark:bg-[#171717]">
+            <tr className="bg-white dark:bg-[#171717] border-b">
+              <th className="bg-white dark:bg-[#171717]"></th>
+              <th className="bg-white dark:bg-[#171717]">Nama</th>
+              <th className="bg-white dark:bg-[#171717]">Unit Kerja</th>
+              <th className="bg-white dark:bg-[#171717]">Role</th>
+              <th className="bg-white dark:bg-[#171717]">Action</th>
             </tr>
           </thead>
           <tbody>
             {error ? (
               <tr>
-                <td colSpan={5} className="text-center">
+                <td colSpan={5} className="text-center dark:bg-[#171717]">
                   Mohon Maaf, Terjadi Kesalahan
                 </td>
               </tr>
@@ -274,19 +275,19 @@ function Pengguna(props) {
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr key={index} className="bg-white border-b min-h-[65px]">
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
@@ -294,20 +295,24 @@ function Pengguna(props) {
               : null}
             {count === 0 ? (
               <tr>
-                <td colSpan={5} className="text-center">
+                <td colSpan={5} className="text-center dark:bg-[#171717]">
                   Pengguna Tidak Ditemukan
                 </td>
               </tr>
             ) : (
               data.map((item, index) => (
                 <tr key={index + 1}>
-                  <td className={"text-center font-semibold w-[80px]"}>
-                    {index + 1 + page * 10}
+                  <td
+                    className={
+                      "text-center font-semibold w-[80px] dark:bg-[#171717]"
+                    }
+                  >
+                    {index + 1 + page * rowsPerPage}
                   </td>
-                  <td>{item.nama}</td>
-                  <td>{item.unit_kerja}</td>
-                  <td>{item.role}</td>
-                  <td className="">
+                  <td className={" dark:bg-[#171717]"}>{item.nama}</td>
+                  <td className={" dark:bg-[#171717]"}>{item.unit_kerja}</td>
+                  <td className={" dark:bg-[#171717]"}>{item.role}</td>
+                  <td className=" dark:bg-[#171717]">
                     <label
                       htmlFor="my-modal"
                       className={
@@ -326,25 +331,28 @@ function Pengguna(props) {
           </tbody>
         </table>
       </div>
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className={"rounded-md dark:bg-slate-500"}>
+        <TablePagination
+          component="div"
+          count={count}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+
       {/*Modal For Ubah Role*/}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box rounded-md sm:rounded">
+        <div className="modal-box  dark:bg-[#171717] rounded-md sm:rounded">
           <h3 className="font-bold text-lg">Ubah Role Pengguna</h3>
           <div className={"flex flex-col"}>
             <label htmlFor="">Role</label>
             <select
               value={updateRole}
               onChange={handleChange}
-              className="select transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
+              className="select dark:bg-[#171717] dark:text-slate-200 transition-none w-full form-select appearance-none block w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-400 focus:outline-offset-0 border border-gray-400 "
             >
               {dataRole.map((item, key) =>
                 item.role === updateRole ? (

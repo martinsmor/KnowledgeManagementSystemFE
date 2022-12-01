@@ -18,13 +18,13 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="sm:w-full w-full -ml-12 sm:-ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="sm:w-full  dark:bg-[#171717]  w-full -ml-12 sm:-ml-11 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Konten"
       />
       <div
         data-tip={"Urutkan Berdasar " + props.sort}
-        className="sm:inline-block hidden  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        className="sm:inline-block hidden  dark:bg-[#171717]  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -33,7 +33,7 @@ function SearchBar(props) {
           }
         >
           <svg
-            className={"w-5"}
+            className={"w-5 dark:fill-white"}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"
           >
@@ -43,13 +43,23 @@ function SearchBar(props) {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
+          className="dropdown-content dark:bg-[#171717] dark:border-zinc-800  menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
         >
           <li>
-            <button onClick={() => props.handleSort("Terbaru")}>Terbaru</button>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleSort("Terbaru")}
+            >
+              Terbaru
+            </button>
           </li>
           <li>
-            <button onClick={() => props.handleSort("Judul")}>Judul</button>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleSort("Judul")}
+            >
+              Judul
+            </button>
           </li>
         </ul>
       </div>
@@ -103,6 +113,7 @@ function Approval(props) {
   useEffect(() => {
     setError(false);
     setLoading(true);
+    setData([]);
     let data = {
       search: search,
       username: (user && user.username) || "xyz",
@@ -190,7 +201,7 @@ function Approval(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
+      className="absolute  dark:bg-black  content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 flex flex-col"
     >
       <SearchBar
         search={search}
@@ -200,39 +211,39 @@ function Approval(props) {
       />
       <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
         <table className="min-w-screen table overflow-x-auto min-w-full ">
-          <thead className="bg-white">
-            <tr className="bg-white border-b">
-              <th className="bg-white"></th>
-              <th className="bg-white">Judul</th>
-              <th className="bg-white">Tanggal</th>
-              <th className="bg-white">Diajukan Oleh</th>
-              <th className="bg-white">Action</th>
+          <thead className="bg-white dark:bg-[#171717] ">
+            <tr className="bg-white  dark:bg-[#171717] border-b">
+              <th className="bg-white  dark:bg-[#171717] "></th>
+              <th className="bg-white dark:bg-[#171717] ">Judul</th>
+              <th className="bg-white dark:bg-[#171717] ">Tanggal</th>
+              <th className="bg-white dark:bg-[#171717] ">Diajukan Oleh</th>
+              <th className="bg-white dark:bg-[#171717] ">Action</th>
             </tr>
           </thead>
           <tbody>
             {error ? (
               <tr>
-                <td colSpan={5} className="text-center">
-                  Terjadi Kesalahan
+                <td colSpan={5} className="text-center  dark:bg-[#171717] ">
+                  Mohon Maaf, Terjadi Kesalahan
                 </td>
               </tr>
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr key={index} className="bg-white border-b min-h-[65px]">
-                    <td className="bg-white">
+                    <td className=" dark:bg-[#171717] bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className=" dark:bg-[#171717] bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className=" dark:bg-[#171717] bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className=" dark:bg-[#171717] bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className=" dark:bg-[#171717] bg-white">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
@@ -240,7 +251,7 @@ function Approval(props) {
               : null}
             {count === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="5" className="text-center  dark:bg-[#171717] ">
                   Konten Tidak Ditemukan
                 </td>
               </tr>
@@ -248,15 +259,25 @@ function Approval(props) {
               data.map((item, index) => {
                 return (
                   <tr key={index + 1}>
-                    <td className={"text-center font-semibold w-[80px]"}>
-                      {index + 1 + page * 10}
+                    <td
+                      className={
+                        "text-center font-semibold w-[80px] dark:bg-[#171717] "
+                      }
+                    >
+                      {index + 1 + page * rowsPerPage}
                     </td>
-                    <td className={"max-w-[400px] whitespace-normal "}>
+                    <td
+                      className={
+                        "max-w-[400px] whitespace-normal  dark:bg-[#171717] "
+                      }
+                    >
                       {item.judul}
                     </td>
-                    <td>{handleTanggal(item.tanggal)}</td>
-                    <td>{item.nama}</td>
-                    <td className="w-[260px] ">
+                    <td className={" dark:bg-[#171717] "}>
+                      {handleTanggal(item.tanggal)}
+                    </td>
+                    <td className={" dark:bg-[#171717] "}>{item.nama}</td>
+                    <td className="w-[260px]  dark:bg-[#171717] ">
                       <div className={"gap-x-2 flex"}>
                         <Link to={"/konten/" + item.contentId}>
                           <button className="btn btn-info rounded btn-sm text-white hover:underline">
@@ -286,18 +307,21 @@ function Approval(props) {
           </tbody>
         </table>
       </div>
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className={"rounded-md dark:bg-slate-500"}>
+        <TablePagination
+          component="div"
+          count={count}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+
       {/*Terima Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box rounded-md sm:rounded">
+        <div className="modal-box  dark:bg-[#171717]  rounded-md sm:rounded">
           <h3 className="font-bold text-lg">
             Apakah anda yakin ingin Menerima Konten ini?
           </h3>
@@ -319,7 +343,7 @@ function Approval(props) {
       {/*Tolak Modal */}
       <input type="checkbox" id="my-modal1" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box rounded-md sm:rounded">
+        <div className="modal-box  dark:bg-[#171717]  rounded-md sm:rounded">
           <h3 className="font-bold text-lg mb-2">
             Apakah anda yakin ingin Menolak Konten ini?
           </h3>
@@ -328,7 +352,7 @@ function Approval(props) {
             <input
               onChange={handleFeedback}
               value={feedback}
-              className="w-full h-10 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
+              className="w-full  dark:bg-[#171717]  h-10 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
               type="text"
               placeholder="Beri Feedback"
             />

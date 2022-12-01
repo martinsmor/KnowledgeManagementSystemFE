@@ -52,7 +52,7 @@ function SignIn() {
         <img src={ssobps} alt="logo" className={"w-full mx-auto pb-2 "} />
         <form onSubmit={submit}>
           <div className="flex flex-col my-2">
-            <label className="mb-1" htmlFor="username">
+            <label className="mb-1 dark:text-black" htmlFor="username">
               Username
             </label>
             <input
@@ -68,7 +68,7 @@ function SignIn() {
           </div>
 
           <div className="flex flex-col my-2 ">
-            <label className="mb-1" htmlFor="password">
+            <label className="mb-1 dark:text-black" htmlFor="password">
               Password
             </label>
             <input

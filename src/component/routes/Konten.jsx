@@ -103,11 +103,21 @@ function Konten(props) {
   };
   useEffect(() => {
     setIsLoading(true);
-    httpClient.readContent(id).then((data) => {
-      setData(data.data);
-      setLikeCount(parseInt(data.data.liked));
-      setIsLoading(false);
-    });
+    httpClient
+      .readContent(id)
+      .then((data) => {
+        setData(data.data);
+        setLikeCount(parseInt(data.data.liked));
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahab", {
+          variant: "error",
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     httpClient.readCommentByContentId(id).then((res) => {
       setComment(res.data);
       setCommentCount(res.data.length);
@@ -173,6 +183,7 @@ function Konten(props) {
     let year = date.getFullYear();
     return day + " " + month + " " + year;
   };
+
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
@@ -228,8 +239,8 @@ function Konten(props) {
                     <svg
                       className={
                         !isLikeFirst
-                          ? "swap-off fill-gray-600 w-5 h-5"
-                          : "swap-on fill-red-600 w-5 h-5"
+                          ? "swap-off dark:fill-white fill-gray-600 w-5 h-5"
+                          : "swap-on dark:fill-white fill-red-600 w-5 h-5"
                       }
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
@@ -270,15 +281,23 @@ function Konten(props) {
               <h1 className="my-6 mb-2 font-extrabold text-4xl ">
                 {data.judul}
               </h1>
-              {/*<div className="player-wrapper">*/}
-              {/*  <ReactPlayer*/}
-              {/*    className="react-player"*/}
-              {/*    url="https://www.youtube.com/watch?v=oAZK7e_iHAQ"*/}
-              {/*    controls*/}
-              {/*    width="100%"*/}
-              {/*    height="100%"*/}
-              {/*  />*/}
-              {/*</div>*/}
+              <div className={"flex my-4 flex-wrap  gap-2"}>
+                {/*{string to array}*/}
+                {data.tags === ""
+                  ? null
+                  : data.tags.split(",").map((item, key) => {
+                      return (
+                        <Link
+                          className={
+                            "hover:bg-blue-200 rounded-2xl border dark:hover:bg-zinc-600 border-blue-200 hover:border-blue-400 px-3 py-1 "
+                          }
+                          to={"../beranda/" + item.substring(1)}
+                        >
+                          {item}
+                        </Link>
+                      );
+                    })}
+              </div>
               {data.thumbnail !== "default.png" ? (
                 <img
                   className={"w-full"}
@@ -313,7 +332,7 @@ function Konten(props) {
               <div
                 className={
                   item.username === (isLogin ? user.username : "xyz")
-                    ? "flex flex-row-reverse gap-x-2 sm:pl-14 pr-4"
+                    ? "flex flex-row-reverse gap-x-2 sm:pl-14 pl-4"
                     : "flex flex-row gap-x-2 sm:pr-14 pr-4"
                 }
               >
@@ -333,7 +352,7 @@ function Konten(props) {
                 </div>
                 <div
                   className={
-                    "p-4 border border-gray-300 dark:border-zinc-700 rounded-md w-full "
+                    "p-4 pt-2 border border-gray-300 dark:border-zinc-700 rounded-md w-full "
                   }
                 >
                   <h4

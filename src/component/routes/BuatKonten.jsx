@@ -3,19 +3,22 @@
 import "react-quill/dist/quill.snow.css";
 import { useContext, useEffect, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
-import { Autocomplete, Chip, TextField } from "@mui/material";
+import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
 import { useSnackbar } from "notistack";
 import { AuthContext, UserContext } from "../../App.jsx";
+import Cookies from "js-cookie";
 
 const tagsAll = [
-  { title: "#SP2020", year: 1994 },
-  { title: "#ST2023", year: 1972 },
-  { title: "#SIG", year: 1974 },
-  { title: "#bigdata", year: 2008 },
-  { title: "#uiux", year: 1957 },
-  { title: "#ask", year: 1993 },
-  { title: "#info", year: 1994 },
+  { title: "#SP2020" },
+  { title: "#ST2023" },
+  { title: "#SIG" },
+  { title: "#bigdata" },
+  { title: "#ask" },
+  { title: "#info" },
+  { title: "pertanian" },
+  { title: "kependudukan" },
+  { title: "pariwisata" },
 ];
 
 const modules = {
@@ -43,6 +46,7 @@ function BuatKonten(props) {
   const [tags, setTags] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const user = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const isLogin = useContext(AuthContext);
   useEffect(() => {
@@ -67,13 +71,13 @@ function BuatKonten(props) {
   }, []);
 
   const handleChangeCover = (e) => {
+    const file = e.target.files[0];
     if (file.size > 500000) {
       enqueueSnackbar("Ukuran File Terlalu Besar (>500kb) ", {
         variant: "error",
       });
       return;
     }
-    const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -87,6 +91,8 @@ function BuatKonten(props) {
   };
 
   const handleSubmit = (event) => {
+    enqueueSnackbar("Mohon Tunggu Sebentar", { variant: "info" });
+    setLoading(true);
     event.preventDefault();
     let tagsString = "";
     tags.forEach((tag) => {
@@ -115,6 +121,9 @@ function BuatKonten(props) {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
           variant: "error",
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   const resetFileInput = (e) => {
@@ -255,7 +264,10 @@ function BuatKonten(props) {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full bg-[#1848CE] hover:bg-[#0636bd] hover:underline"
+            disabled={loading}
+            className={
+              "bg-blue-500  disabled text-white px-4 py-2 rounded-md mt-4 w-full bg-[#1848CE] hover:bg-[#0636bd] hover:underline"
+            }
           >
             Submit
           </button>

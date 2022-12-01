@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
 import { useNavigate } from "react-router-dom";
+import { typographyClasses } from "@mui/material";
 
 // Sort component
 function Sort(props) {
-  const [sortType, setSortType] = useState("Terbaru");
+  const [sortType, setSortType] = useState(props.defaultSort);
 
   const handleSort = (e) => {
     setSortType(e);
@@ -61,7 +62,7 @@ function Sort(props) {
 //Filter component
 function Filter(props) {
   const [jenisKonten, setJenisKonten] = useState("-");
-  const [kategoriKonten, setKategoriKonten] = useState("");
+  const [kategoriKonten, setKategoriKonten] = useState(props.defaultFilter);
   const [filter, setFilter] = useState("");
   const [isFilter, setIsFilter] = useState(false);
   const [data, setData] = useState([]);
@@ -91,6 +92,7 @@ function Filter(props) {
     }
   };
   useEffect(() => {
+    console.log("filter", kategoriKonten);
     let data = {
       limit: 100,
       page: 1,
@@ -137,18 +139,25 @@ function Filter(props) {
             <div className={"flex flex-col gap-y-2"}>
               <label htmlFor="">Kategori</label>
               <select
-                value={kategoriKonten}
                 onChange={handleKategoriKonten}
-                className="select transition-none w-full  dark:bg-[#171717] dark:text-white min-h-0 h-10 form-select appearance-none block w-full px-3 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
+                defaultValue={"123456789"}
+                className="select transition-none w-full dark:bg-[#171717] dark:text-white text-black min-h-0 h-10 form-select appearance-none block w-full px-3 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
-                <option value={""}>-</option>
-                {data.map((item, index) => {
-                  return (
+                {data.map((item, index) =>
+                  item.nama_kategori === "Jaringan" ? (
+                    <option
+                      key={index}
+                      className={"select"}
+                      value={item.nama_kategori}
+                    >
+                      123456789
+                    </option>
+                  ) : (
                     <option key={index} value={item.nama_kategori}>
                       {item.nama_kategori}
                     </option>
-                  );
-                })}
+                  )
+                )}
               </select>
             </div>
           </div>
@@ -225,20 +234,31 @@ function GridList(props) {
 
 //search bar component
 function SearchBar(props) {
+  const history = useNavigate();
+
+  const handleSubmit = (e) => {
+    console.log(props.search);
+    e.preventDefault();
+    let url = new URLSearchParams(window.location.search);
+    //set query params
+    url.set("query", props.search);
+    history(`/beranda/search?${url}`);
+    props.handleGetSearh();
+  };
   return (
     <div className="flex  flex-row w-full justify-center  px-0 items-center mb-2 sm:mb-0">
       <form className={"w-full  h-full"}>
         <div className="flex w-full  h-full">
           <div className="relative w-full  h-full">
             <input
-              value={props.search}
+              defaultValue={props.search}
               onChange={props.handleSearch}
               className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] "
               placeholder="Cari Konten ..."
               required
             ></input>
             <button
-              onClick={props.handleSubmit}
+              onClick={handleSubmit}
               type="submit"
               className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -277,9 +297,8 @@ function Setting(props) {
         <div className={"flex flex-col w-full"}>
           <SearchBar
             search={props.search}
+            handleGetSearh={props.handleGetSearch}
             handleSearch={props.handleSearch}
-            debouncedResults={props.debouncedResults}
-            handleSubmit={props.handleSubmit}
           />
         </div>
         <div className={"flex flex-row gap-x-3"}>
@@ -288,15 +307,11 @@ function Setting(props) {
             handleGrid={props.handleGrid}
             handleList={props.handleList}
           />
-
           <Filter
+            defaultFilter={props.defaultFilter}
             filter={props.handleFilter}
-            handleSubmit={props.handleSubmit}
           />
-          <Sort
-            handleSort={props.handleSort}
-            handleSubmit={props.handleSubmit}
-          />
+          <Sort handleSort={props.handleSort} defaultSort={props.defaultSort} />
         </div>
       </div>
     </>

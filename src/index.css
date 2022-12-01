@@ -19,6 +19,7 @@ body {
     height: 100vh;
 }
 
+
 /* Toolbar Styles */
 .ql-editor-haserror .ql-toolbar.ql-snow + .ql-container.ql-snow {
     border: 1px solid #f56565;
@@ -29,6 +30,7 @@ body {
     border: 1px solid #e2e8f0;
     border-radius: 0.25rem;
 }
+
 
 .ql-toolbar.ql-snow {
     font-family: inherit;
@@ -69,6 +71,18 @@ body {
     border-radius: 0.25rem;
     border: 1px solid #9ca3af;
 
+}
+
+/* if ql-editor and dark class */
+.ql-editor.dark {
+    background-color: #171717;
+    color: #fff;
+}
+
+.ql-toolbar.dark {
+    background-color: #171717;
+    color: #ffff00;
+    fill: white;
 }
 
 .ql-scrolling-container {

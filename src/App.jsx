@@ -1,8 +1,6 @@
 import "./App.css";
-import jwtDecode from "jwt-decode";
 import {
   BrowserRouter,
-  HashRouter,
   Navigate,
   Route,
   Routes,
@@ -11,7 +9,7 @@ import {
 import Beranda from "./component/routes/Beranda/Beranda.jsx";
 import Pengguna from "./component/routes/pengaturan/Pengguna";
 import Main from "./component/Frame/Main";
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Konten from "./component/routes/Konten";
 import Kontensaya from "./component/routes/Kontensaya.jsx";
 import BuatKonten from "./component/routes/BuatKonten";
@@ -20,14 +18,21 @@ import Approval from "./component/routes/Approval.jsx";
 import UnitKerja from "./component/routes/pengaturan/UnitKerja";
 import Kategori from "./component/routes/pengaturan/Kategori.jsx";
 import EditKonten from "./component/routes/EditKonten.jsx";
+import BerandaSearch from "./component/routes/BerandaSearch/BerandaSearch.jsx";
+
 import { SnackbarProvider } from "notistack";
 import httpClient from "./httpClient.js";
 import Cookies from "js-cookie";
-import { setRef } from "@mui/material";
 
 export const UserContext = React.createContext();
 export const AuthContext = React.createContext();
 export const RoleContext = React.createContext();
+
+// check cookie to get theme
+if (Cookies.get("theme") === "dark") {
+  const html = document.querySelector("html");
+  html.classList.add("dark");
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -87,6 +92,12 @@ function App() {
                     element={<Beranda isfull={fullSidebar} isLogin={isLogin} />}
                   ></Route>
                   <Route
+                    path="beranda/:id"
+                    element={
+                      <BerandaSearch isfull={fullSidebar} isLogin={isLogin} />
+                    }
+                  ></Route>
+                  <Route
                     path="pengaturan/pengguna"
                     element={<Pengguna isfull={fullSidebar} />}
                   />
@@ -142,6 +153,12 @@ function App() {
                   <Route
                     path="beranda"
                     element={<Beranda isfull={fullSidebar} />}
+                  ></Route>
+                  <Route
+                    path="beranda/:id"
+                    element={
+                      <BerandaSearch isfull={fullSidebar} isLogin={isLogin} />
+                    }
                   ></Route>
                   <Route
                     path="/konten/:id"

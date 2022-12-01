@@ -1,18 +1,26 @@
-//Merupakan Page Beranda yang dapat diakses oleh siapapun
+//Merupakan Page BerandaSearch yang dapat diakses oleh siapapun
 //Fungsi Debounce untuk mengurangi jumlah request ke server
 
 import { useState, useEffect, useMemo } from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
 import debounce from "lodash.debounce";
+import { useNavigate } from "react-router-dom";
 
 function Beranda(props) {
   const [isGrid, setIsGrid] = useState(false);
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("tanggal");
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    //  Link to search page react router
+    navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${sort}`);
+  };
 
   const handleSearch = (e) => {
+    // link to search page
     setSearch(e.target.value);
   };
 
@@ -25,12 +33,15 @@ function Beranda(props) {
       debouncedResults.cancel();
     };
   });
-  const handleSort = (e) => {
+  const handleSort = async (e) => {
+    // await setSort(e); and then link to search page
     setSort(e);
+    navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${e}`);
   };
 
   const handleFilter = (e) => {
     setFilter(e);
+    navigate(`/beranda/search?query=${search}&filter=${e}&sort=${sort}`);
   };
 
   const handleList = () => {
@@ -58,6 +69,7 @@ function Beranda(props) {
         search={search}
         handleSearch={handleSearch}
         debouncedResults={debouncedResults}
+        handleSubmit={handleSubmit}
       />
       <AllKonten
         isFull={props.isfull}

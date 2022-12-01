@@ -7,7 +7,7 @@ import { CircularProgress, Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import profilePicture from "../../../assets/default.jpg";
 import notfound from "../../../assets/notfound.png";
-import BPSLogo from "../../../assets/bpslogo.png";
+import { useParams } from "react-router-dom";
 
 const HOME_LINK = import.meta.env.VITE_HOME;
 
@@ -135,6 +135,7 @@ function AllKonten(props) {
   const [error, setError] = useState(false);
   const [tags, setTags] = useState([]);
   const [reset, setReset] = useState(false);
+  const [search, setSearch] = useState(true);
 
   // Fungsi Untuk Infinite Scroll
   window.onscroll = function () {
@@ -165,6 +166,7 @@ function AllKonten(props) {
     setError(false);
     setPage(1);
     setReset(true);
+
     let params = {
       search: props.search,
       sort: props.sort,
@@ -178,7 +180,14 @@ function AllKonten(props) {
       setMaxPage(Math.ceil(res.data.total / 10));
       setLoading(false);
     });
-  }, [props.sort, props.filter]);
+  }, [
+    props.back,
+    props.reset,
+    props.getSearch,
+    props.sort,
+    props.filter,
+    props.url,
+  ]);
 
   const handleAddData = (newData) => {
     const newDataList = data.concat(newData);
@@ -227,13 +236,13 @@ function AllKonten(props) {
   }, [page]);
 
   const handleHTML = (html) => {
-    let clean = html.replace(/(<([^>]+)>)/gi, "");
+    let clean = html.replace(/(<([^>]+)>)/gi, " ");
     //remove special characters
-    clean = clean.replace(/&nbsp;/gi, "");
-    clean = clean.replace(/&amp;/gi, "");
-    clean = clean.replace(/&quot;/gi, "");
-    clean = clean.replace(/&lt;/gi, "");
-    clean = clean.replace(/&gt;/gi, "");
+    clean = clean.replace(/&nbsp;/gi, " ");
+    clean = clean.replace(/&amp;/gi, " ");
+    clean = clean.replace(/&quot;/gi, " ");
+    clean = clean.replace(/&lt;/gi, " ");
+    clean = clean.replace(/&gt;/gi, " ");
     return clean;
   };
   const handleLoadMore = () => {
@@ -262,22 +271,22 @@ function AllKonten(props) {
         >
           <div
             className={
-              props.isGrid ? "card-body p-6 gap-y-1" : "card-body p-6 gap-y-1 "
+              props.isGrid
+                ? "card-body p-6 gap-y-1 flex-col justify-between"
+                : "card-body p-6 gap-y-1 "
             }
           >
-            <img
-              className={
-                !props.isGrid
-                  ? "hidden"
-                  : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
-              }
-              src={
-                item.thumbnail === "default.png"
-                  ? BPSLogo
-                  : HOME_LINK + "/assets/" + item.thumbnail
-              }
-              alt=""
-            />
+            {item.thumbnail !== "default.png" ? (
+              <img
+                className={
+                  !props.isGrid
+                    ? "hidden"
+                    : "rounded-md object-cover border min-w-full min-h-[150px] max-h-[150px] mb-2"
+                }
+                src={HOME_LINK + "/assets/" + item.thumbnail}
+                alt=""
+              />
+            ) : null}
 
             <div className="flex flex-row">
               <div className={props.isGrid ? "hidden" : "avatar mr-4"}>
@@ -301,17 +310,17 @@ function AllKonten(props) {
                 <div className="text-sm">{handleTanggal(item.tanggal)}</div>
               </div>
             </div>
-            <div className={"flex justify-between  max-w-full  gap-8 pr-6"}>
+            <div className={"flex justify-between gap-8 pr-6"}>
               <div className={""}>
-                <h2 className="font-semibold text-xl py-1  max-w-full  line-clamp-2">
+                <h2 className="font-semibold text-xl py-1 line-clamp-2">
                   {item.judul}
                 </h2>
-
-                <p
-                  className={
-                    props.isGrid ? "hidden" : "line-clamp-2 max-w-full text-md"
-                  }
-                >
+                {props.isGrid && item.thumbnail === "default.png" ? (
+                  <p className={"line-clamp-6 text-md "}>
+                    {handleHTML(item.isi_konten)}
+                  </p>
+                ) : null}
+                <p className={props.isGrid ? "hidden" : "line-clamp-2 text-md"}>
                   {handleHTML(item.isi_konten)}
                 </p>
               </div>
@@ -329,10 +338,10 @@ function AllKonten(props) {
             </div>
 
             <div>
-              <div className="flex flex-wrap flex-row gap-x-1 mt-2">
+              <div className="flex flex-row gap-x-1 mt-2">
                 <div
                   className={
-                    "flex transition hover:bg-rose-100 dark:hover:bg-gray-700 py-1.5 px-4 rounded-2xl flex-row justify-center items-center"
+                    "flex transition hover:bg-rose-100  px-4 rounded-2xl  dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
                   }
                 >
                   <span>
@@ -352,7 +361,7 @@ function AllKonten(props) {
                 </div>
                 <div
                   className={
-                    "flex transition hover:bg-blue-100 dark:hover:bg-gray-700 py-1.5 px-4 rounded-2xl flex-row justify-center items-center"
+                    "flex transition hover:bg-blue-100  px-4 rounded-2xl  dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
                   }
                 >
                   <span>
@@ -369,7 +378,7 @@ function AllKonten(props) {
                     <span className={"hidden sm:inline"}> Comments</span>
                   </span>
                 </div>
-                {item.tags !== ""
+                {tags !== ""
                   ? item.tags
                       .split(",")
                       .slice(0, 3)
@@ -379,7 +388,7 @@ function AllKonten(props) {
                           className={
                             props.isGrid
                               ? "hidden"
-                              : "flex transition hover:bg-green-200  dark:hover:bg-gray-700 py-1.5 px-4 rounded-2xl  flex-row justify-center items-center"
+                              : "flex transition  px-4 rounded-2xl  hover:bg-green-200  dark:hover:bg-gray-700 py-1.5 px-3 rounded-md flex-row justify-center items-center"
                           }
                         >
                           <span className={"text-sm"}>{tag}</span>

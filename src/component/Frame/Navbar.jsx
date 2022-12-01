@@ -196,9 +196,13 @@ function Theme() {
     if (html.classList.contains("dark")) {
       html.classList.remove("dark");
       Cookies.set("theme", "light");
+      document.querySelector(".ql-editor").classList.remove("dark");
+      document.querySelector(".ql-toolbar").classList.remove("dark");
     } else {
       html.classList.add("dark");
       Cookies.set("theme", "dark");
+      document.querySelector(".ql-editor").classList.add("dark");
+      document.querySelector(".ql-toolbar").classList.add("dark");
     }
   };
   return (
@@ -279,7 +283,7 @@ function Navbar(props) {
           <>
             <Theme />
             <MenuOms />
-            <Notification />
+            {/*<Notification />*/}
             <Profile />
           </>
         ) : (

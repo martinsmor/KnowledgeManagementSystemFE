@@ -16,7 +16,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debounceResults}
-        className="sm:w-full w-full -ml-8 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="sm:w-full dark:bg-[#171717]  w-full -ml-8 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Unit Kerja"
       />
@@ -49,6 +49,7 @@ function UnitKerja(props) {
 
   useEffect(() => {
     setLoading(true);
+    setData([]);
     let data = {
       search: search,
       limit: rowsPerPage,
@@ -81,27 +82,29 @@ function UnitKerja(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col md:p-8 p-4"
+      className="absolute  dark:bg-black content flex flex-row gap-y-4 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col md:p-8 p-4"
     >
       <SearchBar search={search} debounceResults={debouncedResults} />
-      <div className=" overflow-x-auto min-w-full  border shadow-md rounded-md">
-        <table className="min-w-screen table overflow-x-auto min-w-full ">
-          <thead className="bg-white">
+      <div className=" overflow-x-auto min-w-full   border shadow-md rounded-md">
+        <table className="min-w-screen table overflow-x-auto min-w-full border-black ">
+          <thead className="bg-white  border-black ">
             <tr className="bg-white border-b">
-              <th className="bg-white"></th>
-              <th className="bg-white">Unit Kerja</th>
+              <th className="bg-white dark:bg-[#171717] "></th>
+              <th className="bg-white dark:bg-[#171717] ">Unit Kerja</th>
             </tr>
           </thead>
           <tbody>
             {count === 0 ? (
               <tr className="border-b">
-                <td className="p-3"></td>
-                <td className="p-3">Unit Kerja Tidak Ditemukan</td>
+                <td className="p-3 dark:bg-[#171717] "></td>
+                <td className="p-3 dark:bg-[#171717] ">
+                  Unit Kerja Tidak Ditemukan
+                </td>
               </tr>
             ) : null}
             {error ? (
               <tr>
-                <td colSpan={2} className="text-center">
+                <td colSpan={2} className="text-center dark:bg-[#171717] ">
                   Mohon Maaf, Terjadi Kesalahan
                 </td>
               </tr>
@@ -109,10 +112,10 @@ function UnitKerja(props) {
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr key={index} className="bg-white border-b min-h-[65px]">
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
@@ -121,24 +124,30 @@ function UnitKerja(props) {
             {data.map((item, index) => (
               <>
                 <tr key={index}>
-                  <td className={"text-center font-semibold w-[80px]"}>
-                    {index + 1 + page * 10}
+                  <td
+                    className={
+                      "text-center font-semibold dark:bg-[#171717]  w-[80px]"
+                    }
+                  >
+                    {index + 1 + page * rowsPerPage}
                   </td>
-                  <td>{item.unit_kerja}</td>
+                  <td className={"dark:bg-[#171717] "}>{item.unit_kerja}</td>
                 </tr>
               </>
             ))}
           </tbody>
         </table>
       </div>
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className={"rounded-md dark:bg-slate-500"}>
+        <TablePagination
+          component="div"
+          count={count}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
     </div>
   );
 }

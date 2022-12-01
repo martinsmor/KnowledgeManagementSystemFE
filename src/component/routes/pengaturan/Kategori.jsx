@@ -17,7 +17,7 @@ function SearchBar(props) {
       </div>
       <input
         onChange={props.debouncedResults}
-        className="w-full -ml-8 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
+        className="w-full dark:bg-[#171717] -ml-8 h-10 p-2 pl-10 px-3 border border-gray-400 rounded-md focus:outline-2 focus:outline-blue-500"
         type="text"
         placeholder="Cari Kategori"
       />
@@ -57,6 +57,7 @@ function Kategori(props) {
 
   useEffect(() => {
     setLoading(true);
+    setData([]);
     setError(false);
     let data = {
       search: search,
@@ -159,7 +160,7 @@ function Kategori(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-col gap-y-2 gap-x-6 top-[64px] md:p-8 p-4 "
+      className="absolute  dark:bg-black  content flex flex-col gap-y-2 gap-x-6 top-[64px] md:p-8 p-4 "
     >
       <div className={"flex gap-2 sm:flex-row flex-col "}>
         <label
@@ -182,13 +183,13 @@ function Kategori(props) {
       <div>
         <input type="checkbox" id="my-modal1" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box rounded-md sm:rounded">
+          <div className="modal-box dark:bg-[#171717] rounded-md sm:rounded">
             <h3 className="font-bold text-xl my-2">Tambah Kategori Baru</h3>
             <label htmlFor="tambahUnit">Nama Kategori</label>
             <input
               onChange={handleTambahKategori}
               value={tambahKategori}
-              className=" w-full mt-2 h-12 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
+              className=" w-full mt-2 h-12 p-2 px-3 border dark:bg-[#171717]  border-gray-400 rounded focus:outline-2 focus:outline-blue-500 "
               type="text"
               placeholder="Nama Kategori"
             />
@@ -211,15 +212,15 @@ function Kategori(props) {
         <table className="min-w-screen table overflow-x-auto min-w-full ">
           <thead className="bg-white">
             <tr className="bg-white border-b">
-              <th className="bg-white"></th>
-              <th className="bg-white">Nama</th>
-              <th className="bg-white">Action</th>
+              <th className="bg-white dark:bg-[#171717]"></th>
+              <th className="bg-white dark:bg-[#171717]">Nama</th>
+              <th className="bg-white dark:bg-[#171717]">Action</th>
             </tr>
           </thead>
           <tbody>
             {error ? (
               <tr>
-                <td colSpan={3} className="text-center">
+                <td colSpan={3} className="text-center dark:bg-[#171717]">
                   Mohon Maaf, Terjadi Kesalahan
                 </td>
               </tr>
@@ -227,13 +228,13 @@ function Kategori(props) {
             {loading
               ? [...Array(10)].map((item, index) => (
                   <tr key={index} className="bg-white border-b min-h-[65px]">
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717]">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
@@ -241,18 +242,22 @@ function Kategori(props) {
               : null}
             {count === 0 ? (
               <tr>
-                <td colSpan={3} className="text-center">
+                <td colSpan={3} className="text-center dark:bg-[#171717]">
                   Kategori Tidak Ditemukan
                 </td>
               </tr>
             ) : (
               data.map((item, index) => (
                 <tr key={index + 1}>
-                  <td className={"text-center font-semibold w-[80px]"}>
-                    {index + 1 + page * 10}
+                  <td
+                    className={
+                      "text-center dark:bg-[#171717] font-semibold w-[80px]"
+                    }
+                  >
+                    {index + 1 + page * rowsPerPage}
                   </td>
-                  <td>{item.nama_kategori}</td>
-                  <td className="w-[260px]">
+                  <td className={"dark:bg-[#171717]"}>{item.nama_kategori}</td>
+                  <td className="w-[260px] dark:bg-[#171717]">
                     <label
                       htmlFor="my-modal2"
                       onClick={() =>
@@ -278,18 +283,21 @@ function Kategori(props) {
           </tbody>
         </table>
       </div>
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className={"rounded-md dark:bg-slate-500"}>
+        <TablePagination
+          component="div"
+          count={count}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box rounded-md sm:rounded">
+        <div className="modal-box dark:bg-[#171717] rounded-md sm:rounded">
           <h3 className="font-bold text-lg mt-2">
             Apakah anda yakin ingin menghapus kategori ini?
           </h3>
@@ -311,13 +319,13 @@ function Kategori(props) {
       {/*Edit Modal */}
       <input type="checkbox" id="my-modal2" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box sm:rounded">
+        <div className="modal-box dark:bg-[#171717] sm:rounded">
           <h3 className="font-bold text-lg my-2">Edit Kategori</h3>
           <label htmlFor="tambahUnit">Nama Kategori</label>
           <input
             onChange={handleEditKategori}
             value={namaKategori}
-            className="w-full h-12 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500"
+            className="w-full h-12 p-2 px-3 border border-gray-400 rounded focus:outline-2 focus:outline-blue-500 dark:bg-[#171717] "
             type="text"
             placeholder="Nama Kategori"
           />

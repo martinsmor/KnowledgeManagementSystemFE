@@ -11,13 +11,15 @@ import { useSnackbar } from "notistack";
 const HOME_LINK = import.meta.env.VITE_HOME;
 
 const tagsAll = [
-  { title: "#SP2020", year: 1994 },
-  { title: "#ST2023", year: 1972 },
-  { title: "#SIG", year: 1974 },
-  { title: "#bigdata", year: 2008 },
-  { title: "#uiux", year: 1957 },
-  { title: "#ask", year: 1993 },
-  { title: "#info", year: 1994 },
+  { title: "#SP2020" },
+  { title: "#ST2023" },
+  { title: "#SIG" },
+  { title: "#bigdata" },
+  { title: "#ask" },
+  { title: "#info" },
+  { title: "pertanian" },
+  { title: "kependudukan" },
+  { title: "pariwisata" },
 ];
 
 const modules = {
@@ -49,6 +51,7 @@ function EditKonten(props) {
   const HOME_LINK = import.meta.env.VITE_HOME;
   const [editThumbnail, setEditThumbnail] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -101,6 +104,10 @@ function EditKonten(props) {
   };
 
   const handleSubmit = (event) => {
+    setLoading(true);
+    enqueueSnackbar("Mohon Tunggu Sebentar", {
+      variant: "info",
+    });
     event.preventDefault();
     let tagsString = "";
     tags.forEach((tag) => {
@@ -129,7 +136,7 @@ function EditKonten(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute content flex flex-row gap-y-4 gap-x-6 top-[64px] pt-4 md:p-8 p-4 flex flex-col"
+      className="absolute  dark:bg-black  content flex flex-row gap-y-4 gap-x-6 top-[64px] pt-4 md:p-8 p-4 flex flex-col"
     >
       <form className={"flex flex-col gap-y-3"} onSubmit={handleSubmit}>
         <div className={"flex flex-col gap-y-1 "}>
@@ -235,6 +242,7 @@ function EditKonten(props) {
         </div>
         <button
           type="submit"
+          disabled={loading}
           className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full"
         >
           Submit

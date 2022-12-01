@@ -25,7 +25,7 @@ function SearchBar(props) {
       />
       <div
         data-tip={"Urutkan Berdasar " + props.sort}
-        className="sm:inline-block hidden  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        className="sm:inline-block  dark:bg-[#171717] hidden  tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -34,7 +34,7 @@ function SearchBar(props) {
           }
         >
           <svg
-            className={"w-5"}
+            className={"w-5 dark:fill-white"}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"
           >
@@ -44,19 +44,29 @@ function SearchBar(props) {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
+          className="dropdown-content  dark:bg-[#171717] dark:border-zinc-800   menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
         >
           <li>
-            <button onClick={() => props.handleSort("Terbaru")}>Terbaru</button>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleSort("Terbaru")}
+            >
+              Terbaru
+            </button>
           </li>
           <li>
-            <button onClick={() => props.handleSort("Judul")}>Judul</button>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleSort("Judul")}
+            >
+              Judul
+            </button>
           </li>
         </ul>
       </div>
       <div
-        data-tip={"Hanya Tampilkan " + props.filter}
-        className="sm:inline-block hidden tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
+        data-tip={"Tampilkan " + props.filter}
+        className="sm:inline-block  dark:bg-[#171717]  dark:border-zinc-800   hidden tooltip tooltip-bottom bg-white  dropdown z-20 dropdown-end rounded-md"
       >
         <label
           tabIndex={0}
@@ -65,7 +75,7 @@ function SearchBar(props) {
           }
         >
           <svg
-            className={"w-5"}
+            className={"w-5 dark:fill-white"}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
@@ -75,23 +85,37 @@ function SearchBar(props) {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
+          className="dropdown-content  dark:bg-[#171717]  menu p-2 shadow bg-base-100 rounded-md border-gray-300 border min-w-[135px] "
         >
           <li>
-            <button onClick={() => props.handleFilter("All")}>Semua</button>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleFilter("All")}
+            >
+              Semua
+            </button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Menunggu")}>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleFilter("Menunggu")}
+            >
               Menunggu
             </button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Diterima")}>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleFilter("Diterima")}
+            >
               Diterima
             </button>
           </li>
           <li>
-            <button onClick={() => props.handleFilter("Ditolak")}>
+            <button
+              className={"dark:hover:bg-gray-700"}
+              onClick={() => props.handleFilter("Ditolak")}
+            >
               Ditolak
             </button>
           </li>
@@ -234,27 +258,30 @@ function Kontensaya(props) {
           <tbody className={" dark:bg-[#171717] "}>
             {error ? (
               <tr>
-                <td colSpan={5} className="text-center">
+                <td colSpan={5} className="text-center  dark:bg-[#171717] ">
                   Mohon Maaf, Terjadi Kesalahan
                 </td>
               </tr>
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr key={index} className="bg-white border-b min-h-[65px]">
-                    <td className="bg-white">
+                  <tr
+                    key={index}
+                    className="bg-white  dark:bg-[#171717]  border-b min-h-[65px]  dark:bg-[#171717] "
+                  >
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
-                    <td className="bg-white">
+                    <td className="bg-white dark:bg-[#171717] ">
                       <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                     </td>
                   </tr>
@@ -263,7 +290,7 @@ function Kontensaya(props) {
 
             {count === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="5" className="text-center  dark:bg-[#171717] ">
                   Konten Tidak Ditemukan
                 </td>
               </tr>
@@ -273,7 +300,7 @@ function Kontensaya(props) {
                   <td
                     className={"text-center font-semibold dark:bg-[#171717] "}
                   >
-                    {index + 1 + page * 10}
+                    {index + 1 + page * rowsPerPage}
                   </td>
                   <td
                     className={
@@ -341,18 +368,21 @@ function Kontensaya(props) {
           </tbody>
         </table>
       </div>
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className={"rounded-md dark:bg-slate-500"}>
+        <TablePagination
+          component="div"
+          count={count}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+
       {/*Delete Modal */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle ">
-        <div className="modal-box sm:rounded rounded-md">
+      <div className="modal  modal-bottom sm:modal-middle ">
+        <div className="modal-box  dark:bg-[#171717] sm:rounded rounded-md">
           <h3 className="font-bold text-xl">
             Apakah anda yakin ingin menghapus konten
           </h3>
