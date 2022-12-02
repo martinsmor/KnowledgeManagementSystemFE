@@ -7,11 +7,12 @@ import AllKonten from "./Konten.jsx";
 import debounce from "lodash.debounce";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function BerandaSearch(props) {
   const [url, setUrl] = useState(new URLSearchParams(window.location.search));
   const { id } = useParams();
-  const [isGrid, setIsGrid] = useState(false);
+  const [isGrid, setIsGrid] = useState(Cookies.get("isGrid") === "true");
   const [filter, setFilter] = useState(
     !url.get("filter") ? "" : url.get("filter")
   );
@@ -79,11 +80,13 @@ function BerandaSearch(props) {
   const handleList = () => {
     if (isGrid) {
       setIsGrid(false);
+      Cookies.set("isGrid", false);
     }
   };
   const handleGrid = () => {
     if (!isGrid) {
       setIsGrid(true);
+      Cookies.set("isGrid", true);
     }
   };
 

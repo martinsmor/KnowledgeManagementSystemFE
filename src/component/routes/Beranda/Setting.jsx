@@ -233,14 +233,14 @@ function SearchBar(props) {
             <input
               value={props.search}
               onChange={props.handleSearch}
-              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] "
+              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] dark:text-white"
               placeholder="Cari Konten ..."
               required
             ></input>
             <button
               onClick={props.handleSubmit}
               type="submit"
-              className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border  dark:border-gray-400  border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
                 aria-hidden="true"

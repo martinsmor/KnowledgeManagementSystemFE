@@ -3,9 +3,12 @@
 ## BackEnd
 
 1. Import Database
-2. Install Depenpency Codeigniter
+2. Install Dependency Codeigniter
     ```
     composer install
+    ```
+   ```
+    composer update
     ```
 3. Jalankan Server Untuk phpMyAdmin
 4. Jalankan Server Codeigniter
@@ -24,7 +27,7 @@
     ```
     npm run dev
     ```
-4. Untuk Build
+4. Build to production
     ```
     npm run build
     ```

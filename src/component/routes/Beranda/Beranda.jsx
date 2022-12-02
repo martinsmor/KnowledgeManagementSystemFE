@@ -6,9 +6,10 @@ import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
 import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Beranda(props) {
-  const [isGrid, setIsGrid] = useState(false);
+  const [isGrid, setIsGrid] = useState(Cookies.get("isGrid") === "true");
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("tanggal");
   const [search, setSearch] = useState("");
@@ -47,11 +48,13 @@ function Beranda(props) {
   const handleList = () => {
     if (isGrid) {
       setIsGrid(false);
+      Cookies.set("isGrid", false);
     }
   };
   const handleGrid = () => {
     if (!isGrid) {
       setIsGrid(true);
+      Cookies.set("isGrid", true);
     }
   };
 

@@ -139,25 +139,16 @@ function Filter(props) {
             <div className={"flex flex-col gap-y-2"}>
               <label htmlFor="">Kategori</label>
               <select
+                value={kategoriKonten}
                 onChange={handleKategoriKonten}
-                defaultValue={"123456789"}
                 className="select transition-none w-full dark:bg-[#171717] dark:text-white text-black min-h-0 h-10 form-select appearance-none block w-full px-3 bg-white bg-clip-padding bg-no-repeat rounded  m-0  focus:outline-blue-500 focus:outline-offset-0 border border-gray-400 "
               >
-                {data.map((item, index) =>
-                  item.nama_kategori === "Jaringan" ? (
-                    <option
-                      key={index}
-                      className={"select"}
-                      value={item.nama_kategori}
-                    >
-                      123456789
-                    </option>
-                  ) : (
-                    <option key={index} value={item.nama_kategori}>
-                      {item.nama_kategori}
-                    </option>
-                  )
-                )}
+                <option value="">-</option>
+                {data.map((item, index) => (
+                  <option key={index} value={item.nama_kategori}>
+                    {item.nama_kategori}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -253,7 +244,7 @@ function SearchBar(props) {
             <input
               defaultValue={props.search}
               onChange={props.handleSearch}
-              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] "
+              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] dark:text-white"
               placeholder="Cari Konten ..."
               required
             ></input>
