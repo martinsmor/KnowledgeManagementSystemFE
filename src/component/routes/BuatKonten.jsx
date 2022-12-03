@@ -7,7 +7,11 @@ import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
 import { useSnackbar } from "notistack";
 import { AuthContext, UserContext } from "../../App.jsx";
-import Cookies from "js-cookie";
+import ImageUploader from "quill-image-uploader";
+import { useNavigate } from "react-router-dom";
+
+Quill.register("modules/imageUploader", ImageUploader);
+const HOME_LINK = import.meta.env.VITE_HOME;
 
 const tagsAll = [
   { title: "#SP2020" },
@@ -22,6 +26,22 @@ const tagsAll = [
 ];
 
 const modules = {
+  imageUploader: {
+    upload: (file) => {
+      return new Promise((resolve, reject) => {
+        if (file.size > 500000) {
+          reject("File is too big!");
+          return;
+        }
+        const formData = new FormData();
+        formData.append("image", file);
+        httpClient.uploadImage(formData).then((res) => {
+          console.log(res.data.thumbnail);
+          resolve(HOME_LINK + "/content/" + res.data.thumbnail);
+        });
+      });
+    },
+  },
   toolbar: [
     [{ header: [1, 2, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -47,11 +67,13 @@ function BuatKonten(props) {
   const { enqueueSnackbar } = useSnackbar();
   const user = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const [thumbnail, setThumbnail] = useState("");
+  const navigate = useNavigate();
 
   const isLogin = useContext(AuthContext);
   useEffect(() => {
     if (!isLogin) {
-      window.location.href = "/auth";
+      navigate("/auth");
     }
     let data = {
       limit: 100,
@@ -78,6 +100,7 @@ function BuatKonten(props) {
       });
       return;
     }
+    setThumbnail(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -103,6 +126,14 @@ function BuatKonten(props) {
       tagsString += tag + ",";
     });
     tagsString = tagsString.substring(0, tagsString.length - 1);
+    const formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("judul", title);
+    formData.append("isi_konten", value);
+    formData.append("tags", tagsString);
+    formData.append("cover", thumbnail);
+    formData.append("kategori", category);
+
     let data = {
       username: user.username,
       judul: title,
@@ -110,12 +141,14 @@ function BuatKonten(props) {
       tags: tagsString,
       kategori: category,
       thumbnail: Cover,
+      cover: thumbnail,
     };
     httpClient
-      .createContent(data)
+      .createContent(formData)
       .then((res) => {
         enqueueSnackbar("Konten Berhasil Dibuat", { variant: "success" });
-        window.location.href = "/konten/" + res.data.messages.contentId;
+        navigate("/konten/" + res.data.messages.contentId);
+        // window.location.href = "/konten/" + res.data.messages.contentId;
       })
       .catch((err) => {
         enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
@@ -175,7 +208,7 @@ function BuatKonten(props) {
               id={"cover"}
               type="file"
               onChange={handleChangeCover}
-              accept="image/jpg,.gif,.png,.svg,.jpeg"
+              accept="image/*"
               className={"hidden"}
             />
           </div>

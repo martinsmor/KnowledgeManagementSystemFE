@@ -10,7 +10,7 @@ import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { UserContext } from "../../App.jsx";
 
-//search bar component
+//search bar component dan Sort
 function SearchBar(props) {
   return (
     <div className="flex flex-row w-full justify-center gap-x-4 items-center">
@@ -304,7 +304,7 @@ function Kontensaya(props) {
                   </td>
                   <td
                     className={
-                      "max-w-[400px] whitespace-normal  dark:bg-[#171717] "
+                      "max-w-[400px] min-w-[200px]  whitespace-normal  dark:bg-[#171717] "
                     }
                   >
                     {item.judul}
@@ -328,7 +328,12 @@ function Kontensaya(props) {
                         {item.status}
                       </div>
                       {item.status === "Ditolak" ? (
-                        <div className={"tooltip"} data-tip={item.feedback}>
+                        <div
+                          className={
+                            "tooltip whitespace-normal cursor-pointer before:w-[20rem] before:content-[attr(data-tip)]"
+                          }
+                          data-tip={item.feedback}
+                        >
                           <svg
                             className={"w-5 fill-rose-500"}
                             xmlns="http://www.w3.org/2000/svg"

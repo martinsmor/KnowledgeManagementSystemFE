@@ -1,4 +1,4 @@
-// Component Konten Yang berisi infinite scroll dari konten
+// Component Konten Yang berisi infinite scroll dari Semua konten yang berstatus Diterima
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import BPSLogo from "../../../assets/bpslogo.png";
 
 const HOME_LINK = import.meta.env.VITE_HOME;
 
-// Skeleton Loading
+// Skeleton Loading (Saat fetch API)
 const Loading = (props) => {
   return (
     <div
@@ -23,7 +23,7 @@ const Loading = (props) => {
           : "card dark:bg-[#171717]  dark:border-gray-900  kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
       }
     >
-      <div className="card-body p-6 gap-y-1">
+      <div className="card-body sm:p-6 p-4  gap-y-1">
         <div className="flex flex-row">
           <div className="avatar mr-4">
             <Skeleton
@@ -33,9 +33,8 @@ const Loading = (props) => {
               height={40}
             />
           </div>
-          <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+          <div className="flex sm:flex-col flex-col justify-around items-start sm:items-start gap-x-2">
             <Skeleton width={150} height={15} animation="wave" />
-            <span className={"sm:hidden "}>&#183;</span>
             <Skeleton width={100} height={15} animation="wave" />
           </div>
         </div>
@@ -133,7 +132,6 @@ function AllKonten(props) {
   const [loading2, setLoading2] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState(false);
-  const [tags, setTags] = useState([]);
   const [reset, setReset] = useState(false);
 
   // Fungsi Untuk Infinite Scroll
@@ -226,6 +224,7 @@ function AllKonten(props) {
       });
   }, [page]);
 
+  // Handle HTML konten (sebenarnya di backend sudah ada)
   const handleHTML = (html) => {
     let clean = html.replace(/(<([^>]+)>)/gi, "");
     //remove special characters
@@ -262,7 +261,9 @@ function AllKonten(props) {
         >
           <div
             className={
-              props.isGrid ? "card-body p-6 gap-y-1" : "card-body p-6 gap-y-1 "
+              props.isGrid
+                ? "card-body p-6 gap-y-1 flex justify-between"
+                : "card-body sm:p-6 p-4  gap-y-1 "
             }
           >
             <img

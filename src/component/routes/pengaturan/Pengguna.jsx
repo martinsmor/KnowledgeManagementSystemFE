@@ -310,7 +310,13 @@ function Pengguna(props) {
                     {index + 1 + page * rowsPerPage}
                   </td>
                   <td className={" dark:bg-[#171717]"}>{item.nama}</td>
-                  <td className={" dark:bg-[#171717]"}>{item.unit_kerja}</td>
+                  <td
+                    className={
+                      " dark:bg-[#171717]  max-w-[400px] min-w-[250px]  whitespace-normal"
+                    }
+                  >
+                    {item.unit_kerja}
+                  </td>
                   <td className={" dark:bg-[#171717]"}>{item.role}</td>
                   <td className=" dark:bg-[#171717]">
                     <label

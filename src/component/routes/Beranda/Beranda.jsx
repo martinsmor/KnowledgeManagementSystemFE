@@ -1,10 +1,8 @@
-//Merupakan Page BerandaSearch yang dapat diakses oleh siapapun
-//Fungsi Debounce untuk mengurangi jumlah request ke server
+//Merupakan Page Beranda yang dapat diakses oleh siapapun
 
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import Setting from "./Setting.jsx";
 import AllKonten from "./Konten.jsx";
-import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -15,27 +13,12 @@ function Beranda(props) {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
+  // Fungsi untuk mengubah tampilan konten berdasar pencarian / filter / sort
   const handleSubmit = () => {
-    //  Link to search page react router
     navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${sort}`);
   };
 
-  const handleSearch = (e) => {
-    // link to search page
-    setSearch(e.target.value);
-  };
-
-  const debouncedResults = useMemo(() => {
-    return debounce(handleSearch, 300);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      debouncedResults.cancel();
-    };
-  });
   const handleSort = async (e) => {
-    // await setSort(e); and then link to search page
     setSort(e);
     navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${e}`);
   };
@@ -45,6 +28,9 @@ function Beranda(props) {
     navigate(`/beranda/search?query=${search}&filter=${e}&sort=${sort}`);
   };
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
   const handleList = () => {
     if (isGrid) {
       setIsGrid(false);
@@ -71,7 +57,6 @@ function Beranda(props) {
         handleSort={handleSort}
         search={search}
         handleSearch={handleSearch}
-        debouncedResults={debouncedResults}
         handleSubmit={handleSubmit}
       />
       <AllKonten

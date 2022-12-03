@@ -122,7 +122,7 @@ body {
 
     .ql-editor {
         overflow-y: visible;
-        padding-top: 100px;
+        padding-top: 80px;
         min-height: 200px;
         background-color: #fff;
         border-radius: 0.25rem;
@@ -132,7 +132,6 @@ body {
 }
 
 
-/* if < 768*/
 @media only screen and (max-width: 392px) {
     .ql-container.ql-snow {
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

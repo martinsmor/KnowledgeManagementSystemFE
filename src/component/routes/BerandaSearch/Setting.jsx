@@ -1,9 +1,7 @@
 // Setting component yang berisi search bar, filter, sort, dan grid/list
 import { useEffect, useState } from "react";
-import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
 import { useNavigate } from "react-router-dom";
-import { typographyClasses } from "@mui/material";
 
 // Sort component
 function Sort(props) {
@@ -282,7 +280,7 @@ function Setting(props) {
     <>
       <div
         className={
-          "sm:flex  dark:text-white flex-row w-full md:flex-nowrap sm:px-0 px-4 flex-wrap py-2 gap-y-2 gap-x-4 rounded-md justify-between "
+          "sm:flex  dark:text-white flex-row w-full md:flex-nowrap md:px-0 px-4 flex-wrap py-2 gap-y-2 gap-x-4 rounded-md justify-between "
         }
       >
         <div className={"flex flex-col w-full"}>

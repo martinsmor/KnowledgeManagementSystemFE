@@ -1,13 +1,10 @@
 // Setting component yang berisi search bar, filter, sort, dan grid/list
 import { useEffect, useState } from "react";
-import searchIcon from "../../../assets/icon/search.svg";
 import httpClient from "../../../httpClient.js";
-import { useNavigate } from "react-router-dom";
 
 // Sort component
 function Sort(props) {
   const [sortType, setSortType] = useState("Terbaru");
-
   const handleSort = (e) => {
     setSortType(e);
     props.handleSort(e);
@@ -65,6 +62,8 @@ function Filter(props) {
   const [filter, setFilter] = useState("");
   const [isFilter, setIsFilter] = useState(false);
   const [data, setData] = useState([]);
+
+  // JENIS KONTEN SUDAH TIDAK DIPAKAI (SEMUA KONTEN JADI 1 JENIS)
 
   const handleJenisKonten = (e) => {
     setJenisKonten(e.target.value);
@@ -271,7 +270,7 @@ function Setting(props) {
     <>
       <div
         className={
-          "sm:flex  dark:text-white flex-row w-full md:flex-nowrap sm:px-0 px-4 flex-wrap py-2 gap-y-2 gap-x-4 rounded-md justify-between "
+          "sm:flex  dark:text-white flex-row w-full md:flex-nowrap md:px-0 px-4 flex-wrap py-2 gap-y-2 gap-x-4 rounded-md justify-between "
         }
       >
         <div className={"flex flex-col w-full"}>

@@ -1,5 +1,5 @@
 //Merupakan Page BerandaSearch yang dapat diakses oleh siapapun
-//Fungsi Debounce untuk mengurangi jumlah request ke server
+// MERUPAKAN PAGE BERANDA SEARCH (SAMA SEPERTI BERANDA, BERFUNGSI UNTUK MENYIMPAN HISTORY DARI PENCARIAN KETIKA BACK PAGE)
 
 import { useState, useEffect, useMemo } from "react";
 import Setting from "./Setting.jsx";

@@ -264,6 +264,13 @@ httpClient.unlikeContent = function (id, data) {
     data: data,
   });
 };
+httpClient.uploadImage = function (data) {
+  return this({
+    method: "post",
+    url: API_LINK + "/image",
+    data: data,
+  });
+};
 // send bearer token every request except login and beranda
 httpClient.defaults.headers.common[
   "Authorization"

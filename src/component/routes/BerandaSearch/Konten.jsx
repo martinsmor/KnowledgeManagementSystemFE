@@ -7,7 +7,6 @@ import { CircularProgress, Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import profilePicture from "../../../assets/default.jpg";
 import notfound from "../../../assets/notfound.png";
-import { useParams } from "react-router-dom";
 import BPSLogo from "../../../assets/bpslogo.png";
 
 const HOME_LINK = import.meta.env.VITE_HOME;
@@ -24,7 +23,7 @@ const Loading = (props) => {
           : "card dark:bg-[#171717]  dark:border-gray-900  kontancard transition hover:border-blue-400  w-full bg-base-100 border border-gray-300 sm:rounded-md rounded-none"
       }
     >
-      <div className="card-body p-6 gap-y-1">
+      <div className="card-body sm:p-6 p-4  gap-y-1">
         <div className="flex flex-row">
           <div className="avatar mr-4">
             <Skeleton
@@ -167,6 +166,8 @@ function AllKonten(props) {
     setError(false);
     setPage(1);
     setReset(true);
+    setData([]);
+    setLoading(true);
 
     let params = {
       search: props.search,
@@ -251,7 +252,6 @@ function AllKonten(props) {
       setPage(page + 1);
     }
   };
-
   return (
     <div className={"flex flex-row sm:gap-4 gap-1 z-10 flex-wrap "}>
       {loading
@@ -272,7 +272,9 @@ function AllKonten(props) {
         >
           <div
             className={
-              props.isGrid ? "card-body p-6 gap-y-1" : "card-body p-6 gap-y-1 "
+              props.isGrid
+                ? "card-body p-6 gap-y-1 flex justify-between"
+                : "card-body sm:p-6 p-4  gap-y-1 "
             }
           >
             <img
@@ -291,7 +293,7 @@ function AllKonten(props) {
 
             <div className="flex flex-row">
               <div className={props.isGrid ? "hidden" : "avatar mr-4"}>
-                <div className="sm:w-10 sm:h-10 w-6 h-6 rounded-full">
+                <div className="sm:w-10 sm:h-10 w-9 h-9 rounded-full">
                   <img
                     src={
                       item.user_photo === ""
@@ -303,15 +305,16 @@ function AllKonten(props) {
                   } />
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row justify-around items-center sm:items-start gap-x-2">
+              <div className="flex flex-col justify-around  items-start gap-x-2">
                 <div className={"sm:text-normal text-sm font-medium"}>
                   {item.nama}
                 </div>
-                <span className={"sm:hidden "}>&#183;</span>
                 <div className="text-sm">{handleTanggal(item.tanggal)}</div>
               </div>
             </div>
-            <div className={"flex justify-between  max-w-full  gap-8 pr-6"}>
+            <div
+              className={"flex justify-between  max-w-full  gap-8 p-0 sm:pr-6"}
+            >
               <div className={""}>
                 <h2 className="font-semibold text-xl py-1  max-w-full  line-clamp-2">
                   {item.judul}
@@ -382,7 +385,7 @@ function AllKonten(props) {
                 {item.tags !== ""
                   ? item.tags
                       .split(",")
-                      .slice(0, 3)
+                      .slice(0, window.innerWidth > 768 ? 3 : 2)
                       .map((tag, index) => (
                         <div
                           key={index}

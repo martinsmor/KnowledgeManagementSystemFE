@@ -1,13 +1,16 @@
 // Merupakan Page untuk Mengedit Konten
 
 import "react-quill/dist/quill.snow.css";
-import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
+import { useContext, useEffect, useState } from "react";
+import ReactQuill, { Quill } from "react-quill";
 import { Autocomplete, TextField } from "@mui/material";
 import httpClient from "../../httpClient.js";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import ImageUploader from "quill-image-uploader";
+import { UserContext } from "../../App.jsx";
 
+Quill.register("modules/imageUploader", ImageUploader);
 const HOME_LINK = import.meta.env.VITE_HOME;
 
 const tagsAll = [
@@ -23,6 +26,18 @@ const tagsAll = [
 ];
 
 const modules = {
+  imageUploader: {
+    upload: (file) => {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("image", file);
+        httpClient.uploadImage(formData).then((res) => {
+          console.log(res.data.thumbnail);
+          resolve(HOME_LINK + "/content/" + res.data.thumbnail);
+        });
+      });
+    },
+  },
   toolbar: [
     [{ header: [1, 2, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -52,6 +67,9 @@ function EditKonten(props) {
   const [editThumbnail, setEditThumbnail] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const user = useContext(UserContext);
+  const [thumbnail, setThumbnail] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     let data = {
@@ -83,6 +101,7 @@ function EditKonten(props) {
 
   const handleChangeCover = (e) => {
     const file = e.target.files[0];
+    setThumbnail(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     //if size > 1mb
@@ -114,17 +133,32 @@ function EditKonten(props) {
       tagsString += tag + ",";
     });
     tagsString = tagsString.substring(0, tagsString.length - 1);
+
+    const formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("judul", title);
+    formData.append("isi_konten", value);
+    formData.append("tags", tagsString);
+    formData.append("cover", thumbnail);
+    formData.append("kategori", category);
+    formData.append("editThumbnail", editThumbnail);
+
     let data = {
-      username: "user1",
+      username: user.username,
       judul: title,
       isi_konten: value,
       tags: tagsString,
       kategori: category,
       thumbnail: Cover,
       editThumbnail: editThumbnail,
+      cover: thumbnail,
     };
     httpClient.updateContent(id, data).then((res) => {
-      window.location.href = "/konten/" + id;
+      // window.location.href = "/konten/" + id;
+      navigate("/konten/" + id);
+      enqueueSnackbar("Konten Berhasil Diubah", {
+        variant: "success",
+      });
     });
   };
   const resetFileInput = (e) => {

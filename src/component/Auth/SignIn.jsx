@@ -1,16 +1,26 @@
 // Sign In Page Menggunakan JWT
 // Tidak Akan Dipakai Karena BPS menggunakan SSO
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ssobps from "../../assets/ssobps.png";
 import httpClient from "../../httpClient.js";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check if user is already logged in
+    if (localStorage.getItem("token")) {
+      navigate("/beranda");
+    }
+  });
+
+  // Handle Login Button
   const submit = async (event) => {
     event.preventDefault();
     httpClient

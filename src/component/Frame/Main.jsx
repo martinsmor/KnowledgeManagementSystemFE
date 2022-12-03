@@ -1,4 +1,5 @@
-//Component Sidebar + Navbar
+//Component Utama dari setiap route selain login
+//Component ini berisi Sidebar + Navbar
 
 import Sidebar from "./Sidebar.jsx";
 import Navbar from "./Navbar.jsx";

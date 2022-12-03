@@ -268,7 +268,7 @@ function Approval(props) {
                     </td>
                     <td
                       className={
-                        "max-w-[400px] whitespace-normal  dark:bg-[#171717] "
+                        "max-w-[400px]  min-w-[200px] whitespace-normal  dark:bg-[#171717] "
                       }
                     >
                       {item.judul}

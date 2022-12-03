@@ -1,4 +1,4 @@
-// Halaman Konten yang telah dibuat, dapat like, unlike, dan komentar
+// Halaman Konten yang telah dibuat
 
 import ReactQuill from "react-quill";
 import { useContext, useEffect, useState } from "react";
@@ -56,7 +56,12 @@ function SkeletonComponent() {
                 "flex transition gap-2 flex-row justify-center items-center"
               }
             >
-              <Skeleton animation="wave" width={100} />
+              <Skeleton
+                animation="wave"
+                sx={{
+                  width: { xs: "20px", sm: "100px" },
+                }}
+              />
             </div>
 
             <a
@@ -65,7 +70,12 @@ function SkeletonComponent() {
                 "flex transition hover:bg-gray-100 dark:hover:bg-gray-700 px-4 rounded-md flex-row justify-center items-center"
               }
             >
-              <Skeleton animation="wave" width={100} />
+              <Skeleton
+                animation="wave"
+                sx={{
+                  width: { xs: "20px", sm: "100px" },
+                }}
+              />
             </a>
           </div>
         </div>
@@ -199,9 +209,9 @@ function Konten(props) {
         >
           <div className={"sm:p-12 p-4 pt-4"}>
             <div className="flex flex-row justify-between">
-              <div className="flex flex-row">
+              <div className="flex flex-row items-center">
                 <div className="avatar mr-4">
-                  <div className="w-12 rounded-full">
+                  <div className="w-12 h-12 rounded-full">
                     <img
                       alt={data.nama}
                       src={
@@ -291,7 +301,14 @@ function Konten(props) {
                           className={
                             "hover:bg-blue-200 rounded-2xl border dark:hover:bg-zinc-600 border-blue-200 hover:border-blue-400 px-3 py-1 "
                           }
-                          to={"../beranda/" + item.substring(1)}
+                          // navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${e}`);
+
+                          to={
+                            "../beranda/search?query=" +
+                            item.substring(1) +
+                            "&filter=" +
+                            "&sort=tanggal"
+                          }
                         >
                           {item}
                         </Link>

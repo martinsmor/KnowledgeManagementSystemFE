@@ -131,7 +131,7 @@ function UnitKerja(props) {
                   >
                     {index + 1 + page * rowsPerPage}
                   </td>
-                  <td className={"dark:bg-[#171717] "}>{item.unit_kerja}</td>
+                  <td className={"dark:bg-[#171717]"}>{item.unit_kerja}</td>
                 </tr>
               </>
             ))}
