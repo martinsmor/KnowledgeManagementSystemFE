@@ -203,7 +203,7 @@ function Kontensaya(props) {
 
   function handleDelete(e) {
     setDelete(e);
-    let dataDelete = data.filter((item) => item.contentId === deleteData)[0];
+    let dataDelete = data.filter((item) => item.contentId === e)[0];
     setDeleteJudul(dataDelete.judul);
   }
 
