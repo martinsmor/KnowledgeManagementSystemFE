@@ -36,7 +36,6 @@ const modules = {
         const formData = new FormData();
         formData.append("image", file);
         httpClient.uploadImage(formData).then((res) => {
-          console.log(res.data.thumbnail);
           resolve(HOME_LINK + "/content/" + res.data.thumbnail);
         });
       });

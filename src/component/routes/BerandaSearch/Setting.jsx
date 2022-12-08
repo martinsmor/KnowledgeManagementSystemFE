@@ -90,7 +90,6 @@ function Filter(props) {
     }
   };
   useEffect(() => {
-    console.log("filter", kategoriKonten);
     let data = {
       limit: 100,
       page: 1,
@@ -226,7 +225,6 @@ function SearchBar(props) {
   const history = useNavigate();
 
   const handleSubmit = (e) => {
-    console.log(props.search);
     e.preventDefault();
     let url = new URLSearchParams(window.location.search);
     //set query params

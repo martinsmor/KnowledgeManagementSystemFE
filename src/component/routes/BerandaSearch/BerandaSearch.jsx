@@ -30,7 +30,6 @@ function BerandaSearch(props) {
   const history = useNavigate();
   window.onpopstate = function (event) {
     // window.location.reload();
-    console.log("Reload");
     let url = new URLSearchParams(window.location.search);
     setUrl(url);
     setFilter(!url.get("filter") ? "" : url.get("filter"));
@@ -38,14 +37,8 @@ function BerandaSearch(props) {
     setQuery(!url.get("query") ? "" : url.get("query"));
     setSearch(!url.get("query") ? "" : url.get("query"));
   };
-  useEffect(() => {
-    console.log(url.get("query"));
-    console.log(url.get("filter"));
-    console.log(url.get("sort"));
-  }, []);
 
   const handleGetSearch = () => {
-    console.log(search);
     setGetSearch(search);
   };
 
