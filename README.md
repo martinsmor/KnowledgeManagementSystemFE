@@ -16,4 +16,4 @@ juga menggunakan rich text editor dari QuillJS.
     ```
     VITE_API_LINK = http://localhost:8080/api
     VITE_HOME = http://localhost:8080
-    ```
+    ```# KnowledgeManagementSystemFE
