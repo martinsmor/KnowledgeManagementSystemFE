@@ -234,7 +234,7 @@ function Kontensaya(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute dark:bg-black content flex flex-col gap-y-4 gap-x-6 top-[64px] md:p-8 p-4 "
+      className="absolute dark:bg-black content flex flex-col gap-y-4 gap-x-6 top-[55px] md:p-8 p-4 "
     >
       <SearchBar
         search={search}
@@ -265,27 +265,27 @@ function Kontensaya(props) {
             ) : null}
             {loading
               ? [...Array(10)].map((item, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white  dark:bg-[#171717]  border-b min-h-[65px]  dark:bg-[#171717] "
-                  >
-                    <td className="bg-white dark:bg-[#171717] ">
-                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-                    </td>
-                    <td className="bg-white dark:bg-[#171717] ">
-                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-                    </td>
-                    <td className="bg-white dark:bg-[#171717] ">
-                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-                    </td>
-                    <td className="bg-white dark:bg-[#171717] ">
-                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-                    </td>
-                    <td className="bg-white dark:bg-[#171717] ">
-                      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-                    </td>
-                  </tr>
-                ))
+                <tr
+                  key={index}
+                  className="bg-white  dark:bg-[#171717]  border-b min-h-[65px]  dark:bg-[#171717] "
+                >
+                  <td className="bg-white dark:bg-[#171717] ">
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </td>
+                  <td className="bg-white dark:bg-[#171717] ">
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </td>
+                  <td className="bg-white dark:bg-[#171717] ">
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </td>
+                  <td className="bg-white dark:bg-[#171717] ">
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </td>
+                  <td className="bg-white dark:bg-[#171717] ">
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </td>
+                </tr>
+              ))
               : null}
 
             {count === 0 ? (
@@ -319,10 +319,10 @@ function Kontensaya(props) {
                           item.status === "Menunggu"
                             ? "badge  badge-outline w-20"
                             : item.status === "Diterima"
-                            ? "badge badge-success badge-outline w-20"
-                            : item.status === "Ditolak"
-                            ? "badge badge-error badge-outline w-20"
-                            : "badge badge-outline w-20"
+                              ? "badge badge-success badge-outline w-20"
+                              : item.status === "Ditolak"
+                                ? "badge badge-error badge-outline w-20"
+                                : "badge badge-outline w-20"
                         }
                       >
                         {item.status}

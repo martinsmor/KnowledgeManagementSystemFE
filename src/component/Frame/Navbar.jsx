@@ -12,6 +12,8 @@ import outlookIcon from "../../assets/oms/outlook.png";
 import projectmanagementIcon from "../../assets/oms/projectmanagement.png";
 import profilePicture from "../../assets/default.jpg";
 
+
+
 const HOME_LINK = import.meta.env.VITE_HOME;
 
 // Profile from token
@@ -29,7 +31,7 @@ function Profile() {
   // Logout Button
   const handleLogOut = () => {
     httpClient.logOut();
-    window.location.href = "/";
+    window.location.href = "/auth";
   };
 
   return (
@@ -53,10 +55,10 @@ function Profile() {
         tabIndex={0}
         className="menu   dark:bg-[#171717] dark:border-zinc-800 dark:text-white menu-compact dropdown-content mt-1 p-2 drop-shadow-md shadow-lg border-1 rounded-md border-2 border-opacity-2   bg-base-100 rounded-box w-52"
       >
-        <li className={""}>
+        {/* <li className={""}>
           <a
             className="py-3 dark:hover:bg-gray-700"
-            href="https://community.bps.go.id/"
+            to="/beranda"
           >
             <svg
               className={"w-4 dark:fill-white"}
@@ -67,12 +69,12 @@ function Profile() {
             </svg>
             Profile
           </a>
-        </li>
+        </li> */}
         <li>
           <button
             onClick={handleLogOut}
             className="py-3  dark:hover:bg-gray-700"
-            to="/"
+            to="/auth"
           >
             <svg
               className={"w-4 dark:fill-white"}
@@ -127,7 +129,7 @@ function MenuOms() {
   return (
     <div
       className="dropdown dropdown-end z-50 tooltip tooltip-bottom md:block hidden"
-      data-tip="OMS Apps"
+      data-tip="aps"
     >
       <button
         tabIndex={0}
@@ -165,37 +167,37 @@ function MenuOms() {
         <li className="">
           <a
             className={" dark:hover:bg-gray-700"}
-            href="https://taskoo.bps.go.id"
+            href="https://website2.bps.go.id"
           >
-            <img className="w-8" src={projectmanagementIcon} alt="" />
-            Project Management
+            <img className="w-8" src={kmsIcon} alt="" />
+            Website2
           </a>
         </li>
         <li className="">
           <a
             className={" dark:hover:bg-gray-700"}
-            href="https://onlinetraining.bps.go.id"
+            href="https://website3.bps.go.id"
           >
-            <img className="w-8" src={onlinetrainingIcon} alt="" />
-            Online Training
+            <img className="w-8" src={kmsIcon} alt="" />
+            Website3
           </a>
         </li>
         <li className="">
           <a
             className={" dark:hover:bg-gray-700"}
-            href="https://personal.bps.go.id"
+            href="https://website4.bps.go.id"
           >
-            <img className="w-8" src={onedriveIcon} alt="" />
-            OneDrive
+            <img className="w-8" src={kmsIcon} alt="" />
+            Website4
           </a>
         </li>
         <li className="">
           <a
             className={" dark:hover:bg-gray-700"}
-            href="https://webmail.bps.go.id"
+            href="https://website5.bps.go.id"
           >
-            <img className="w-8" src={outlookIcon} alt="" />
-            Outlook
+            <img className="w-8" src={kmsIcon} alt="" />
+            Website5
           </a>
         </li>
       </ul>
@@ -269,11 +271,52 @@ function Theme() {
 }
 
 // Search Bar
-function SearchBar() {
+function SearchBar(props) {
+  const [search, setSearch] = useState("");
+  const handleSubmit = () => {
+    navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${sort}`);
+  };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
   return (
-    <button className="btn btn-ghost btn-circle md:block hidden">
-      <img className="w-5 " src={searchIcon} alt="" />
-    </button>
+    <div className="flex  flex-row w-full justify-center  px-0 items-center mb-2 sm:mb-0">
+      <form className={"w-full  h-full"}>
+        <div className="flex w-full  h-full">
+          <div className="relative w-full  h-full">
+            <input
+              value={props.search}
+              onChange={props.handleSearch}
+              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] dark:text-white"
+              placeholder="Cari Konten..."
+              required
+            ></input>
+            <button
+              onClick={props.handleSubmit}
+              type="submit"
+              className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border  dark:border-gray-400  border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              <svg
+                aria-hidden="true"
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+              <span className="sr-only">Search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -306,25 +349,28 @@ function Navbar(props) {
             </svg>
           </button>
 
-          <Link className="dark:text-white" to="/beranda">
-            Knowledge Management
+          <Link className="" to="/beranda">
+            KMS
           </Link>
         </div>
       </div>
+
       <div className="navbar-end sm:pr-4 pr-2">
-        {/*<Theme />*/}
+        <SearchBar />
+        <Theme />
 
         {isLogin ? (
           <>
-            <Theme />
+            {/* <SearchBar />
+            <Theme /> */}
             <MenuOms />
-            {/*<Notification />*/}
+            <Notification />
             <Profile />
           </>
         ) : (
           <Link
             to={"/auth"}
-            className="z-50 btn btn-primary rounded h-[40px] my-[5px] w-fit btn-sm  capitalize w-[90px] hover:underline transition"
+            className="z-50 btn btn-primary rounded h-[40px] my-[2.5px] w-fit btn-sm  capitalize w-[90px] hover:underline transition"
           >
             Masuk
           </Link>

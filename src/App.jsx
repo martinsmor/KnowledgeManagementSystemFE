@@ -15,7 +15,7 @@ import Kontensaya from "./component/routes/Kontensaya.jsx";
 import BuatKonten from "./component/routes/BuatKonten";
 import SignIn from "./component/Auth/SignIn.jsx";
 import Approval from "./component/routes/Approval.jsx";
-import UnitKerja from "./component/routes/pengaturan/UnitKerja";
+import UnitKerja from "./component/routes/pengaturan/UnitKerja.jsx";
 import Kategori from "./component/routes/pengaturan/Kategori.jsx";
 import EditKonten from "./component/routes/EditKonten.jsx";
 import BerandaSearch from "./component/routes/BerandaSearch/BerandaSearch.jsx";

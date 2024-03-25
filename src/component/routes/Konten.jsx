@@ -174,14 +174,14 @@ function Konten(props) {
       let data1 = {
         username: user.username,
       };
-      httpClient.unlikeContent(id, data1).then((res) => {});
+      httpClient.unlikeContent(id, data1).then((res) => { });
       setIsLike(false);
       setLikeCount(likeCount - 1);
     } else {
       let data1 = {
         username: user.username,
       };
-      httpClient.likeContent(id, data1).then((res) => {});
+      httpClient.likeContent(id, data1).then((res) => { });
       setIsLike(true);
       setLikeCount(likeCount + 1);
     }
@@ -197,7 +197,7 @@ function Konten(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className="absolute dark:bg-black flex-nowrap content top-[64px] md:p-12 p-0 items-center flex flex-col justify-center"
+      className="absolute dark:bg-black flex-nowrap content top-[55px] md:p-12 p-0 items-center flex flex-col justify-center"
     >
       {isLoading ? (
         <SkeletonComponent />
@@ -296,24 +296,24 @@ function Konten(props) {
                 {data.tags === ""
                   ? null
                   : data.tags.split(",").map((item, key) => {
-                      return (
-                        <Link
-                          className={
-                            "hover:bg-blue-200 rounded-2xl border dark:hover:bg-zinc-600 border-blue-200 hover:border-blue-400 px-3 py-1 "
-                          }
-                          // navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${e}`);
+                    return (
+                      <Link
+                        className={
+                          "hover:bg-blue-200 rounded-2xl border dark:hover:bg-zinc-600 border-blue-200 hover:border-blue-400 px-3 py-1 "
+                        }
+                        // navigate(`/beranda/search?query=${search}&filter=${filter}&sort=${e}`);
 
-                          to={
-                            "../beranda/search?query=" +
-                            item.substring(1) +
-                            "&filter=" +
-                            "&sort=tanggal"
-                          }
-                        >
-                          {item}
-                        </Link>
-                      );
-                    })}
+                        to={
+                          "../beranda/search?query=" +
+                          item.substring(1) +
+                          "&filter=" +
+                          "&sort=tanggal"
+                        }
+                      >
+                        {item}
+                      </Link>
+                    );
+                  })}
               </div>
               {data.thumbnail !== "default.png" ? (
                 <img

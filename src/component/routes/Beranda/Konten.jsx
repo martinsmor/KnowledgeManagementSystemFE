@@ -245,8 +245,8 @@ function AllKonten(props) {
     <div className={"flex flex-row sm:gap-4 gap-1 z-10 flex-wrap "}>
       {loading
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <Loading key={item} isFull={props.isFull} isGrid={props.isGrid} />
-          ))
+          <Loading key={item} isFull={props.isFull} isGrid={props.isGrid} />
+        ))
         : null}
 
       {data.map((item, index) => (
@@ -291,7 +291,7 @@ function AllKonten(props) {
                     }
                     alt="user"
                   />
-                  } />
+
                 </div>
               </div>
               <div className="flex flex-col justify-around  items-start gap-x-2">
@@ -373,20 +373,20 @@ function AllKonten(props) {
                 </div>
                 {item.tags !== ""
                   ? item.tags
-                      .split(",")
-                      .slice(0, window.innerWidth > 768 ? 3 : 2)
-                      .map((tag, index) => (
-                        <div
-                          key={index}
-                          className={
-                            props.isGrid
-                              ? "hidden"
-                              : "flex transition hover:bg-green-200  dark:hover:bg-gray-700 py-1.5 px-4 rounded-2xl  flex-row justify-center items-center"
-                          }
-                        >
-                          <span className={"text-sm"}>{tag}</span>
-                        </div>
-                      ))
+                    .split(",")
+                    .slice(0, window.innerWidth > 768 ? 3 : 2)
+                    .map((tag, index) => (
+                      <div
+                        key={index}
+                        className={
+                          props.isGrid
+                            ? "hidden"
+                            : "flex transition hover:bg-green-200  dark:hover:bg-gray-700 py-1.5 px-4 rounded-2xl  flex-row justify-center items-center"
+                        }
+                      >
+                        <span className={"text-sm"}>{tag}</span>
+                      </div>
+                    ))
                   : null}
               </div>
             </div>

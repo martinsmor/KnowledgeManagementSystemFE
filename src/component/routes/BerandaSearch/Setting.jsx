@@ -20,7 +20,7 @@ function Sort(props) {
       <label
         tabIndex={0}
         className={
-          "flex flex-row cursor-pointer gap-x-2 h-10 min-w-[137px] justify-center items-center  border-blue-400 border sm:border-2 rounded-md  px-3"
+          "flex flex-row cursor-pointer gap-x-2 h-10 min-w-full justify-center items-center  border-blue-400 border sm:border-2 rounded-md  px-3"
         }
       >
         <svg
@@ -30,7 +30,7 @@ function Sort(props) {
         >
           <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
         </svg>
-        {sortType === "liked" ? "Popularitas" : "Terbaru"}
+        {/* {sortType === "liked" ? "Popularitas" : "Terbaru"} */}
       </label>
       <ul
         tabIndex={0}
@@ -119,7 +119,7 @@ function Filter(props) {
         >
           <path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
         </svg>
-        Filter
+        {/* Filter */}
       </label>
 
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
@@ -221,57 +221,57 @@ function GridList(props) {
 }
 
 //search bar component
-function SearchBar(props) {
-  const history = useNavigate();
+// function SearchBar(props) {
+//   const history = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let url = new URLSearchParams(window.location.search);
-    //set query params
-    url.set("query", props.search);
-    history(`/beranda/search?${url}`);
-    props.handleGetSearh();
-  };
-  return (
-    <div className="flex  flex-row w-full justify-center  px-0 items-center mb-2 sm:mb-0">
-      <form className={"w-full  h-full"}>
-        <div className="flex w-full  h-full">
-          <div className="relative w-full  h-full">
-            <input
-              defaultValue={props.search}
-              onChange={props.handleSearch}
-              className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] dark:text-white"
-              placeholder="Cari Konten ..."
-              required
-            ></input>
-            <button
-              onClick={handleSubmit}
-              type="submit"
-              className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
-              </svg>
-              <span className="sr-only">Search</span>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  );
-}
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     let url = new URLSearchParams(window.location.search);
+//     //set query params
+//     url.set("query", props.search);
+//     history(`/beranda/search?${url}`);
+//     props.handleGetSearh();
+//   };
+//   return (
+//     <div className="flex  flex-row w-full justify-center  px-0 items-center mb-2 sm:mb-0">
+//       <form className={"w-full  h-full"}>
+//         <div className="flex w-full  h-full">
+//           <div className="relative w-full  h-full">
+//             <input
+//               defaultValue={props.search}
+//               onChange={props.handleSearch}
+//               className="block px-3 rounded-md w-full h-10 p-2.5 pr-12  z-20 text-sm text-black bg-white  border border-gray-400 focus:outline-2 focus:outline-blue-500  dark:bg-[#171717] dark:text-white"
+//               placeholder="Cari Konten ..."
+//               required
+//             ></input>
+//             <button
+//               onClick={handleSubmit}
+//               type="submit"
+//               className="absolute top-0 right-0 px-2.5 h-10 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+//             >
+//               <svg
+//                 aria-hidden="true"
+//                 className="w-5 h-5"
+//                 fill="none"
+//                 stroke="currentColor"
+//                 viewBox="0 0 24 24"
+//                 xmlns="http://www.w3.org/2000/svg"
+//               >
+//                 <path
+//                   stroke-linecap="round"
+//                   stroke-linejoin="round"
+//                   stroke-width="2"
+//                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+//                 ></path>
+//               </svg>
+//               <span className="sr-only">Search</span>
+//             </button>
+//           </div>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// }
 
 function Setting(props) {
   return (
@@ -281,13 +281,13 @@ function Setting(props) {
           "sm:flex  dark:text-white flex-row w-full md:flex-nowrap md:px-0 px-4 flex-wrap py-2 gap-y-2 gap-x-4 rounded-md justify-between "
         }
       >
-        <div className={"flex flex-col w-full"}>
+        {/* <div className={"flex flex-col w-full"}>
           <SearchBar
             search={props.search}
             handleGetSearh={props.handleGetSearch}
             handleSearch={props.handleSearch}
           />
-        </div>
+        </div> */}
         <div className={"flex flex-row gap-x-3"}>
           <GridList
             isGrid={props.isGrid}

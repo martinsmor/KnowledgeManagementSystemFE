@@ -1,152 +1,153 @@
 #sidebar {
-    transition: width ease-out .15s;
-    box-sizing: border-box !important;
+  transition: width ease-out 0.15s;
+  box-sizing: border-box !important;
 }
 
 .txtsidebar {
-    transition: ease-out .3s;
-    visibility: hidden;
-    height: 24px;
-    overflow: hidden;
-    margin-left: 1.5rem;
-    animation: text 0.3s ease-out;
-    animation-iteration-count: infinite;
+  transition: ease-out 0.3s;
+  visibility: hidden;
+  height: 24px;
+  overflow: hidden;
+  margin-left: 1.5rem;
+  animation: text 0.3s ease-out;
+  animation-iteration-count: infinite;
 }
 
 @keyframes text {
-    /*    display none*/
-    0% {
-        display: initial;
-    }
+  /*    display none*/
+  0% {
+    display: initial;
+  }
 
-    100% {
-        display: none;
-    }
+  100% {
+    display: none;
+  }
 }
 
 #txtsidebar {
-    transition: ease-out .3s;
-    visibility: hidden;
-    height: 24px !important;
-    overflow: hidden;
+  transition: ease-out 0.3s;
+  visibility: hidden;
+  height: 24px !important;
+  overflow: hidden;
 }
 
 
 .head {
-    z-index: 999;
+  z-index: 999;
 }
 
 .content {
-    transition: all ease-out .15s;
+  transition: all ease-out 0.15s;
 }
 
 .collapse-arrow .collapse-title:after {
-    animation: fadein 0.1s;
+  animation: fadein 0.1s;
 }
 
 @keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#collapse, #collapse-head {
-    min-height: 48px;
-    height: 48px;
+#collapse,
+#collapse-head {
+  min-height: 48px;
+  height: 48px;
 }
 
 .collapse-content {
-    transition: ease-out 10s;
+  transition: ease-out 10s;
 }
 
 #maincontent {
-    min-width: calc(100% - 270px);
-    max-width: calc(100% - 270px);
-    left: 270px;
+  min-width: calc(100% - 270px);
+  max-width: calc(100% - 270px);
+  left: 270px;
 }
 
 #maincontent1 {
-    min-width: calc(100% - 76px);
-    max-width: calc(100% - 76px);
-    left: 76px;
+  min-width: calc(100% - 76px);
+  max-width: calc(100% - 76px);
+  left: 76px;
 }
 
 .dd {
-    z-index: 999;
-    position: relative;
+  z-index: 999;
+  position: relative;
 }
 
 
 .tooltip1 .tooltiptext {
-    margin-left: 67px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    opacity: 0;
-    transition: all .3s;
-    width: max-content;
+  margin-left: 67px;
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  opacity: 0;
+  transition: all 0.3s;
+  width: max-content;
 }
 
 
 .tooltip1:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .tooltip1 .tooltiptext::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent black transparent transparent;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
 }
 
 /* if < 768*/
 @media only screen and (max-width: 768px) {
-    #maincontent {
-        min-width: 100vw;
-        left: 0px;
-    }
+  #maincontent {
+    min-width: 100vw;
+    left: 0px;
+  }
 
-    #maincontent1 {
-        min-width: 100vw;
-        left: 0px;
-    }
+  #maincontent1 {
+    min-width: 100vw;
+    left: 0px;
+  }
 
-    #sidebar {
-        box-sizing: border-box;
-        padding-top: 0.75rem;
-        transition: ease-out .15s;
-    }
+  #sidebar {
+    box-sizing: border-box;
+    padding-top: 0.75rem;
+    transition: ease-out 0.15s;
+  }
 
 
 }
 
 .kontancard:hover h2 {
-    color: #1f40c9;
+  color: #1f40c9;
 }
 
 .player-wrapper {
-    position: relative;
-    padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
 }
 
 .react-player {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .ql-tooltip {
-    z-index: 9999;
+  z-index: 9999;
 }

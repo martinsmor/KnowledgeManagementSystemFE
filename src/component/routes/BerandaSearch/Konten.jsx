@@ -302,7 +302,7 @@ function AllKonten(props) {
                     }
                     alt="user"
                   />
-                  } />
+                  
                 </div>
               </div>
               <div className="flex flex-col justify-around  items-start gap-x-2">

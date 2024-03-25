@@ -47,7 +47,7 @@ function Beranda(props) {
   return (
     <div
       id={props.isfull ? "maincontent" : "maincontent1"}
-      className=" dark:bg-black absolute content flex flex-row sm:gap-y-4 gap-y-2 gap-x-6 top-[64px] md:p-8 p-0 pt-3 flex flex-col"
+      className=" dark:bg-black absolute content flex flex-row sm:gap-y-4 gap-y-2 gap-x-6 top-[55px] md:p-8 p-0 pt-3 flex flex-col"
     >
       <Setting
         isGrid={isGrid}

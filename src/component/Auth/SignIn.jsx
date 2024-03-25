@@ -2,7 +2,7 @@
 // Tidak Akan Dipakai Karena BPS menggunakan SSO
 
 import { useEffect, useState } from "react";
-import ssobps from "../../assets/ssobps.png";
+import bpslogo from "../../assets/bpslogo.png";
 import httpClient from "../../httpClient.js";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +59,7 @@ function SignIn() {
       <div
         className={"w-96 p-8 pt-6 pb-12 border-2 bg-white rounded-md shadow-sm"}
       >
-        <img src={ssobps} alt="logo" className={"w-full mx-auto pb-2 "} />
+        <img src={bpslogo} alt="logo" className={"w-full mx-auto pb-2 "} />
         <form onSubmit={submit}>
           <div className="flex flex-col my-2">
             <label className="mb-1 dark:text-black" htmlFor="username">
