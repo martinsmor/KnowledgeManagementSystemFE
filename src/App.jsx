@@ -86,7 +86,7 @@ function App() {
                     <Main onclick={handleSidebar} isfull={fullSidebar} />
                   }
                 >
-                  <Route index element={<Navigate to="beranda" />} />
+                  <Route index element={<Navigate to="auth" />} />
                   <Route
                     path="beranda"
                     element={<Beranda isfull={fullSidebar} isLogin={isLogin} />}
@@ -149,11 +149,11 @@ function App() {
                     path="buatkonten"
                     element={<BuatKonten isfull={fullSidebar} />}
                   />
-                  <Route index element={<Navigate to="beranda" />} />
-                  <Route
+                  <Route index element={<Navigate to="auth" />} />
+                  {/* <Route
                     path="beranda"
                     element={<Beranda isfull={fullSidebar} />}
-                  ></Route>
+                  ></Route> */}
                   <Route
                     path="beranda/:id"
                     element={

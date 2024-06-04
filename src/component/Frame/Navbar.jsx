@@ -356,13 +356,13 @@ function Navbar(props) {
       </div>
 
       <div className="navbar-end sm:pr-4 pr-2">
-        <SearchBar />
-        <Theme />
+        {/* <SearchBar />
+        <Theme /> */}
 
         {isLogin ? (
           <>
-            {/* <SearchBar />
-            <Theme /> */}
+            <SearchBar />
+            <Theme />
             <MenuOms />
             <Notification />
             <Profile />
