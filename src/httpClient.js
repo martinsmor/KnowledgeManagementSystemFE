@@ -271,6 +271,15 @@ httpClient.uploadImage = function (data) {
     data: data,
   });
 };
+
+httpClient.getUserNotification = function () {
+  let notification = this.getCurrentUser();
+  return this({
+    method: "get",
+    url: API_LINK + "/notif/" + notification.username,
+  });
+};
+
 // send bearer token every request except login and beranda
 httpClient.defaults.headers.common[
   "Authorization"

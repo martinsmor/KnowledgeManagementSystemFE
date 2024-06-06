@@ -1,7 +1,7 @@
 //Component Top Navbar
 import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import httpClient from "../../httpClient.js";
 import { AuthContext, UserContext } from "../../App.jsx";
 import searchIcon from "../../assets/icon/search.svg";
@@ -27,6 +27,8 @@ function Profile() {
       user.profile_photo = res.data.profile_photo;
     });
   }, []);
+
+
 
   // Logout Button
   const handleLogOut = () => {
@@ -91,8 +93,26 @@ function Profile() {
   );
 }
 
-// Notification (Menu ini belum di buat)
+
 function Notification() {
+  const notification = useContext(UserContext);
+  const navigate = useNavigate();
+  const [userNotif, setUserNotif] = useState([]);
+  useEffect(() => {
+    httpClient
+      .getUserNotification({ notification })
+      .then((res) => {
+        setUserNotif(res.data)
+        notification.id = res.data.id;
+      })
+      .catch((err) => {
+        enqueueSnackbar("Mohon Maaf, Terjadi Kesalahan", {
+          variant: "error",
+        });
+      })
+      .finally(() => {
+      });
+  }, []);
   return (
     <div
       className="dropdown dropdown-end tooltip tooltip-bottom hidden md:block"
@@ -114,11 +134,13 @@ function Notification() {
         tabIndex={0}
         className="menu w-72 menu-compact dropdown-content mt-1 p-2 drop-shadow-md border rounded-md border-2 border-opacity-2 bg-base-100"
       >
-        <li className="h-8 "></li>
-        <li className="h-8"></li>
-        <li className="h-8"></li>
-        <li className="h-8"></li>
-        <li className="h-8"></li>
+        {userNotif.slice(0, 5).map((el) => {
+          return <div>
+            <li onClick={() => navigate("/konten/" + notification.username)} style={{ cursor: 'pointer' }} className="">{el.text}</li>
+          </div>
+        })}
+
+
       </ul>
     </div>
   );
@@ -129,7 +151,7 @@ function MenuOms() {
   return (
     <div
       className="dropdown dropdown-end z-50 tooltip tooltip-bottom md:block hidden"
-      data-tip="aps"
+      data-tip="Apps"
     >
       <button
         tabIndex={0}
